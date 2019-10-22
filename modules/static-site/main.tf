@@ -25,7 +25,7 @@ data "aws_s3_bucket" "access_log" {
 }
 
 data "aws_route53_zone" "root_zone" {
-  name         = "${var.root_domain}."
+  name         = "${var.domain_root}."
   private_zone = false
 }
 
