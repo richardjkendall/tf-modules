@@ -1,6 +1,6 @@
 variable "aws_region" {}
 
-variable "sitname_prefix" {}
+variable "sitename_prefix" {}
 
 variable "domain_root" {}
 
