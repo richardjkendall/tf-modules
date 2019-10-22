@@ -110,6 +110,12 @@ resource "aws_cloudfront_distribution" "cdn" {
     }
   }
 
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
+
   viewer_certificate {
     minimum_protocol_version = "TLSv1.2_2018"
     acm_certificate_arn      = aws_acm_certificate.endpoint_cert.arn
