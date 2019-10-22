@@ -4,8 +4,6 @@ variable "sitname_prefix" {}
 
 variable "domain_root" {}
 
-variable "aws_region" {}
-
 variable "access_log_bucket" {}
 
 variable "access_log_prefix" {}
