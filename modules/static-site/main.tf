@@ -142,3 +142,15 @@ resource "aws_acm_certificate_validation" "cert_validation" {
   certificate_arn         = "${aws_acm_certificate.endpoint_cert.arn}"
   validation_record_fqdns = ["${aws_route53_record.endpoint_cert_validation.fqdn}"]
 }
+
+resource "aws_route53_record" "cf_endpoint_domain_r53" {
+  name    = "${var.sitename_prefix}.${var.domain_root}"
+  type    = "A"
+  zone_id = "${data.aws_route53_zone.root_zone.id}"
+
+  alias {
+    evaluate_target_health = true
+    name                   = "${aws_cloudfront_distribution.cdn.cloudfront_domain_name}"
+    zone_id                = "${aws_cloudfront_distribution.cdn.cloudfront_zone_id}"
+  }
+}
