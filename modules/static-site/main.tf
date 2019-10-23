@@ -151,6 +151,6 @@ resource "aws_route53_record" "cf_endpoint_domain_r53" {
   alias {
     evaluate_target_health = true
     name                   = "${aws_cloudfront_distribution.cdn.domain_name}"
-    zone_id                = "${aws_cloudfront_distribution.cdn.zone_id}"
+    zone_id                = "${aws_cloudfront_distribution.cdn.hosted_zone_id}"
   }
 }
