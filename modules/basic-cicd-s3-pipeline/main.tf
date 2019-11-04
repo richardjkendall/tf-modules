@@ -10,8 +10,8 @@ data "aws_s3_bucket" "target_bucket" {
   bucket = var.s3_bucket
 }
 
-data "aws_ssm_parameter" "gh_token" {
-  name = var.gh_token_sm_param_name
+data "aws_ssm_parameter" "gh_secret" {
+  name = var.gh_secret_sm_param_name
 }
 
 resource "aws_s3_bucket" "build_bucket" {
@@ -174,8 +174,75 @@ resource "aws_codebuild_project" "codebuild_project" {
       value = "${var.cf_invalidate}"
     }
 
+    environment_variable {
+      name  = "DISTRIBUTION_ID"
+      value = "${var.cf_distribution}"
+    }
+
     source {
       type = "CODEPIPELINE"
     }
+  }
+}
+
+resource "aws_codepipeline" "buildpipeline" {
+  name        = "basic-cicd-pipeline-${var.site_name}-${var.cf_distribution}"
+  role_arn    = "${aws_iam_role.code_pipeline_role.arn}"
+
+  artifact_store {
+    location  = "${aws_s3_bucket.build_bucket.bucket}"
+    type      = "S3"
+  }
+
+  stage {
+    name = "Source"
+
+    action {
+      name              = "Source"
+      category          = "Source"
+      owner             = "ThirdParty"
+      provider          = "GitHub"
+      version           = "1"
+      output_artifacts  = ["${var.gh_branch}"]
+
+      configuration = {
+        Owner       = "${var.gh_username}"
+        Repo        = "${var.gh_repo}"
+        Branch      = "${var.gh_branch}"
+      }
+    }
+  }
+
+  stage {
+    name = "Build"
+
+    action {
+      name            = "Build"
+      category        = "Build"
+      owner           = "AWS"
+      provider        = "CodeBuild"
+      input_artifacts = ["${var.gh_branch}"]
+      version         = "1"
+
+      configuration = {
+        ProjectName = "basic-cicd-build-${var.site_name}-${var.cf_distribution}"
+      }
+    }
+  }
+}
+
+resource "aws_codepipeline_webhook" "webhook" {
+  name            = "github-${var.gh_repo}-${var.gh_branch}"
+  authentication  = "GITHUB_HMAC"
+  target_action   = "Source"
+  target_pipeline = "${aws_codepipeline.buildpipeline.name}"
+
+  authentication_configuration {
+    secret_token = "${data.aws_ssm_parameter.gh_secret}"
+  }
+
+  filter {
+    json_path     = "$.ref"
+    match_equals  = "refs/heads/{Branch}"
   }
 }
