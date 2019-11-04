@@ -6,12 +6,18 @@ terraform {
   backend "s3" {}
 }
 
+data "aws_caller_identity" "current" {}
+
 data "aws_s3_bucket" "target_bucket" {
   bucket = var.s3_bucket
 }
 
 data "aws_ssm_parameter" "gh_secret" {
   name = var.gh_secret_sm_param_name
+}
+
+data "aws_ssm_parameter" "gh_token" {
+  name = var.gh_token_sm_param_name
 }
 
 resource "aws_s3_bucket" "build_bucket" {
@@ -61,7 +67,7 @@ data "aws_iam_policy_document" "code_build_policy_document" {
       "logs:PutLogEvents"
     ]
     resources = [
-      "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/*"
+      "arn:aws:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/*"
     ]
   }
 
@@ -70,8 +76,8 @@ data "aws_iam_policy_document" "code_build_policy_document" {
     effect  = "Allow"
     actions = ["s3:*"]
     resources = [
-      "${aws_s3_bucket.target_bucket.arn}",
-      "${aws_s3_bucket.target_bucket.arn}/*",
+      "${data.aws_s3_bucket.target_bucket.arn}",
+      "${data.aws_s3_bucket.target_bucket.arn}/*",
       "${aws_s3_bucket.build_bucket.arn}",
       "${aws_s3_bucket.build_bucket.arn}/*"
     ]
@@ -135,18 +141,20 @@ resource "aws_iam_role" "code_pipeline_role" {
 }
 
 resource "aws_iam_policy_attachment" "attach_cb_policy_to_role" {
-  role        = "${aws_iam_role.code_build_role.name}"
+  name        = "basic-cicd-build-${var.site_name}-${var.cf_distribution}-cb-attach"
+  roles       = ["${aws_iam_role.code_build_role.name}"]
   policy_arn  = "${aws_iam_policy.code_build_policy.arn}"
 }
 
 resource "aws_iam_policy_attachment" "attach_cp_policy_to_role" {
-  role        = "${aws_iam_role.code_pipeline_role.name}"
+  name        = "basic-cicd-build-${var.site_name}-${var.cf_distribution}-cp-attach"
+  roles       = ["${aws_iam_role.code_pipeline_role.name}"]
   policy_arn  = "${aws_iam_policy.code_pipeline_policy.arn}"
 }
 
 resource "aws_codebuild_project" "codebuild_project" {
-  name          = "basic-cicd-build-${var.site_name}-${var.cf_distribution}"
-  description   = "build site ${var.site_name} for CF dist ${var.cf_distribution}"
+  name          = "basic-cicd-build-${var.gh_repo}-${var.gh_branch}"
+  description   = "build site ${var.site_name} for CF dist ${var.cf_distribution} from repo ${var.gh_repo} using branch ${var.gh_branch}"
   build_timeout = "${var.build_timeout}"
   service_role  = "${aws_iam_role.code_build_role.arn}"
 
@@ -178,15 +186,15 @@ resource "aws_codebuild_project" "codebuild_project" {
       name  = "DISTRIBUTION_ID"
       value = "${var.cf_distribution}"
     }
+  }
 
-    source {
-      type = "CODEPIPELINE"
-    }
+  source {
+    type = "CODEPIPELINE"
   }
 }
 
 resource "aws_codepipeline" "buildpipeline" {
-  name        = "basic-cicd-pipeline-${var.site_name}-${var.cf_distribution}"
+  name        = "basic-cicd-pipeline-${var.gh_repo}-${var.gh_branch}"
   role_arn    = "${aws_iam_role.code_pipeline_role.arn}"
 
   artifact_store {
@@ -206,9 +214,11 @@ resource "aws_codepipeline" "buildpipeline" {
       output_artifacts  = ["${var.gh_branch}"]
 
       configuration = {
-        Owner       = "${var.gh_username}"
-        Repo        = "${var.gh_repo}"
-        Branch      = "${var.gh_branch}"
+        Owner                 = "${var.gh_username}"
+        Repo                  = "${var.gh_repo}"
+        Branch                = "${var.gh_branch}"
+        OAuthToken            = "${data.aws_ssm_parameter.gh_token.value}"
+        PollForSourceChanges  = false
       }
     }
   }
@@ -225,7 +235,7 @@ resource "aws_codepipeline" "buildpipeline" {
       version         = "1"
 
       configuration = {
-        ProjectName = "basic-cicd-build-${var.site_name}-${var.cf_distribution}"
+        ProjectName = "basic-cicd-build-${var.gh_repo}-${var.gh_branch}"
       }
     }
   }
@@ -238,7 +248,7 @@ resource "aws_codepipeline_webhook" "webhook" {
   target_pipeline = "${aws_codepipeline.buildpipeline.name}"
 
   authentication_configuration {
-    secret_token = "${data.aws_ssm_parameter.gh_secret}"
+    secret_token = "${data.aws_ssm_parameter.gh_secret.value}"
   }
 
   filter {
