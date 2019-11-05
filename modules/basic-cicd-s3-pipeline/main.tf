@@ -29,6 +29,15 @@ resource "aws_s3_bucket" "build_bucket" {
   }
 }
 
+resource "aws_s3_bucket_public_access_block" "block_build_bucket_pub_access" {
+  bucket = "${aws_s3_bucket.build_bucket.id}"
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
 data "aws_iam_policy_document" "code_build_assume_policy" {
   statement {
     sid    = ""
@@ -153,7 +162,7 @@ resource "aws_iam_policy_attachment" "attach_cp_policy_to_role" {
 }
 
 resource "aws_codebuild_project" "codebuild_project" {
-  name          = "basic-cicd-build-${var.gh_repo}-${var.gh_branch}"
+  name          = "basic-cicd-build-${var.gh_repo}-${var.gh_branch}-${var.cf_distribution}"
   description   = "build site ${var.site_name} for CF dist ${var.cf_distribution} from repo ${var.gh_repo} using branch ${var.gh_branch}"
   build_timeout = "${var.build_timeout}"
   service_role  = "${aws_iam_role.code_build_role.arn}"
@@ -194,7 +203,7 @@ resource "aws_codebuild_project" "codebuild_project" {
 }
 
 resource "aws_codepipeline" "buildpipeline" {
-  name        = "basic-cicd-pipeline-${var.gh_repo}-${var.gh_branch}"
+  name        = "basic-cicd-pipeline-${var.gh_repo}-${var.gh_branch}-${var.cf_distribution}"
   role_arn    = "${aws_iam_role.code_pipeline_role.arn}"
 
   artifact_store {
@@ -235,14 +244,14 @@ resource "aws_codepipeline" "buildpipeline" {
       version         = "1"
 
       configuration = {
-        ProjectName = "basic-cicd-build-${var.gh_repo}-${var.gh_branch}"
+        ProjectName = "basic-cicd-build-${var.gh_repo}-${var.gh_branch}-${var.cf_distribution}"
       }
     }
   }
 }
 
 resource "aws_codepipeline_webhook" "webhook" {
-  name            = "github-${var.gh_repo}-${var.gh_branch}"
+  name            = "github-${var.gh_repo}-${var.gh_branch}-${var.cf_distribution}"
   authentication  = "GITHUB_HMAC"
   target_action   = "Source"
   target_pipeline = "${aws_codepipeline.buildpipeline.name}"

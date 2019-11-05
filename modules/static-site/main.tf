@@ -42,6 +42,15 @@ resource "aws_s3_bucket" "cf_origin_s3_bucket" {
   }
 }
 
+resource "aws_s3_bucket_public_access_block" "block_cf_origin_bucket_pub_access" {
+  bucket = "${aws_s3_bucket.cf_origin_s3_bucket.id}"
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
 data "aws_iam_policy_document" "bucket_policy" {
   statement {
     effect    = "Allow"
@@ -121,6 +130,8 @@ resource "aws_cloudfront_distribution" "cdn" {
     acm_certificate_arn      = aws_acm_certificate.endpoint_cert.arn
     ssl_support_method       = "sni-only"
   }
+
+  depends_on = [aws_acm_certificate_validation.cert_validation]
 }
 
 resource "aws_acm_certificate" "endpoint_cert" {
