@@ -1,0 +1,52 @@
+[
+  {
+    "name": "atlantis",
+    "image": "richardjkendall/atlantis",
+    "cpu": 256,
+    "memory": 512,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 4141,
+        "hostPort": 4141,
+        "protocol": "tcp"
+      }
+    ],
+    "secrets": [
+      {
+        "name": "ATLANTIS_GH_WEBHOOK_SECRET",
+        "valueFrom": "${gh_webhook_secret}"
+      }
+    ],
+    "environment": [
+      {
+        "name": "ATLANTIS_ALLOW_REPO_CONFIG",
+        "value": "false"
+      },
+      {
+        "name": "ATLANTIS_GH_USER",
+        "value": "${gh_user}"
+      },
+      {
+        "name": "ATLANTIS_PORT",
+        "value": "4141"
+      },
+      {
+        "name": "ATLANTIS_REPO_WHITELIST",
+        "value": "${whitelist}"
+      },
+      {
+        "name": "ATLANTIS_ATLANTIS_URL",
+        "value": "${url}"
+      },
+      {
+        "name": "TERRAGRUNT_IAM_ROLE",
+        "value": "${iam_role}"
+      },
+      {
+        "name": "ATLANTIS_REPO_CONFIG_JSON",
+        "value": "${repoconfig}"
+      }
+    ]
+  }
+]
