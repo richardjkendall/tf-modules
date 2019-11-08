@@ -162,7 +162,10 @@ data "aws_iam_policy_document" "deployment_role" {
             "iam:ListGroups",
             "iam:GetGroupPolicy",
             "iam:DeleteGroupPolicy",
-            "iam:GetRolePolicy"
+            "iam:GetRolePolicy",
+            "iam:GetPolicyVersion",
+            "iam:ListPolicyVersions",
+            "iam:CreatePolicyVersion"
         ]
 
         resources = ["*"]
