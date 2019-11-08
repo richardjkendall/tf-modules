@@ -29,6 +29,10 @@ variable "allowed_ips" {
   default = ["0.0.0.0/0"]
 }
 
-variable "subnets" {
+variable "lb_subnets" {
+  type = "list"
+}
+
+variable "task_subnets" {
   type = "list"
 }

@@ -1,7 +1,7 @@
 [
   {
     "name": "atlantis",
-    "image": "richardjkendall/atlantis",
+    "image": "docker.io/richardjkendall/atlantis",
     "cpu": 256,
     "memory": 512,
     "essential": true,
@@ -12,6 +12,14 @@
         "protocol": "tcp"
       }
     ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+          "awslogs-group": "/ecs/atlantis",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "atlantis"
+      }
+    },
     "secrets": [
       {
         "name": "ATLANTIS_GH_WEBHOOK_SECRET",
@@ -49,7 +57,7 @@
       },
       {
         "name": "ATLANTIS_REPO_CONFIG_JSON",
-        "value": "${repoconfig}"
+        "value": ${repoconfig}
       }
     ]
   }

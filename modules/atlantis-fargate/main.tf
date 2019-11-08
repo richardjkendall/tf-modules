@@ -56,7 +56,7 @@ data "aws_iam_policy_document" "service_role_policy" {
 }
 
 resource "aws_iam_policy" "service_role_policy" {
-  policy = "${data.aws_iam_policy_document.code_pipeline_policy_document.json}"
+  policy = "${data.aws_iam_policy_document.service_role_policy.json}"
 }
 
 resource "aws_iam_role" "service_role" {
@@ -183,7 +183,7 @@ data "aws_iam_policy_document" "deployment_role" {
 }
 
 resource "aws_iam_policy" "deployment_role_policy" {
-  policy = "${data.aws_iam_policy_document.deployment.json}"
+  policy = "${data.aws_iam_policy_document.deployment_role.json}"
 }
 
 resource "aws_iam_role_policy_attachment" "deployment_role_policy_attach" {
@@ -195,20 +195,32 @@ resource "aws_ecs_cluster" "cluster" {
   name = "${var.ecs_cluster_name}"
 }
 
-resource "aws_ecs_task_definition" "task" {
-  family                = "${var.task_def_name}"
+resource "aws_cloudwatch_log_group" "logs" {
+  name = "/ecs/atlantis"
+}
 
-  container_definitions = "${templatefile("atlantis.json", {
+resource "aws_ecs_task_definition" "task" {
+  depends_on    = [aws_cloudwatch_log_group.logs]
+  family        = "${var.task_def_name}"
+
+  container_definitions = "${templatefile("${path.module}/atlantis.json", {
     gh_user           = "${var.gh_user}"
     whitelist         = "${var.gh_repo_whitelist}"
     url               = "https://${var.host_name}.${var.root_domain}"
     iam_role          = "${aws_iam_role.deployment_role.arn}"
-    repoconfig        = "${jsonencode(file("repoconfig.json"))}"
-    gh_webook_secret  = "${var.gh_webhook_secret_name}"
+    repoconfig        = "${jsonencode(file("${path.module}/repoconfig.json"))}"
+    gh_webhook_secret = "${var.gh_webhook_secret_name}"
     gh_token          = "${var.gh_token_secret_name}"
+    region            = "${var.aws_region}"
+    log_group         = "/etc/atlantis"
   })}"
 
-  execution_role_arn  = "${aws_iam_role.service_role.arn}"
+  execution_role_arn        = "${aws_iam_role.service_role.arn}"
+  task_role_arn             = "${aws_iam_role.service_role.arn}"
+  requires_compatibilities  = ["FARGATE"]
+  network_mode              = "awsvpc"
+  cpu                       = 256
+  memory                    = 512
 }
 
 resource "aws_ecs_service" "service" {
@@ -223,6 +235,30 @@ resource "aws_ecs_service" "service" {
     container_port    = "4141"
     target_group_arn  = "${aws_lb_target_group.target_group.arn}"
   }
+
+  network_configuration {
+    subnets           = var.task_subnets
+    security_groups   = ["${aws_security_group.task_p_4141.id}"]
+  }
+}
+
+resource "aws_security_group" "task_p_4141" {
+  name        = "allow_port_4141_for_task"
+  description = "Allow Atlantis port 4141 from LB"
+
+  ingress {
+    from_port   = 4141
+    to_port     = 4141
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
+  }
 }
 
 resource "aws_security_group" "allow_tls" {
@@ -235,19 +271,32 @@ resource "aws_security_group" "allow_tls" {
     protocol    = "tcp"
     cidr_blocks = var.allowed_ips
   }
+
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
+  }
 }
 
 resource "aws_lb" "lb" {
   internal            = false
   load_balancer_type  = "application"
   security_groups     = ["${aws_security_group.allow_tls.id}"]
-  subnets             = var.subnets
+  subnets             = var.lb_subnets
 }
 
-resource "aws_lb_target_group" "target_group" {}
+resource "aws_lb_target_group" "target_group" {
+  port                  = "4141"
+  protocol              = "HTTP"
+  vpc_id                = "${var.vpc_id}"
+  target_type           = "ip"
+  deregistration_delay  = 10
+}
 
 resource "aws_lb_listener" "alb_listener" {
-  load_balancer_arn = "${aws_lb.aws_lb.arn}"
+  load_balancer_arn = "${aws_lb.lb.arn}"
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
@@ -278,7 +327,7 @@ resource "aws_acm_certificate_validation" "cert_validation" {
 }
 
 resource "aws_route53_record" "r53_alb" {
-  zone_id = "${aws_route53_zone.root_zone.zone_id}"
+  zone_id = "${data.aws_route53_zone.root_zone.zone_id}"
   name    = "${var.host_name}.${var.root_domain}"
   type    = "A"
 
