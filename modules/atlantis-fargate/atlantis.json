@@ -16,6 +16,10 @@
       {
         "name": "ATLANTIS_GH_WEBHOOK_SECRET",
         "valueFrom": "${gh_webhook_secret}"
+      },
+      {
+        "name": "ATLANTIS_GH_TOKEN",
+        "valueFrom": "${gh_token}"
       }
     ],
     "environment": [
