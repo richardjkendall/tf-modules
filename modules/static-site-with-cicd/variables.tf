@@ -1,19 +1,40 @@
-variable "aws_region" {}
+variable "aws_region" {
+  description = "region where provisioning should happen"
+}
 
-variable "sitename_prefix" {}
+variable "sitename_prefix" {
+  description = "prefix of site name e.g. for www.example.com this would be www"
+}
 
-variable "domain_root" {}
+variable "domain_root" {
+  description = "domain root for site e.g. example.com.  This must be available in Route53."
+}
 
-variable "access_log_bucket" {}
+variable "access_log_bucket" {
+  description = "S3 bucket where access logs will be placed"
+}
 
-variable "access_log_prefix" {}
+variable "access_log_prefix" {
+  description = "prefix used for any access logs written to S3"
+}
 
-variable "gh_username" {}
+variable "gh_username" {
+  description = "GitHub username used to access your site source code repo"
+}
 
-variable "gh_secret_sm_param_name" {}
+variable "gh_secret_sm_param_name" {
+  description = "name of SSM parameter where GitHub webhook secret is stored"
+}
 
-variable "gh_token_sm_param_name" {}
+variable "gh_token_sm_param_name" {
+  description = "name of SSM parameter where the GitHub Oauth token is stored"
+}
 
-variable "gh_repo" {}
+variable "gh_repo" {
+  description = "name of repo containing site source and buildspec.yml file"
+}
 
-variable "gh_branch" {}
+variable "gh_branch" {
+  default = "master"
+  description = "branch of git repo to use for changes"
+}

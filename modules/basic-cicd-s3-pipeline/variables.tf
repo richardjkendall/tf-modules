@@ -24,7 +24,7 @@ variable "gh_branch" {
 }
 
 variable "site_name" {
-  description "FQDN of site e.g. www.example.com"
+  description = "FQDN of site e.g. www.example.com"
 }
 
 variable "cf_distribution" {
@@ -42,4 +42,5 @@ variable "build_timeout" {
 
 variable "cf_invalidate" {
   default = "yes"
+  description = "should the CF distribution be invalidated for each deployment"
 }
