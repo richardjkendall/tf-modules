@@ -6,6 +6,10 @@ terraform {
   backend "s3" {}
 }
 
+data "http" "gh_meta_data" {
+  url = "https://api.github.com/meta"
+}
+
 data "aws_caller_identity" "current" {}
 
 data "aws_route53_zone" "root_zone" {
@@ -202,6 +206,11 @@ resource "aws_cloudwatch_log_group" "logs" {
   name = "/ecs/atlantis"
 }
 
+resource "random_string" "random_secret" {
+  length = 20
+  special = true
+}
+
 resource "aws_ecs_task_definition" "task" {
   depends_on    = [aws_cloudwatch_log_group.logs]
   family        = "${var.task_def_name}"
@@ -216,6 +225,7 @@ resource "aws_ecs_task_definition" "task" {
     gh_token          = "${var.gh_token_secret_name}"
     region            = "${var.aws_region}"
     log_group         = "/etc/atlantis"
+    random_secret     = "${random_string.random_secret.result}"
   })}"
 
   execution_role_arn        = "${aws_iam_role.service_role.arn}"
@@ -250,10 +260,10 @@ resource "aws_security_group" "task_p_4141" {
   description = "Allow Atlantis port 4141 from LB"
 
   ingress {
-    from_port   = 4141
-    to_port     = 4141
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port       = 4141
+    to_port         = 4141
+    protocol        = "tcp"
+    security_groups = ["${aws_security_group.allow_tls.id}"]
   }
 
   egress {
@@ -272,7 +282,7 @@ resource "aws_security_group" "allow_tls" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = var.allowed_ips
+    cidr_blocks = lookup(jsondecode(data.http.gh_meta_data.body), "hooks", var.allowed_ips)
   }
 
   egress {

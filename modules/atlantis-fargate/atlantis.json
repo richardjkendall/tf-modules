@@ -58,6 +58,14 @@
       {
         "name": "ATLANTIS_REPO_CONFIG_JSON",
         "value": ${repoconfig}
+      },
+      {
+        "name": "ATLANTIS_AZUREDEVOPS_BASIC_AUTH",
+        "value": "${random_secret}"
+      },
+      {
+        "name": "ATLANTIS_GITLAB_WEBHOOK_SECRET",
+        "value": "${random_secret}"
       }
     ]
   }
