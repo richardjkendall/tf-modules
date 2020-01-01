@@ -100,13 +100,13 @@ resource "aws_ec2_fleet" "ecs_fleet" {
       version             = "${aws_launch_template.ecs_ec2_launch_template.latest_version}"
     }
 
-    /*dynamic "override" {
-      for_each = var.instance_types
+    dynamic "override" {
+      for_each = slice(var.instance_types, 1, length(var.instance_types))
 
       content {
         instance_type = override.value
       }
-    }*/
+    }
 
     dynamic "override" {
       for_each = var.ecs_instance_subnets
@@ -126,5 +126,7 @@ resource "aws_ec2_fleet" "ecs_fleet" {
   spot_options {
     allocation_strategy = "${var.spot_allocation_strategy}"
   }
+
+  terminate_instances = true
 }
 
