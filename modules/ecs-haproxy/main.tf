@@ -43,6 +43,15 @@ resource "aws_lb_target_group" "target_group" {
   vpc_id                = var.vpc_id
   target_type           = "instance"
   deregistration_delay  = 10
+  health_check {
+    matcher             = "200,302"
+    path                = "/haproxy"
+    healthy_threshold   = 5
+    unhealthy_threshold = 2
+    timeout             = 5
+    interval            = 30
+    port                = "traffic-port"
+  }
 }
 
 resource "aws_lb_listener" "alb_listener" {
