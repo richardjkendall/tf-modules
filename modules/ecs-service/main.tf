@@ -82,4 +82,14 @@ resource "aws_ecs_service" "service" {
     container_name  = "${var.task_name}"
     container_port  = var.port_mappings[0].containerPort
   }
+
+  dynamic "load_balancer" {
+    for_each = var.load_balancer == null ? [] : [var.load_balancer]
+    
+    content {
+      target_group_arn  = var.load_balancer.target_group_arn
+      container_name    = var.load_balancer.container_name
+      container_port    = var.load_balancer.container_port
+    }
+  }
 }

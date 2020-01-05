@@ -75,3 +75,13 @@ variable "number_of_tasks" {
   default = 2
   type = number
 }
+
+variable load_balancer {
+  description = "application load balancer associated with the service"
+  default = null
+  type = object({
+    target_group_arn = string
+    container_name = string
+    container_port = number
+  })
+}
