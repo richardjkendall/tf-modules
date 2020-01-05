@@ -110,7 +110,8 @@ data "aws_iam_policy_document" "deployment_role" {
             "s3:*",
             "dynamodb:*",
             "ecs:*",
-            "apigateway:*"
+            "apigateway:*",
+            "servicediscovery:*"
         ]
 
         resources = ["*"]
@@ -142,34 +143,34 @@ data "aws_iam_policy_document" "deployment_role" {
         sid = "4"
 
         actions = [
-            "iam:DeleteGroup",
-            "iam:UpdateGroup",
-            "iam:DeletePolicy",
-            "iam:CreateRole",
-            "iam:AttachRolePolicy",
-            "iam:DetachRolePolicy",
-            "iam:DeleteRolePolicy",
-            "iam:ListAttachedRolePolicies",
-            "iam:DetachGroupPolicy",
-            "iam:ListAttachedGroupPolicies",
-            "iam:ListRolePolicies",
-            "iam:ListPolicies",
-            "iam:GetRole",
-            "iam:CreateGroup",
-            "iam:GetPolicy",
-            "iam:ListGroupPolicies",
-            "iam:ListRoles",
-            "iam:DeleteRole",
-            "iam:CreatePolicy",
             "iam:AttachGroupPolicy",
-            "iam:UpdateRole",
-            "iam:ListGroups",
-            "iam:GetGroupPolicy",
+            "iam:AttachRolePolicy",
+            "iam:CreateGroup",
+            "iam:CreatePolicy",
+            "iam:CreatePolicyVersion",
+            "iam:CreateRole",
+            "iam:DeleteGroup",
             "iam:DeleteGroupPolicy",
-            "iam:GetRolePolicy",
+            "iam:DeletePolicy",
+            "iam:DeleteRole",
+            "iam:DeleteRolePolicy",
+            "iam:DetachGroupPolicy",
+            "iam:DetachRolePolicy",
+            "iam:GetGroupPolicy",
+            "iam:GetPolicy",
             "iam:GetPolicyVersion",
+            "iam:GetRole",
+            "iam:GetRolePolicy",
+            "iam:ListAttachedGroupPolicies",
+            "iam:ListAttachedRolePolicies",
+            "iam:ListGroupPolicies",
+            "iam:ListGroups",
+            "iam:ListPolicies",
             "iam:ListPolicyVersions",
-            "iam:CreatePolicyVersion"
+            "iam:ListRolePolicies",
+            "iam:ListRoles",
+            "iam:UpdateGroup",
+            "iam:UpdateRole"
         ]
 
         resources = ["*"]
