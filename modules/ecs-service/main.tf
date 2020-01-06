@@ -40,18 +40,18 @@ resource "aws_ecs_task_definition" "task" {
   depends_on = [aws_cloudwatch_log_group.logs]
 
   family                    = "${var.service_name}-${var.task_name}"
-  network_mode              = "${var.network_mode}"
+  network_mode              = var.network_mode
   requires_compatibilities  = ["EC2"]
   cpu                       = var.cpu
   memory                    = var.memory
-  container_definitions     = "${jsonencode(local.container_task_def)}"
+  container_definitions     = jsonencode(local.container_task_def)
 }
 
 resource "aws_service_discovery_service" "discovery" {
-  name = "${var.service_registry_service_name}"
+  name = var.service_registry_service_name
   
   dns_config {
-    namespace_id = "${var.service_registry_id}"
+    namespace_id = var.service_registry_id
     
     dns_records {
       ttl   = 60
@@ -67,19 +67,20 @@ resource "aws_service_discovery_service" "discovery" {
 }
 
 resource "aws_ecs_service" "service" {
-  name              = "${var.service_name}"
-  cluster           = "${data.aws_ecs_cluster.cluster.id}"
-  task_definition   = "${aws_ecs_task_definition.task.arn}"
+  name              = var.service_name
+  cluster           = data.aws_ecs_cluster.cluster.id
+  task_definition   = aws_ecs_task_definition.task.arn
   desired_count     = var.number_of_tasks
   launch_type       = "EC2"
 
-  placement_constraints {
-    type = "distinctInstance"
+  ordered_placement_strategy {
+    field = "attribute:ecs.availability-zone"
+    type = "spread"
   }
 
   service_registries {
-    registry_arn    = "${aws_service_discovery_service.discovery.arn}"
-    container_name  = "${var.task_name}"
+    registry_arn    = aws_service_discovery_service.discovery.arn
+    container_name  = var.task_name
     container_port  = var.port_mappings[0].containerPort
   }
 
