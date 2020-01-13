@@ -8,7 +8,7 @@ Designed to work with the Static Site module, this module builds a CodePipeline 
 
 |Release Tag|Description|
 |---|---|
-|v10|Initial release of module
+|v9|Initial release of module
 
 ## Variables
 
