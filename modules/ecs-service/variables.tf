@@ -69,7 +69,7 @@ variable "healthcheck" {
   description = "healthcheck for the container"
   default = null
   type = object({
-    command = string,
+    command = list(string),
     interval = number,
     timeout = number,
     retries = number,
