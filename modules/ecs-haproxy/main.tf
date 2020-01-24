@@ -98,7 +98,7 @@ module "ecs_haproxy" {
   }]
 
   healthcheck = {
-    command     = "curl --fail http://localhost:3000/ || exit 1"
+    command     = [ "CMD-SHELL", "curl --fail http://localhost:3000/ || exit 1" ]
     interval    = 30
     timeout     = 5
     retries     = 3

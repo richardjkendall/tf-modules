@@ -67,7 +67,7 @@ variable "environment" {
 
 variable "healthcheck" {
   description = "healthcheck for the container"
-  default = {}
+  default = null
   type = object({
     command = string,
     interval = number,
