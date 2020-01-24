@@ -65,6 +65,18 @@ variable "environment" {
   }))
 }
 
+variable "healthcheck" {
+  description = "healthcheck for the container"
+  default = {}
+  type = object({
+    command = string,
+    interval = number,
+    timeout = number,
+    retries = number,
+    startPeriod = number
+  })
+}
+
 variable "network_mode" {
   description = "network mode to use for tasks"
   default = "bridge"

@@ -97,6 +97,14 @@ module "ecs_haproxy" {
     hostPort = 0
   }]
 
+  healthcheck = {
+    command     = "curl --fail http://localhost:3000/ || exit 1"
+    interval    = 30
+    timeout     = 5
+    retries     = 3
+    startPeriod = 20
+  }
+
   environment = [
     { name = "APPLY_MODE"
       value = "on" },

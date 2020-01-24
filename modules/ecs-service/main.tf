@@ -8,8 +8,8 @@ terraform {
 
 locals {
   container_task_def = [{
-    name          = "${var.task_name}"
-    image         = "${var.image}"
+    name          = var.task_name
+    image         = var.image
     cpu           = var.cpu
     memory        = var.memory
     portMappings  = var.port_mappings
@@ -17,19 +17,20 @@ locals {
     logConfiguration = {
       logDriver = "awslogs"
       options = {
-        awslogs-group = "/ecs/${var.cluster_name}/${var.service_name}"
-        awslogs-region = "${var.aws_region}"
-        awslogs-stream-prefix = "${var.task_name}"
+        awslogs-group         = "/ecs/${var.cluster_name}/${var.service_name}"
+        awslogs-region        = var.aws_region
+        awslogs-stream-prefix = var.task_name
       }
     }
     
     secrets     = var.secrets
     environment = var.environment
+    healthCheck = var.healthcheck
   }]
 }
 
 data "aws_ecs_cluster" "cluster" {
-  cluster_name = "${var.cluster_name}"
+  cluster_name = var.cluster_name
 }
 
 resource "aws_cloudwatch_log_group" "logs" {
