@@ -16,6 +16,13 @@ variable "task_name" {
   default = "haproxy"
 }
 
+
+variable "tag_name" {
+  description = "name of tag of haproxy image to use"
+  type = string
+  default = "latest"
+}
+
 variable "service_registry_id" {
   description = "ID for the AWS service discovery namespace we will use"
 }

@@ -86,7 +86,7 @@ module "ecs_haproxy" {
   cluster_name    = var.cluster_name
   service_name    = var.service_name
   task_name       = var.task_name
-  image           = "richardjkendall/haproxy"
+  image           = "richardjkendall/haproxy:${var.tag_name}"
   cpu             = var.cpu
   memory          = var.memory
   number_of_tasks = var.number_of_tasks
