@@ -16,7 +16,6 @@ variable "task_name" {
   default = "haproxy"
 }
 
-
 variable "tag_name" {
   description = "name of tag of haproxy image to use"
   type = string
@@ -59,6 +58,16 @@ variable "namespace_map" {
 variable "refresh_rate" {
   description = "now often (in seconds) service changes be found and applied"
   default = "30"
+}
+
+variable "prom_password_ssm_secret" {
+  description = "name of ssm secret which contains prom metrics endpoint password"
+  type = string
+}
+
+variable "stats_password_ssm_secret" {
+  description = "name of ssm secret which contains stats endpoint password"
+  type = string
 }
 
 variable "lb_subnets" {

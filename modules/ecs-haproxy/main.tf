@@ -117,6 +117,13 @@ module "ecs_haproxy" {
     { name = "REFRESH_RATE"
       value = var.refresh_rate }
   ]
+
+  secrets = [
+    { name = "PROM_PASSWD"
+      valueFrom = var.prom_password_ssm_secret },
+    { name = "STATS_PASSWD"
+      valueFrom = var.stats_password_ssm_secret }
+  ]
   
   load_balancer = {
     target_group_arn  = aws_lb_target_group.target_group.arn
