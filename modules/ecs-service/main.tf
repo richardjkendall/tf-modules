@@ -29,12 +29,58 @@ locals {
   }]
 }
 
+data "aws_caller_identity" "current" {}
+
+
 data "aws_ecs_cluster" "cluster" {
   cluster_name = var.cluster_name
 }
 
 resource "aws_cloudwatch_log_group" "logs" {
   name = "/ecs/${var.cluster_name}/${var.service_name}"
+}
+
+data "aws_iam_policy_document" "ecs_service_role_assume_policy" {
+  statement {
+    sid    = ""
+    effect = "Allow"
+
+    principals {
+      identifiers = ["ecs-tasks.amazonaws.com"]
+      type        = "Service"
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
+
+data "aws_iam_policy_document" "service_role_policy" {
+  statement {
+    sid = "1"
+    effect = "Allow"
+
+    actions = ["ssm:GetParameters"]
+
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "service_role_policy" {
+  policy = "${data.aws_iam_policy_document.service_role_policy.json}"
+}
+
+resource "aws_iam_role" "service_role" {
+  assume_role_policy = "${data.aws_iam_policy_document.ecs_service_role_assume_policy.json}"
+}
+
+resource "aws_iam_role_policy_attachment" "service_managed_ecs_policy_attach" {
+  role       = "${aws_iam_role.service_role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "service_role_policy_attach" {
+  role       = "${aws_iam_role.service_role.name}"
+  policy_arn = "${aws_iam_policy.service_role_policy.arn}"
 }
 
 resource "aws_ecs_task_definition" "task" {
@@ -46,6 +92,8 @@ resource "aws_ecs_task_definition" "task" {
   cpu                       = var.cpu
   memory                    = var.memory
   container_definitions     = jsonencode(local.container_task_def)
+  
+  execution_role_arn        = "${aws_iam_role.service_role.arn}"
 }
 
 resource "aws_service_discovery_service" "discovery" {
