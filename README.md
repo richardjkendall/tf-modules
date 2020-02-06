@@ -18,8 +18,8 @@ static-site | Creates an S3 bucket and CloudFront distribution for a static site
 static-site-with-cicd | Joins together the static-site and basic-cicd-s3-pipeline modules to create a static site with an associated CI/CD pipeline building from a GitHub repository | [details](modules/static-site-with-cicd/README.md) | v10
 s3-redirect | Creates a simple HTTP redirect for a domain using S3 | [details](modules/s3-redirect/README.md) | v12
 ecs-with-spot-fleet | Builds an ECS cluster with an associated spot fleet (using EC2 Fleet) for the ECS instances | [details](modules/ecs-with-spot-fleet/README.md) | v13
-ecs-service | Creates a service running on ECS | [details](modules/ecs-service/README.md) | v16
-ecs-haproxy | Deploys a service discovery aware version of haproxy on an ECS cluster | [details](modules/ecs-haproxy/README.md) | v17
+ecs-service | Creates a service running on ECS | [details](modules/ecs-service/README.md) | v25
+ecs-haproxy | Deploys a service discovery aware version of haproxy on an ECS cluster | [details](modules/ecs-haproxy/README.md) | v24
 
 ## Support
 If you need help please reach out in a comment / bug.  I'll do my best to get back to you.
