@@ -26,6 +26,7 @@ locals {
     secrets     = var.secrets
     environment = var.environment
     healthCheck = var.healthcheck
+    mountPoints = var.mount_points
   }]
 }
 
@@ -66,21 +67,21 @@ data "aws_iam_policy_document" "service_role_policy" {
 }
 
 resource "aws_iam_policy" "service_role_policy" {
-  policy = "${data.aws_iam_policy_document.service_role_policy.json}"
+  policy = data.aws_iam_policy_document.service_role_policy.json
 }
 
 resource "aws_iam_role" "service_role" {
-  assume_role_policy = "${data.aws_iam_policy_document.ecs_service_role_assume_policy.json}"
+  assume_role_policy = data.aws_iam_policy_document.ecs_service_role_assume_policy.json
 }
 
 resource "aws_iam_role_policy_attachment" "service_managed_ecs_policy_attach" {
-  role       = "${aws_iam_role.service_role.name}"
+  role       = aws_iam_role.service_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
 resource "aws_iam_role_policy_attachment" "service_role_policy_attach" {
-  role       = "${aws_iam_role.service_role.name}"
-  policy_arn = "${aws_iam_policy.service_role_policy.arn}"
+  role       = aws_iam_role.service_role.name
+  policy_arn = aws_iam_policy.service_role_policy.arn
 }
 
 resource "aws_ecs_task_definition" "task" {
@@ -92,8 +93,21 @@ resource "aws_ecs_task_definition" "task" {
   cpu                       = var.cpu
   memory                    = var.memory
   container_definitions     = jsonencode(local.container_task_def)
+
+  execution_role_arn        = aws_iam_role.service_role.arn
   
-  execution_role_arn        = "${aws_iam_role.service_role.arn}"
+  dynamic "volume" {
+    for_each = var.efs_volumes
+
+    content {
+      name = volume.value.name
+
+      efs_volume_configuration {
+        file_system_id = volume.value.fileSystemId
+        root_directory = volume.value.rootDirectory
+      }
+    }
+  }
 }
 
 resource "aws_service_discovery_service" "discovery" {
