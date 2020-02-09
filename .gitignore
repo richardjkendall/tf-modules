@@ -38,3 +38,6 @@ override.tf.json
 .idea/modules.xml
 .idea/sbt.xml
 .idea/vcs.xml
+
+modules/lambda-function/package/**
+modules/lambda-function/packge
