@@ -10,6 +10,12 @@ variable "service_name" {
   description = "name of ECS service"
 }
 
+variable "task_def_override" {
+  description = "used to override the task definition with an external task def"
+  default = null
+  type = any
+}
+
 variable "task_name" {
   description = "name of ECS container"
 }

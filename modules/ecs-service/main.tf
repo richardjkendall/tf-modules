@@ -92,7 +92,7 @@ resource "aws_ecs_task_definition" "task" {
   requires_compatibilities  = ["EC2"]
   cpu                       = var.cpu
   memory                    = var.memory
-  container_definitions     = jsonencode(local.container_task_def)
+  container_definitions     = coalesce(var.task_def_override, jsonencode(local.container_task_def))
 
   execution_role_arn        = aws_iam_role.service_role.arn
   

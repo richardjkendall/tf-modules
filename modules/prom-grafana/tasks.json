@@ -1,0 +1,66 @@
+[
+  {
+    "name": "prom",
+    "image": "prom/prometheus",
+    "cpu": 512,
+    "memory": 512,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 9090,
+        "hostPort": 0,
+        "protocol": "tcp"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+          "awslogs-group": "/ecs/${cluster}/${service}",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "prom"
+      }
+    },
+    "mountPoints": [
+      {
+        "sourceVolume": "prom-config",
+        "containerPath": "/etc/prometheus",
+        "readOnly": true
+      },
+      {
+        "sourceVolume": "prom-data",
+        "containerPath": "/prometheus",
+        "readOnly": false
+      }
+    ]
+  },
+  {
+    "name": "graf",
+    "image": "grafana/grafana",
+    "cpu": 512,
+    "memory": 512,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 3000,
+        "hostPort": 0,
+        "protocol": "tcp"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+          "awslogs-group": "/ecs/${cluster}/${service}",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "graf"
+      }
+    },
+    "mountPoints": [
+      {
+        "sourceVolume": "graf-data",
+        "containerPath": "/var/lib/grafana",
+        "readOnly": false
+      }
+    ],
+    "links": ["prom"]
+  }
+]
