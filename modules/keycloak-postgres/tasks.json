@@ -1,0 +1,98 @@
+[
+  {
+    "name": "keycloak",
+    "image": "jboss/keycloak",
+    "cpu": 512,
+    "memory": 512,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 8080,
+        "hostPort": 0,
+        "protocol": "tcp"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+          "awslogs-group": "/ecs/${cluster}/${service}",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "keycloak"
+      }
+    },
+    "secrets": [
+      {
+        "name": "KEYCLOAK_PASSWORD",
+        "valueFrom": "${admin_passwd}"
+      },
+      {
+        "name": "DB_PASSWORD",
+        "valueFrom": "${db_passwd}"
+      }
+    ],
+    "environment": [
+      {
+        "name": "KEYCLOAK_USER",
+        "value": "admin"
+      },
+      {
+        "name": "DB_ADDR",
+        "value": "postgres"
+      },
+      {
+        "name": "DB_USER",
+        "value": "keycloak"
+      },
+      {
+        "name": "PROXY_ADDRESS_FORWARDING",
+        "value": "true"
+      }
+    ],
+    "links": ["postgres"]
+  },
+  {
+    "name": "postgres",
+    "image": "postgres",
+    "cpu": 512,
+    "memory": 512,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 5432,
+        "hostPort": 0,
+        "protocol": "tcp"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+          "awslogs-group": "/ecs/${cluster}/${service}",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "postgres"
+      }
+    },
+    "environment": [
+      {
+        "name": "POSTGRES_DB",
+        "value": "keycloak"
+      },
+      {
+        "name": "POSTGRES_USER",
+        "value": "keycloak"
+      }
+    ],
+    "secrets": [
+      {
+        "name": "POSTGRES_PASSWORD",
+        "valueFrom": "${db_passwd}"
+      }
+    ],
+    "mountPoints": [
+      {
+        "sourceVolume": "data",
+        "containerPath": "/var/lib/postgresql/data",
+        "readOnly": false
+      }
+    ]
+  }
+]
