@@ -20,8 +20,8 @@
       - device-mapper-persistent-data
       - lvm2
       - amazon-linux-extras
-      - name: Add extras repository
-      shell: yum-config-manager --enable extras
+  - name: Add extras repository
+    shell: yum-config-manager --enable extras
   - name: Install docker-ce (centos) via amazon-linux-extras packages
     shell: "amazon-linux-extras install docker=18.06.1 -y"
   - name: Enable Docker CE service at startup
@@ -35,3 +35,4 @@
     vars:
       packages:
       - docker-compose
+      - docker
