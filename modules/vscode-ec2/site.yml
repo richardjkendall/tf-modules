@@ -36,3 +36,27 @@
       packages:
       - docker-compose
       - docker
+
+- name: "Add code user"
+  hosts: ec2
+  become: yes
+  tasks:
+  - name: Add the user 'code'
+    user:
+      name: code
+      shell: /bin/bash
+      groups: docker
+      append: yes
+
+- name: "Create vscode container"
+  hosts: ec2
+  become: yes
+  become_user: code
+  tasks:
+  - name: Create vscode container
+    docker_container:
+      name: vscode
+      image: codercom/code-server
+      command: --auth none
+      published_ports:
+      - "8080:8080"
