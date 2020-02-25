@@ -58,5 +58,6 @@
       name: vscode
       image: codercom/code-server
       command: --auth none
+      restart_policy: always
       published_ports:
       - "8080:8080"
