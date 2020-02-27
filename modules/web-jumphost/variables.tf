@@ -70,3 +70,23 @@ variable "read_only_filesystem" {
   type = bool
   default = false
 }
+
+variable "efs_volumes" {
+  description = "volumes for the task"
+  default = []
+  type = list(object({
+    name = string,
+    fileSystemId = string,
+    rootDirectory = string
+  }))
+}
+
+variable "mount_points" {
+  description = "mount points for the task definition"
+  default = []
+  type = list(object({
+    sourceVolume = string,
+    containerPath = string,
+    readOnly = bool
+  }))
+}

@@ -21,6 +21,7 @@ module "service" {
   memory             = 256
   network_mode       = "bridge"
   number_of_tasks    = 1
+  efs_volumes        = var.efs_volumes
 
   port_mappings = [
     {
@@ -43,6 +44,7 @@ module "service" {
     client_secret_ssm_name      = var.client_secret_ssm_name
     crypto_passphrase_ssm_name  = var.crypto_passphrase_ssm_name
     read_only                   = var.read_only_filesystem
+    mount_points                = jsonencode(var.mount_points)
   })
 
 }

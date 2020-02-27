@@ -58,6 +58,7 @@
           "awslogs-region": "${region}",
           "awslogs-stream-prefix": "terminal"
       }
-    }
+    },
+    "mountPoints": ${mount_points}
   }
 ]
