@@ -170,7 +170,8 @@ data "aws_iam_policy_document" "deployment_role" {
             "iam:ListRolePolicies",
             "iam:ListRoles",
             "iam:UpdateGroup",
-            "iam:UpdateRole"
+            "iam:UpdateRole",
+            "iam:CreateInstanceProfile"
         ]
 
         resources = ["*"]
