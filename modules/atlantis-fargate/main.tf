@@ -200,6 +200,13 @@ resource "aws_iam_role_policy_attachment" "deployment_role_policy_attach" {
   policy_arn = "${aws_iam_policy.deployment_role_policy.arn}"
 }
 
+resource "aws_iam_role_policy_attachment" "user_deployment_policies" {
+  count       = length(var.deployment_role_policies)
+
+  role        = "${aws_iam_role.deployment_role.name}"
+  policy_arn  = element(var.deployment_role_policies, count.index)
+}
+
 resource "aws_ecs_cluster" "cluster" {
   name = "${var.ecs_cluster_name}"
 }
