@@ -69,3 +69,15 @@ variable "auth_realm" {
   type = string
   default = "dav"
 }
+
+variable "cache_dir" {
+  description = "dir where cache DB is held"
+  type = string
+  default = "/tmp"
+}
+
+variable "cache_duration" {
+  description = "seconds that cache entries live for"
+  type = string
+  default = "120"
+}

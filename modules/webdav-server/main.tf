@@ -30,7 +30,11 @@ module "ecs_webdav-server" {
     { name = "TABLE"
       value = var.users_table },
     { name = "REALM"
-      value = var.auth_realm }
+      value = var.auth_realm },
+    { name = "CACHE_FOLDER"
+      value = var.cache_dir },
+    { name = "CACHE_DURATION"
+      value = var.cache_duration }
   ]
 
   efs_volumes = [
