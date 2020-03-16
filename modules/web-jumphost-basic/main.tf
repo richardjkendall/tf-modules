@@ -6,6 +6,21 @@ terraform {
   backend "s3" {}
 }
 
+data "aws_caller_identity" "current" {}
+
+data "aws_iam_policy_document" "dynamodb_access_policy" {
+  statement {
+    sid = "1"
+    effect = "Allow"
+    actions = ["dynamodb:GetItem"]
+    resources = ["arn:aws:dynamodb:${var.aws_region}:${data.aws_caller_identity.current.account_id}:table/${var.users_table}"]
+  }
+}
+
+resource "aws_iam_policy" "dynamodb_access_policy" {
+  policy = data.aws_iam_policy_document.dynamodb_access_policy.json
+}
+
 module "service" {
   source = "../ecs-service"
 
@@ -22,6 +37,10 @@ module "service" {
   network_mode       = "bridge"
   number_of_tasks    = 1
   efs_volumes        = var.efs_volumes
+
+  task_role_policies = [
+    aws_iam_policy.dynamodb_access_policy.arn
+  ]
 
   port_mappings = [
     {
