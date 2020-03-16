@@ -114,7 +114,7 @@ variable "number_of_tasks" {
   type = number
 }
 
-variable load_balancer {
+variable "load_balancer" {
   description = "application load balancer associated with the service"
   default = null
   type = object({
@@ -122,4 +122,10 @@ variable load_balancer {
     container_name = string
     container_port = number
   })
+}
+
+variable "task_role_policies" {
+  description = "list of ARNs of policies to attach to the task role"
+  default = []
+  type = list(string)
 }

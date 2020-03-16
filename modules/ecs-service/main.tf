@@ -32,13 +32,37 @@ locals {
 
 data "aws_caller_identity" "current" {}
 
-
 data "aws_ecs_cluster" "cluster" {
   cluster_name = var.cluster_name
 }
 
 resource "aws_cloudwatch_log_group" "logs" {
   name = "/ecs/${var.cluster_name}/${var.service_name}"
+}
+
+data "aws_iam_policy_document" "ecs_task_role_assume_policy" {
+  statement {
+    sid    = ""
+    effect = "Allow"
+
+    principals {
+      identifiers = ["ecs-tasks.amazonaws.com"]
+      type        = "Service"
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
+
+resource "aws_iam_role" "task_role" {
+  assume_role_policy = data.aws_iam_policy_document.ecs_task_role_assume_policy.json
+}
+
+resource "aws_iam_role_policy_attachment" "task_user_policies" {
+  count       = length(var.task_role_policies)
+
+  role        = aws_iam_role.task_role.name
+  policy_arn  = element(var.task_role_policies, count.index)
 }
 
 data "aws_iam_policy_document" "ecs_service_role_assume_policy" {
@@ -95,6 +119,7 @@ resource "aws_ecs_task_definition" "task" {
   container_definitions     = coalesce(var.task_def_override, jsonencode(local.container_task_def))
 
   execution_role_arn        = aws_iam_role.service_role.arn
+  task_role_arn             = length(var.task_role_policies) == 0 ? null : aws_iam_role.task_role.arn
   
   dynamic "volume" {
     for_each = var.efs_volumes
