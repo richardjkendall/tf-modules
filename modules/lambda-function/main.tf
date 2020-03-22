@@ -15,25 +15,19 @@ resource "null_resource" "packager" {
     always_run = uuid()
   }
   provisioner "local-exec" {
-    command = "mkdir -p ${path.module}/package"
+    command = "mkdir -p ${path.module}/output"
   }
   provisioner "local-exec" {
-    command = "find ${path.module}/package -mindepth 1 -delete "
+    command = "find ${path.module}/output -mindepth 1 -delete "
   }
   provisioner "local-exec" {
-    command = "git clone ${var.code_repository} ${path.module}/package/"
-  }
-  provisioner "local-exec" {
-    command = "cd ${path.module}/package; pip3 install --upgrade --target=output/ -r requirements.txt"
-  }
-  provisioner "local-exec" {
-    command = "cp -R ${path.module}/package/*.py ${path.module}/package/output/."
+    command = "docker run --rm -e REPO=${var.code_repository} -v ${abspath(path.module)}/output:/output richardjkendall/lambda-builder"
   }
 }
 
 data "archive_file" "zip" {
   type = "zip"
-  source_dir = "${path.module}/package/output/"
+  source_dir = "${path.module}/output/"
   output_path = "function.zip"
   depends_on = [
     null_resource.packager

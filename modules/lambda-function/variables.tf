@@ -47,3 +47,9 @@ variable "execution_role_policies" {
   type = list(string)
   description = "list of arns for policies which should be attached to the ECS instance role"
 }
+
+variable "whls_to_install" {
+  type = list(string)
+  description = "list of URLs of whls to install"
+  default = []
+}
