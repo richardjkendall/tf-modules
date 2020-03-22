@@ -15,11 +15,12 @@ resource "null_resource" "packager" {
     always_run = uuid()
   }
   provisioner "local-exec" {
-    command = "mkdir -p ${path.module}/output"
+    command = "mkdir ${path.module}/output"
   }
+  /*
   provisioner "local-exec" {
     command = "find ${path.module}/output -mindepth 1 -delete "
-  }
+  }*/
   provisioner "local-exec" {
     command = "docker run --rm -e REPO=${var.code_repository} -v ${abspath(path.module)}/output:/output richardjkendall/lambda-builder"
   }
