@@ -21,11 +21,13 @@ resource "null_resource" "packager" {
     always_run = uuid()
   }
   provisioner "local-exec" {
-    command = "mkdir -p ${path.module}/output"
-    interpreter = [ "/bin/bash", "-c" ]
+    command = "docker run --rm -it -v ${abspath(path.module)}:/host bash -c \"mkdir -p /host/output\" "
+    //command = "mkdir -p ${path.module}/output"
+    //interpreter = [ "/bin/bash", "-c" ]
   }
   provisioner "local-exec" {
-    command = "find ${path.module}/output -mindepth 1 -delete "
+    command = "docker run --rm -it -v ${abspath(path.module)}:/host bash -c \"find /host/output -mindepth 1 -delete \" "
+    //command = "find ${path.module}/output -mindepth 1 -delete "
   }
   provisioner "local-exec" {
     command = "env -u HOME > env.txt; docker run --rm --env-file env.txt -v ${abspath(path.module)}/output:/output richardjkendall/lambda-builder"
