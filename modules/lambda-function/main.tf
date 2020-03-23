@@ -65,7 +65,7 @@ data "aws_iam_policy_document" "lambda_permissions" {
     effect      = "Allow"
     actions     = ["logs:CreateLogGroup"]
     resources   = [
-      "arn:aws:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:*"
+      "arn:aws:logs::${data.aws_caller_identity.current.account_id}:*"
     ]
   }
 
@@ -77,7 +77,7 @@ data "aws_iam_policy_document" "lambda_permissions" {
       "logs:PutLogEvents"
     ]
     resources   = [
-      "arn:aws:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/${var.function_name}:*"
+      "arn:aws:logs::${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/*"
     ]
   }
 }
