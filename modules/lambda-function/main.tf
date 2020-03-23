@@ -22,6 +22,7 @@ resource "null_resource" "packager" {
   }
   provisioner "local-exec" {
     command = "mkdir -p ${path.module}/output"
+    interpreter = [ "/bin/bash", "-c" ]
   }
   provisioner "local-exec" {
     command = "find ${path.module}/output -mindepth 1 -delete "
