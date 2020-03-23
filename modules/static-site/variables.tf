@@ -47,3 +47,9 @@ variable "max_ttl" {
   default     = 3600
   description = "Maximum amount of time (in seconds) that an object is in a CloudFront cache"
 }
+
+variable "viewer_req_edge_lambda_arns" {
+  type = list(string)
+  default = []
+  description = "list of qualified arns or viewer request edge lambdas which should be placed on the distribution, should all be in us-east-1"
+}

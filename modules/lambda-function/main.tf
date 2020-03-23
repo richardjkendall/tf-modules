@@ -10,19 +10,25 @@ terraform {
 
 data "aws_caller_identity" "current" {}
 
+locals {
+  build_vars = merge({
+    REPO = var.code_repository
+  }, var.build_environment)
+}
+
 resource "null_resource" "packager" {
   triggers = {
     always_run = uuid()
   }
   provisioner "local-exec" {
-    command = "mkdir ${path.module}/output"
+    command = "mkdir -p ${path.module}/output"
   }
-  /*
   provisioner "local-exec" {
     command = "find ${path.module}/output -mindepth 1 -delete "
-  }*/
+  }
   provisioner "local-exec" {
-    command = "docker run --rm -e REPO=${var.code_repository} -v ${abspath(path.module)}/output:/output richardjkendall/lambda-builder"
+    command = "env -u HOME > env.txt; docker run --rm --env-file env.txt -v ${abspath(path.module)}/output:/output richardjkendall/lambda-builder"
+    environment = local.build_vars
   }
 }
 
@@ -41,8 +47,12 @@ data "aws_iam_policy_document" "assume_policy" {
     effect = "Allow"
 
     principals {
-      identifiers = ["lambda.amazonaws.com"]
-      type        = "Service"
+      identifiers = [
+        "lambda.amazonaws.com",
+        "edgelambda.amazonaws.com"
+      ]
+
+      type = "Service"
     }
 
     actions = ["sts:AssumeRole"]
@@ -104,8 +114,17 @@ resource "aws_lambda_function" "lambda" {
   runtime             = var.runtime
   memory_size         = var.memory
   timeout             = var.timeout
+  publish             = var.publish
 
-  environment {
-    variables = var.environment_variables
+  dynamic "environment" {
+    for_each = length(var.environment_variables) > 0 ? ["blah"] : []
+
+    content {
+      variables = var.environment_variables
+    }
   }
+
+  /*environment {
+    variables = var.environment_variables
+  }*/
 }

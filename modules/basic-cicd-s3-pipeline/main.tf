@@ -25,12 +25,12 @@ resource "aws_s3_bucket" "build_bucket" {
 
   tags = {
     Name = "Static site build bucket"
-    Site = "${var.site_name}"
+    Site = var.site_name
   }
 }
 
 resource "aws_s3_bucket_public_access_block" "block_build_bucket_pub_access" {
-  bucket = "${aws_s3_bucket.build_bucket.id}"
+  bucket = aws_s3_bucket.build_bucket.id
 
   block_public_acls       = true
   block_public_policy     = true
@@ -85,9 +85,9 @@ data "aws_iam_policy_document" "code_build_policy_document" {
     effect  = "Allow"
     actions = ["s3:*"]
     resources = [
-      "${data.aws_s3_bucket.target_bucket.arn}",
+      data.aws_s3_bucket.target_bucket.arn,
       "${data.aws_s3_bucket.target_bucket.arn}/*",
-      "${aws_s3_bucket.build_bucket.arn}",
+      aws_s3_bucket.build_bucket.arn,
       "${aws_s3_bucket.build_bucket.arn}/*"
     ]
   }
@@ -106,7 +106,7 @@ data "aws_iam_policy_document" "code_pipeline_policy_document" {
     effect  = "Allow"
     actions = ["s3:PutObject"]
     resources = [
-      "${aws_s3_bucket.build_bucket.arn}",
+      aws_s3_bucket.build_bucket.arn,
       "${aws_s3_bucket.build_bucket.arn}/*"
     ]
   }
@@ -134,38 +134,38 @@ data "aws_iam_policy_document" "code_pipeline_policy_document" {
 }
 
 resource "aws_iam_policy" "code_build_policy" {
-  policy = "${data.aws_iam_policy_document.code_build_policy_document.json}"
+  policy = data.aws_iam_policy_document.code_build_policy_document.json
 }
 
 resource "aws_iam_policy" "code_pipeline_policy" {
-  policy = "${data.aws_iam_policy_document.code_pipeline_policy_document.json}"
+  policy = data.aws_iam_policy_document.code_pipeline_policy_document.json
 }
 
 resource "aws_iam_role" "code_build_role" {
-  assume_role_policy = "${data.aws_iam_policy_document.code_build_assume_policy.json}"
+  assume_role_policy = data.aws_iam_policy_document.code_build_assume_policy.json
 }
 
 resource "aws_iam_role" "code_pipeline_role" {
-  assume_role_policy = "${data.aws_iam_policy_document.code_pipeline_assume_policy.json}"
+  assume_role_policy = data.aws_iam_policy_document.code_pipeline_assume_policy.json
 }
 
 resource "aws_iam_policy_attachment" "attach_cb_policy_to_role" {
   name        = "basic-cicd-build-${var.site_name}-${var.cf_distribution}-cb-attach"
-  roles       = ["${aws_iam_role.code_build_role.name}"]
-  policy_arn  = "${aws_iam_policy.code_build_policy.arn}"
+  roles       = [aws_iam_role.code_build_role.name]
+  policy_arn  = aws_iam_policy.code_build_policy.arn
 }
 
 resource "aws_iam_policy_attachment" "attach_cp_policy_to_role" {
   name        = "basic-cicd-build-${var.site_name}-${var.cf_distribution}-cp-attach"
-  roles       = ["${aws_iam_role.code_pipeline_role.name}"]
-  policy_arn  = "${aws_iam_policy.code_pipeline_policy.arn}"
+  roles       = [aws_iam_role.code_pipeline_role.name]
+  policy_arn  = aws_iam_policy.code_pipeline_policy.arn
 }
 
 resource "aws_codebuild_project" "codebuild_project" {
   name          = "basic-cicd-build-${var.gh_repo}-${var.gh_branch}-${var.cf_distribution}"
   description   = "build site ${var.site_name} for CF dist ${var.cf_distribution} from repo ${var.gh_repo} using branch ${var.gh_branch}"
-  build_timeout = "${var.build_timeout}"
-  service_role  = "${aws_iam_role.code_build_role.arn}"
+  build_timeout = var.build_timeout
+  service_role  = aws_iam_role.code_build_role.arn
 
   artifacts {
     type = "CODEPIPELINE"
@@ -183,17 +183,17 @@ resource "aws_codebuild_project" "codebuild_project" {
 
     environment_variable {
       name  = "TARGET_BUCKET"
-      value = "${var.s3_bucket}"
+      value = var.s3_bucket
     }
 
     environment_variable {
       name  = "INVALIDATE"
-      value = "${var.cf_invalidate}"
+      value = var.cf_invalidate
     }
 
     environment_variable {
       name  = "DISTRIBUTION_ID"
-      value = "${var.cf_distribution}"
+      value = var.cf_distribution
     }
   }
 
@@ -204,10 +204,10 @@ resource "aws_codebuild_project" "codebuild_project" {
 
 resource "aws_codepipeline" "buildpipeline" {
   name        = "basic-cicd-pipeline-${var.gh_repo}-${var.gh_branch}-${var.cf_distribution}"
-  role_arn    = "${aws_iam_role.code_pipeline_role.arn}"
+  role_arn    = aws_iam_role.code_pipeline_role.arn
 
   artifact_store {
-    location  = "${aws_s3_bucket.build_bucket.bucket}"
+    location  = aws_s3_bucket.build_bucket.bucket
     type      = "S3"
   }
 
@@ -220,13 +220,13 @@ resource "aws_codepipeline" "buildpipeline" {
       owner             = "ThirdParty"
       provider          = "GitHub"
       version           = "1"
-      output_artifacts  = ["${var.gh_branch}"]
+      output_artifacts  = [var.gh_branch]
 
       configuration = {
-        Owner                 = "${var.gh_username}"
-        Repo                  = "${var.gh_repo}"
-        Branch                = "${var.gh_branch}"
-        OAuthToken            = "${data.aws_ssm_parameter.gh_token.value}"
+        Owner                 = var.gh_username
+        Repo                  = var.gh_repo
+        Branch                = var.gh_branch
+        OAuthToken            = data.aws_ssm_parameter.gh_token.value
         PollForSourceChanges  = false
       }
     }
@@ -240,7 +240,7 @@ resource "aws_codepipeline" "buildpipeline" {
       category        = "Build"
       owner           = "AWS"
       provider        = "CodeBuild"
-      input_artifacts = ["${var.gh_branch}"]
+      input_artifacts = [var.gh_branch]
       version         = "1"
 
       configuration = {
@@ -254,10 +254,10 @@ resource "aws_codepipeline_webhook" "webhook" {
   name            = "github-${var.gh_repo}-${var.gh_branch}-${var.cf_distribution}"
   authentication  = "GITHUB_HMAC"
   target_action   = "Source"
-  target_pipeline = "${aws_codepipeline.buildpipeline.name}"
+  target_pipeline = aws_codepipeline.buildpipeline.name
 
   authentication_configuration {
-    secret_token = "${data.aws_ssm_parameter.gh_secret.value}"
+    secret_token = data.aws_ssm_parameter.gh_secret.value
   }
 
   filter {

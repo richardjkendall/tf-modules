@@ -13,6 +13,8 @@ module "static_site" {
   aws_region          = "${var.aws_region}"
   access_log_bucket   = "${var.access_log_bucket}"
   access_log_prefix   = "${var.access_log_prefix}"
+
+  viewer_req_edge_lambda_arns = var.viewer_req_edge_lambda_arns
 }
 
 module "cicd" {

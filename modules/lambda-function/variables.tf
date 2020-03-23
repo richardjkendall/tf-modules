@@ -48,8 +48,14 @@ variable "execution_role_policies" {
   description = "list of arns for policies which should be attached to the ECS instance role"
 }
 
-variable "whls_to_install" {
-  type = list(string)
-  description = "list of URLs of whls to install"
-  default = []
+variable "publish" {
+  type = bool
+  default = false
+  description = "should we publish this lambda function, should be true for lambda@edge"
+}
+
+variable "build_environment" {
+  type = map(string)
+  default = {}
+  description = "map of environment variables passed to the build job"
 }
