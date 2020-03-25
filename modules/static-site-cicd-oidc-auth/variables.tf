@@ -85,3 +85,9 @@ variable "val_api_url" {
   type = string
   description = "URL for JWT validation API"
 }
+
+variable "encrypt_buckets" {
+  type = bool
+  default = false
+  description = "encrypt buckets with default AWS keys"
+}

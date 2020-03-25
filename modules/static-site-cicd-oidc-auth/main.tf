@@ -27,6 +27,7 @@ module "static_site" {
   gh_token_sm_param_name    = var.gh_token_sm_param_name
   gh_repo                   = var.gh_repo
   gh_branch                 = var.gh_branch
+  encrypt_buckets           = var.encrypt_buckets
 
   /* auth related */
   viewer_req_edge_lambda_arns = [

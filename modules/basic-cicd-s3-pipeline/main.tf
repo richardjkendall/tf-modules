@@ -27,6 +27,18 @@ resource "aws_s3_bucket" "build_bucket" {
     Name = "Static site build bucket"
     Site = var.site_name
   }
+
+  dynamic "server_side_encryption_configuration" {
+    for_each = var.encrypt_buckets == true ? [ "blah" ] : []
+
+    content {
+      rule {
+        apply_server_side_encryption_by_default {
+          sse_algorithm = "AES256"
+        }
+      }
+    }
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "block_build_bucket_pub_access" {

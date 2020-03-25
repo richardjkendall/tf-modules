@@ -44,3 +44,9 @@ variable "cf_invalidate" {
   default = "yes"
   description = "should the CF distribution be invalidated for each deployment"
 }
+
+variable "encrypt_buckets" {
+  type = bool
+  default = false
+  description = "encrypt buckets with default AWS keys"
+}

@@ -44,3 +44,9 @@ variable "viewer_req_edge_lambda_arns" {
   default = []
   description = "list of qualified arns or viewer request edge lambdas which should be placed on the distribution, should all be in us-east-1"
 }
+
+variable "encrypt_buckets" {
+  type = bool
+  default = false
+  description = "encrypt buckets with default AWS keys"
+}
