@@ -28,6 +28,7 @@ module "static_site" {
   gh_repo                   = var.gh_repo
   gh_branch                 = var.gh_branch
   encrypt_buckets           = var.encrypt_buckets
+  allow_root                = var.allow_root
 
   /* auth related */
   viewer_req_edge_lambda_arns = [

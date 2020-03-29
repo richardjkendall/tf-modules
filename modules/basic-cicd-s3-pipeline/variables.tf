@@ -50,3 +50,9 @@ variable "encrypt_buckets" {
   default = false
   description = "encrypt buckets with default AWS keys"
 }
+
+variable "allow_root" {
+  type = bool
+  default = false
+  description = "allow build process to become root (sudo)"
+}

@@ -30,4 +30,5 @@ module "cicd" {
   cf_distribution           = module.static_site.cf_distribution_id
   s3_bucket                 = module.static_site.cf_origin_s3_bucket_id
   encrypt_buckets           = var.encrypt_buckets
+  allow_root                = var.allow_root
 }
