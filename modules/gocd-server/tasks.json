@@ -7,7 +7,7 @@
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 80,
+        "containerPort": 8153,
         "hostPort": 0,
         "protocol": "tcp"
       }
@@ -34,15 +34,15 @@
       { "name": "CACHE_DURATION",
         "value": "${duration}" }
     ],
-    "links": ["terminal"]
+    "links": ["gocd"]
   },
   {
-    "name": "terminal",
-    "image": "richardjkendall/web-jumphost",
+    "name": "gocd",
+    "image": "gocd/gocd-server",
     "cpu": 128,
     "memory": 128,
     "essential": true,
-    "readonlyRootFilesystem": ${read_only},
+    "readonlyRootFilesystem": false,
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
