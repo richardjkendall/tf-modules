@@ -56,3 +56,9 @@ variable "allow_root" {
   default = false
   description = "allow build process to become root (sudo)"
 }
+
+variable "build_image" {
+  type = string
+  default = "aws/codebuild/standard:2.0"
+  description = "what build image should be used to run the build job"
+}
