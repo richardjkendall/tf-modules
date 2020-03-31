@@ -48,7 +48,7 @@
       "options": {
           "awslogs-group": "/ecs/${cluster}/${service}",
           "awslogs-region": "${region}",
-          "awslogs-stream-prefix": "terminal"
+          "awslogs-stream-prefix": "gocd"
       }
     },
     "mountPoints": [
