@@ -1,0 +1,66 @@
+[
+  {
+    "name": "proxy",
+    "image": "richardjkendall/basicauth-rproxy",
+    "cpu": 128,
+    "memory": 128,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "hostPort": 0,
+        "protocol": "tcp"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+          "awslogs-group": "/ecs/${cluster}/${service}",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "rproxy"
+      }
+    },
+    "environment": [
+      { "name": "REGION",
+        "value": "${region}" },
+      { "name": "UPSTREAM",
+        "value": "repo:5000/" },
+      { "name": "TABLE",
+        "value": "${table}" },
+      { "name": "REALM",
+        "value": "${realm}" },
+      { "name": "CACHE_FOLDER",
+        "value": "${folder}" },
+      { "name": "CACHE_DURATION",
+        "value": "${duration}" }
+    ],
+    "links": ["repo"]
+  },
+  {
+    "name": "repo",
+    "image": "registry:2",
+    "cpu": 128,
+    "memory": 128,
+    "essential": true,
+    "readonlyRootFilesystem": false,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+          "awslogs-group": "/ecs/${cluster}/${service}",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "repo"
+      }
+    },
+    "environment": [
+      { "name": "REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY",
+        "value": "/data"}
+    ],
+    "mountPoints": [
+      {
+        "sourceVolume": "data",
+        "containerPath": "/data",
+        "readOnly": false
+      }
+    ]
+  }
+]
