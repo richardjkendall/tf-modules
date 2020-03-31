@@ -32,11 +32,10 @@ module "service" {
 
   task_name          = "proxy"
   image              = "not used"
-  cpu                = 256
-  memory             = 256
+  cpu                = 640
+  memory             = 1152
   network_mode       = "bridge"
   number_of_tasks    = 1
-  efs_volumes        = var.efs_volumes
 
   task_role_policies = [
     aws_iam_policy.dynamodb_access_policy.arn
@@ -58,8 +57,19 @@ module "service" {
     realm                       = var.auth_realm
     folder                      = var.cache_dir
     duration                    = var.cache_duration
-    read_only                   = var.read_only_filesystem
-    mount_points                = jsonencode(var.mount_points)
   })
+
+  efs_volumes = [
+    {
+      name          = "data"
+      fileSystemId  = var.efs_filesystem_id
+      rootDirectory = var.gocd_data_directory 
+    },
+    {
+      name          = "home"
+      fileSystemId  = var.efs_filesystem_id
+      rootDirectory = var.gocd_home_directory 
+    }
+  ]
 
 }

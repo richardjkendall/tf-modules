@@ -23,32 +23,6 @@ variable "service_registry_service_name" {
   type = string
 }
 
-variable "read_only_filesystem" {
-  description = "should the filesytem be read only"
-  type = bool
-  default = false
-}
-
-variable "efs_volumes" {
-  description = "volumes for the task"
-  default = []
-  type = list(object({
-    name = string,
-    fileSystemId = string,
-    rootDirectory = string
-  }))
-}
-
-variable "mount_points" {
-  description = "mount points for the task definition"
-  default = []
-  type = list(object({
-    sourceVolume = string,
-    containerPath = string,
-    readOnly = bool
-  }))
-}
-
 variable "users_table" {
   description = "name of users table in dynamodb"
   type = string
@@ -71,4 +45,19 @@ variable "cache_duration" {
   description = "seconds that cache entries live for"
   type = string
   default = "120"
+}
+
+variable "efs_filesystem_id" {
+  description = "ID for filesystem used to store data and config"
+  type = string
+}
+
+variable "gocd_data_directory" {
+  description = "directory on the filesystem which contains the godata directory"
+  type = string
+}
+
+variable "gocd_home_directory" {
+  description = "directory on the filesystem which contains the go user home directory"
+  type = string
 }
