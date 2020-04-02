@@ -32,7 +32,7 @@ variable "users_table" {
 variable "auth_realm" {
   description = "realm where users should exist"
   type = string
-  default = "dav"
+  default = "docker"
 }
 
 variable "cache_dir" {
