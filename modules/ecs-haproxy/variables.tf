@@ -72,6 +72,7 @@ variable "stats_password_ssm_secret" {
 
 variable "lb_subnets" {
   type = list(string)
+  default = []
   description = "subnets for the load balancer, should have public IP assignment possible + IGW attached"
 }
 
@@ -96,4 +97,16 @@ variable "number_of_tasks" {
   description = "number of tasks to spawn for haproxy"
   default = 2
   type = number
+}
+
+variable "create_lb" {
+  description = "should the module create a load balancer or link to an existing one"
+  default = true
+  type = bool
+}
+
+variable "listener_arn" {
+  description = "arn of existing load balancer listener if linking to an existing lb"
+  default = ""
+  type = string
 }
