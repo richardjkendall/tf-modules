@@ -7,5 +7,5 @@ output "listener_arn" {
 }
 
 output "lb_sec_group_id" {
-  value = aws_security_group.allow_tls.id
+  value = aws_security_group.allow_tls_from_world.id
 }
