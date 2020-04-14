@@ -110,3 +110,9 @@ variable "listener_arn" {
   default = ""
   type = string
 }
+
+variable "rule_priority" {
+  description = "priority used for rule on existing alb"
+  default = 100
+  type = number
+}
