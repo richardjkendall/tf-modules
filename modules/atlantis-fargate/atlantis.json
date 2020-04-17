@@ -2,8 +2,8 @@
   {
     "name": "atlantis",
     "image": "docker.io/richardjkendall/atlantis",
-    "cpu": 256,
-    "memory": 512,
+    "cpu": ${cpu},
+    "memory": ${memory},
     "essential": true,
     "portMappings": [
       {
