@@ -27,7 +27,7 @@ resource "null_resource" "packager" {
     command = "find ${path.module}/${var.function_name}/output -mindepth 1 -delete "
   }
   provisioner "local-exec" {
-    command = "env -u HOME > env.txt; docker run --rm --env-file env.txt -v ${abspath(path.module)}/${var.function_name}/output:/output richardjkendall/lambda-builder"
+    command = "env -u HOME > env-${var.function_name}.txt; docker run --rm --env-file env-${var.function_name}.txt -v ${abspath(path.module)}/${var.function_name}/output:/output richardjkendall/lambda-builder"
     environment = local.build_vars
   }
 }
@@ -65,7 +65,7 @@ data "aws_iam_policy_document" "lambda_permissions" {
     effect      = "Allow"
     actions     = ["logs:CreateLogGroup"]
     resources   = [
-      "arn:aws:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/${var.function_name}"
+      "arn:aws:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:*"
     ]
   }
 
@@ -77,7 +77,7 @@ data "aws_iam_policy_document" "lambda_permissions" {
       "logs:PutLogEvents"
     ]
     resources   = [
-      "arn:aws:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/${var.function_name}"
+      "arn:aws:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/${var.function_name}:*"
     ]
   }
 }
@@ -123,8 +123,4 @@ resource "aws_lambda_function" "lambda" {
       variables = var.environment_variables
     }
   }
-
-  /*environment {
-    variables = var.environment_variables
-  }*/
 }
