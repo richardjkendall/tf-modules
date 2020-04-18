@@ -193,7 +193,7 @@ data "aws_iam_policy_document" "poster_policy" {
     effect = "Allow"
 
     actions = [
-      "ssm:GetParameters"
+      "ssm:GetParameter"
     ]
 
     resources = [
