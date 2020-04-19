@@ -215,12 +215,14 @@ resource "aws_codebuild_project" "codebuild_project" {
   }
 }
 
+resource "random_uuid" "notify_name" { }
+
 resource "aws_codestarnotifications_notification_rule" "notifications" {
   count = var.send_notifications == true ? 1 : 0
 
   detail_type     = "FULL"
   event_type_ids  = var.notifications_to_send
-  name            = "notify-github"
+  name            = random_uuid.notify_name
   resource        = aws_codepipeline.buildpipeline.arn
 
   target {
