@@ -222,7 +222,7 @@ resource "aws_codestarnotifications_notification_rule" "notifications" {
 
   detail_type     = "FULL"
   event_type_ids  = var.notifications_to_send
-  name            = random_uuid.notify_name
+  name            = random_uuid.notify_name.result
   resource        = aws_codepipeline.buildpipeline.arn
 
   target {
