@@ -215,6 +215,19 @@ resource "aws_codebuild_project" "codebuild_project" {
   }
 }
 
+resource "aws_codestarnotifications_notification_rule" "notifications" {
+  count = var.send_notifications == true ? 1 : 0
+
+  detail_type     = "FULL"
+  event_type_ids  = var.notifications_to_send
+  name            = "notify-github"
+  resource        = aws_codepipeline.buildpipeline.arn
+
+  target {
+    address = var.sns_topic_for_notifications
+  }
+}
+
 resource "aws_codepipeline" "buildpipeline" {
   name        = "basic-cicd-pipeline-${var.gh_repo}-${var.gh_branch}-${var.cf_distribution}"
   role_arn    = aws_iam_role.code_pipeline_role.arn
