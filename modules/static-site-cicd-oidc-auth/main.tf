@@ -30,6 +30,11 @@ module "static_site" {
   encrypt_buckets           = var.encrypt_buckets
   allow_root                = var.allow_root
 
+  /* notifications */
+  send_notifications          = var.send_notifications
+  sns_topic_for_notifications = var.sns_topic_for_notifications
+  notifications_to_send       = var.notifications_to_send
+
   /* auth related */
   viewer_req_edge_lambda_arns = [
     module.lambda.qualified_arn
