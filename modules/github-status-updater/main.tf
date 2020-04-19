@@ -10,7 +10,6 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_sns_topic" "cp_sns_topic" {
   name_prefix       = "cp-notifications-topic"
-  //kms_master_key_id = "alias/aws/sns"
 }
 
 resource "aws_sns_topic_policy" "cp_sns_topic" {
@@ -73,7 +72,9 @@ data "aws_iam_policy_document" "cp_sns_topic" {
 
 resource "aws_sqs_queue" "cp_notify_sqs_queue" {
   name_prefix       = "cp-notifications-raw-queue"
-  //kms_master_key_id = "alias/aws/sqs"
+
+  /* had to add this because codepipeline API is eventually consistent... */
+  delay_seconds     = var.delay_seconds
 }
 
 data "aws_iam_policy_document" "cp_notify_sqs_queue" {
@@ -183,7 +184,6 @@ module "enricher" {
 
 resource "aws_sqs_queue" "enriched_sqs_queue" {
   name_prefix       = "cp-notifications-enriched-queue"
-  //kms_master_key_id = "alias/aws/sqs"
 }
 
 data "aws_iam_policy_document" "poster_policy" {
