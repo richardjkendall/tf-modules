@@ -40,4 +40,8 @@ module "cicd" {
   service_name    = var.service_name
   image_repo      = var.image_repo
 
+  send_notifications          = var.send_notifications
+  sns_topic_for_notifications = var.sns_topic_for_notifications
+  notifications_to_send       = var.notifications_to_send
+
 }

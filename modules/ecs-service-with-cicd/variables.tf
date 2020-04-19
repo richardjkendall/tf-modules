@@ -110,3 +110,27 @@ variable "gh_branch" {
   default = "master"
   description = "branch of git repo to use for changes"
 }
+
+variable "send_notifications" {
+  type = bool
+  default = false
+  description = "should pipeline notifications be sent"
+}
+
+variable "sns_topic_for_notifications" {
+  type = string
+  description = "arn for sns topic to send notifications to"
+}
+
+variable "notifications_to_send" {
+  type = list(string)
+  description = "which notifications should we send, for values see here https://docs.aws.amazon.com/codestar-notifications/latest/userguide/concepts.html#concepts-api"
+  default = [
+    "codepipeline-pipeline-pipeline-execution-failed",
+    "codepipeline-pipeline-pipeline-execution-canceled",
+    "codepipeline-pipeline-pipeline-execution-started",
+    "codepipeline-pipeline-pipeline-execution-resumed",
+    "codepipeline-pipeline-pipeline-execution-succeeded",
+    "codepipeline-pipeline-pipeline-execution-superseded"
+  ]
+} 
