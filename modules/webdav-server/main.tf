@@ -1,3 +1,10 @@
+/*
+title: webdav-server
+desc: Deploys a webdav server with files kept on an EFS mount.  Server is protected using http basic auth with user details stored in a dynamodb table.
+depends: ecs-service
+partners: ecs-haproxy
+*/
+
 provider "aws" {
   region = var.aws_region
 }

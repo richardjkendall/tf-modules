@@ -1,3 +1,10 @@
+/*
+title: prom-grafana
+desc: Deploys an instance of prometheus and grafana running on ECS and connected to each other.  Uses EFS to store data.  Created to help monitor haproxy.
+partners: ecs-haproxy
+depends: ecs-service
+*/
+
 provider "aws" {
   region = var.aws_region
 }

@@ -1,3 +1,10 @@
+/*
+title: keycloak-postgres
+desc: Deploys an instance of JBoss Keycloak backed by a postgres database on an ECS cluster
+depends: ecs-service
+partners: ecs-haproxy
+*/
+
 provider "aws" {
   region = var.aws_region
 }

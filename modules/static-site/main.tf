@@ -1,3 +1,9 @@
+/*
+title: static-site
+desc: Deploys a simple static site on CloudFront backed by an S3 origin.  Logs access request to S3.
+partners: static-site-with-cicd, static-site-cicd-oidc-auth
+*/
+
 provider "aws" {
   region = var.aws_region
 }

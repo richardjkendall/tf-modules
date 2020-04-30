@@ -1,3 +1,9 @@
+/*
+title: basic-cicd-ecs-pipeline
+desc: Builds a codepipeline and codebuild job attached to an ECS service to manage continious deployment as the source code in a github repository changes
+partners: ecs-service, github-status-updater
+*/
+
 provider "aws" {
   region = var.aws_region
 }

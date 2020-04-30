@@ -1,3 +1,9 @@
+/*
+title: static-site-cicd-oidc-auth
+desc: Deploys a simple static site on CloudFront backed by an S3 origin with CICD from github and protected by OIDC based login.
+depends: static-site-with-cicd, lambda-function
+*/
+
 provider "aws" {
   region = var.aws_region
 }

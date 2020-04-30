@@ -1,3 +1,8 @@
+/*
+title: ecs-with-spot-fleet
+desc: Builds an EC2 based ECS clusyer backed by an EC2 instance fleet using spot instances.
+*/
+
 provider "aws" {
   region = var.aws_region
 }

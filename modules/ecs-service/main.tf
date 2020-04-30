@@ -1,3 +1,9 @@
+/*
+title: ecs-service
+desc: Deploys a simple ECS service backed by a simple task.  You can pass in your own task definition if you want to achieve more complex results.
+partners: ecs-with-spot-fleet
+*/
+
 provider "aws" {
   region = var.aws_region
 }

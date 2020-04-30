@@ -1,3 +1,9 @@
+/*
+title: ecs-agent-updater
+desc: Deploys a lambda function and associated cloudwatch trigger to periodically check and update the ECS agent on ECS container instances.
+depends: lambda-function, lambda-schedule
+*/
+
 provider "aws" {
   region = var.aws_region
 }

@@ -1,3 +1,9 @@
+/*
+title: ecs-service-with-cicd
+desc: Builds an ECS service connected to a github reposistory and redeploys the service each time the code changes.
+depends: ecs-service, basic-cicd-ecs-pipeline
+*/
+
 provider "aws" {
   region = var.aws_region
 }

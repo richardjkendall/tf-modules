@@ -1,3 +1,8 @@
+/*
+title: s3-redirect
+desc: Creates simple HTTP only domain redirects using S3.
+*/
+
 provider "aws" {
   region = var.aws_region
 }

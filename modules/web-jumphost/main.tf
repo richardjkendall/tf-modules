@@ -1,3 +1,10 @@
+/*
+title: web-jumpost
+desc: Deploys a browser based console protected behind OIDC login.
+depends: ecs-service
+partners: ecs-haproxy
+*/
+
 provider "aws" {
   region = var.aws_region
 }

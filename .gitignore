@@ -41,3 +41,6 @@ override.tf.json
 
 modules/lambda-function/package/**
 modules/lambda-function/packge
+
+.env/**
+.vscode/**

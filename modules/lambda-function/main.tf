@@ -1,3 +1,9 @@
+/*
+title: lambda-function
+desc: Creates a python lambda function using code in a public github repository.  Uses docker to build the deployment package.  See https://github.com/richardjkendall/lambda-builder for details of how the function is built.
+partners: api-lambda, github-status-updater
+*/
+
 provider "aws" {
   region = var.aws_region
 }

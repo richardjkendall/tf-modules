@@ -1,3 +1,9 @@
+/*
+title: basic-cicd-s3-pipeline
+desc: Builds a codepipeline and codebuild job attached to an S3 backed cloudfront distribution to deploy changes as the source code changes.
+partners: static-site, github-status-updater
+*/
+
 provider "aws" {
   region = var.aws_region
 }

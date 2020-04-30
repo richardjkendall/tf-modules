@@ -1,3 +1,9 @@
+/*
+title: api-lambda
+desc: Exposes a python lambda function as an API using API gateway.  Lambda function code must be in a public github repo.
+depends: lambda-function
+*/
+
 provider "aws" {
   region = var.aws_region
 }

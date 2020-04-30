@@ -1,3 +1,9 @@
+/*
+title: atlantis-fargate
+desc: Deploys a fargate task and service running atlantis (https://www.runatlantis.io).  Can create its own ALB or work with the ALB module to add rules to an existing ALB.
+partners: alb?
+*/
+
 provider "aws" {
   region = var.aws_region
 }

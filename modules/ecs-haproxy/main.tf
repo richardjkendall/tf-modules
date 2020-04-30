@@ -1,3 +1,10 @@
+/*
+title: ecs-haproxy
+desc: Deploys a version of haproxy on ECS which monitors a service discovery namespace and dynamically adds/removes backends as they change.  Can either create its own ALB or work with an existing ALB.
+partners: alb
+depends: ecs-service
+*/
+
 provider "aws" {
   region = var.aws_region
 }

@@ -1,3 +1,10 @@
+/*
+title: github-status-updater
+desc: Creates an SNS topic which you can attach to codepipeline instances to send notifications.  Notifications are converted to github status labels and posted to github.
+depends: lambda-function
+partners: basic-cicd-ecs-pipeline, basic-cicd-s3-pipeline
+*/
+
 provider "aws" {
   region = var.aws_region
 }

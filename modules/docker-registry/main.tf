@@ -1,3 +1,10 @@
+/*
+title: docker-registry
+desc: Deploys a docker registry on ECS and exposes via Cloudmap service discovery.  Protected by http basic auth with user details stored in a dynamodb table.
+partners: ecs-haproxy
+depends: ecs-service
+*/
+
 provider "aws" {
   region = var.aws_region
 }
