@@ -7,12 +7,12 @@ variable "ecs_cluster_name" {
 }
 
 variable "instance_types" {
-  type = "list"
+  type = list(string)
   description = "list of instance types to use for the fleet, first one in the list is used as the launch template instance type"
 }
 
 variable "ecs_instance_subnets" {
-  type = "list"
+  type = list(string)
   description = "list of subnets in which ECS instances can be launched"
 }
 
@@ -21,12 +21,12 @@ variable "ecs_instance_key_name" {
 }
 
 variable "ecs_instance_security_groups" {
-  type = "list"
+  type = list(string)
   description = "list of security groups applied to the ECS instances"
 }
 
 variable "ecs_instance_role_policies" {
-  type = "list"
+  type = list(string)
   description = "list of arns for policies which should be attached to the ECS instance role"
 }
 
