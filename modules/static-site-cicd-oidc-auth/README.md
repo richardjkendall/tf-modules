@@ -1,38 +1,43 @@
-# Static Site with CICD
+static-site-cicd-oidc-auth
+======
 
-## Description
 
-Deploys a complete Static Site + CICD pipeline.  This is a combination of the static-site and basic-cicd-s3-pipeline modules in a single module.
+Deploys a simple static site on CloudFront backed by an S3 origin with CICD from github and protected by OIDC based login.
 
-## Versions
+Releases
+------
 
-|Release Tag|Description|
-|---|---|
-|v10|Initial release of module
+|Tag | Message | Commit|
+--- | --- | ---
+v46 | basic-cicd-s3-pipeline: added support for build job to become root | 001e53
+v45 | static-site: adding s3 bucket encryption support | c383f3
+v40 | static-site-cicd-oidc-auth: and supporting module changes | 9f9d6b
 
-## Variables
+Variables
+------
 
-|Variable|Description|Default|
-|---|---|---|
-|aws_region|Region where the static site will be deployed|n/a
-|sitename_prefix|Prefix of site name e.g. for www.example.com this would be www|n/a
-|domain_root|Domain root for site e.g. for www.example.com this would be example.com.  This must be available in Route53.|n/a
-|access_log_bucket|Which S3 bucket should be used for saving CloudFront access logs|n/a
-|access_log_prefix|What prefix should be used for the logs saved in S3|n/a
-|gh_username|Username used to access GitHub|n/a
-|gh_secret_sm_param_name|Name of SSM parameter where GitHub webhook secret is stored|n/a
-|gh_token_sm_param_name|Name of SSM parameter where the GitHub Oauth token is stored|n/a
-|gh_repo|Name of repo containing site source and buildspec.yml file|n/a
-|gh_branch|Branch of git repo to use for changes|master
+|Name | Type | Description | Default Value|
+--- | --- | --- | ---
+aws_region | string | region where provisioning should happen | 
+sitename_prefix | string | prefix of site name e.g. for www.example.com this would be www | 
+domain_root | string | domain root for site e.g. example.com.  This must be available in Route53. | 
+access_log_bucket | string | S3 bucket where access logs will be placed | 
+access_log_prefix | string | prefix used for any access logs written to S3 | 
+gh_username | string | GitHub username used to access your site source code repo | 
+gh_secret_sm_param_name | string | name of SSM parameter where GitHub webhook secret is stored | 
+gh_token_sm_param_name | string | name of SSM parameter where the GitHub Oauth token is stored | 
+gh_repo | string | name of repo containing site source and buildspec.yml file | 
+gh_branch | string | branch of git repo to use for changes | master
+keycloak_host | string | name of keycloak host | 
+realm | string | keycloak auth realm | 
+client_id | string | client ID for keycloak client | 
+client_secret | string | client secret for keycloak client | 
+auth_cookie_name | string | name of cookie used to hold auth token | auth
+refresh_cookie_name | string | name of cookie used to hold refresh token | rt
+val_api_url | string | URL for JWT validation API | 
+encrypt_buckets | bool | encrypt buckets with default AWS keys | false
+allow_root | bool | allow build process to become root (sudo) | false
+send_notifications | bool | should pipeline notifications be sent | false
+sns_topic_for_notifications | string | arn for sns topic to send notifications to | 
+notifications_to_send | list(string) | which notifications should we send, for values see here https://docs.aws.amazon.com/codestar-notifications/latest/userguide/concepts.html#concepts-api | [codepipeline-pipeline-pipeline-execution-failed, codepipeline-pipeline-pipeline-execution-canceled, codepipeline-pipeline-pipeline-execution-started, codepipeline-pipeline-pipeline-execution-resumed, codepipeline-pipeline-pipeline-execution-succeeded, codepipeline-pipeline-pipeline-execution-superseded]
 
-## buildspec.yml
-
-In order to build and deploy your code repository needs to have a file called ``buildspec.yml`` in it.  The CodeBuild project exposes the following variables which can be used by the file:
-
-|Variable|Content|
-|---|---|
-|TARGET_BUCKET|ID of the S3 bucket where the files should be placed
-|INVALIDATE|Should the CloudFront distribution be invalidated or not?  Values either yes or no
-|DISTRIBUTION_ID|ID of the CloudFront distribution
-
-Look at the basic-cicd-s3-pipeline README to find an example buildspec.yml [here](../basic-cicd-s3-pipeline/README.md)

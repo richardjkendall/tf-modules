@@ -1,25 +1,28 @@
-# ECS with Spot Fleet
+ecs-with-spot-fleet
+======
 
-## Description
 
-Creates an ECS cluster backed by an EC2 Fleet using spot instances.
+Builds an EC2 based ECS clusyer backed by an EC2 instance fleet using spot instances.
 
-## Versions
+Releases
+------
 
-|Release Tag|Description|
-|---|---|
-|v13|Initial release of module
+|Tag | Message | Commit|
+--- | --- | ---
+v13 | fixes on ecs cluster module | 288c89
 
-## Variables
+Variables
+------
 
-|Variable|Description|Default|
-|---|---|---|
-|aws_region|Region where the ECS cluster should be provisioned|n/a
-|ecs_cluster_name|Name of the ECS cluster that is created|n/a
-|instance_types|List of instance types to use in the fleet.  The first entry in the list is used as the instance type on the launch template|n/a
-|ecs_instance_subnets|List of subnets where instances can be launched|n/a
-|ecs_instance_key_name|Name of the SSH key to be used on the ECS instances|n/a
-|ecs_instance_security_groups|List of security groups to place on the instances|n/a
-|ecs_instance_role_policies|List of policies (ARNs) to attach to the instance profile placed on the ECS instances|n/a
-|number_of_ecs_instances|How many instances should we provision|2
-|spot_allocation_strategy|What spot allocation strategy should be used, can be 'diversified' or 'lowestPrice'|lowestPrice
+|Name | Type | Description | Default Value|
+--- | --- | --- | ---
+aws_region |  | region where provisioning should happen | 
+ecs_cluster_name |  | name of the ECS cluster created | 
+instance_types | list(string) | list of instance types to use for the fleet, first one in the list is used as the launch template instance type | 
+ecs_instance_subnets | list(string) | list of subnets in which ECS instances can be launched | 
+ecs_instance_key_name |  | name of the key pair to use for the ECS instances | 
+ecs_instance_security_groups | list(string) | list of security groups applied to the ECS instances | 
+ecs_instance_role_policies | list(string) | list of arns for policies which should be attached to the ECS instance role | 
+number_of_ecs_instances |  | number of instances to provision, default is 2 | 2
+spot_allocation_strategy |  | allocation strategy to be used for spot instances | lowestPrice
+

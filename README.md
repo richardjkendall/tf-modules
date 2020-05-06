@@ -1,8 +1,18 @@
 Terraform Modules
 ======
 
+
 This is a collection of terraform modules
+
+
 Click on the links to see the details of each of the modules
+
+
+This documentation is auto-generated from the terraform files using tf-auto-document.
+
+Modules
+------
+
 |Module | Description | Link|
 --- | --- | ---
 alb | Creates an ALB with a linked HTTPS listener.  Designed to be used with other modules which add target groups and listener rules. | [more details](modules/alb/README.md)

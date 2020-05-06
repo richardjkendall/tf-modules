@@ -1,27 +1,45 @@
-# Static Site
+static-site
+======
 
-## Description
 
-Builds a CloudFront distribution using an S3 bucket as an origin.  Creates an SSL certificate for it and enables HTTPS and HTTP to HTTPS redirect.  Enables logging to an S3 bucket.
+Deploys a simple static site on CloudFront backed by an S3 origin.  Logs access request to S3.
 
-## Versions
+Releases
+------
 
-|Release Tag|Description|
-|---|---|
-|v10|Initial release of module
+|Tag | Message | Commit|
+--- | --- | ---
+v55 | static-site-with-cicd: adding support for sending notifications | 67d854
+v46 | basic-cicd-s3-pipeline: added support for build job to become root | 001e53
+v45 | static-site: adding s3 bucket encryption support | c383f3
+v40 | static-site-cicd-oidc-auth: and supporting module changes | 9f9d6b
+v11 | more variables description updates | 1fd416
+v10 | added static site with cicd + small fixes to other modules | 8c85c6
+v8 | fixed hosted_zone_typo | 5eaa93
+v7 | fixing r53 incorrect attributes | b3e380
+v6 | added r53 for cf distribution | 6a514a
+v5 | adding back restrictions block | ea8ace
+v4 | fixed typo in r53 zone | aa03fa
+v3 | fixed mispelled var name | abdcb1
+v2 | fixing duplicated variable aws_region | abd659
+v1 | adding first go at static site module | af683f
 
-## Variables
+Variables
+------
 
-|Variable|Description|Default|
-|---|---|---|
-|aws_region|Region where the static site will be deployed|n/a
-|sitename_prefix|Prefix of site name e.g. for www.example.com this would be www|n/a
-|domain_root|Domain root for site e.g. for www.example.com this would be example.com.  This must be available in Route53.|n/a
-|access_log_bucket|Which S3 bucket should be used for saving CloudFront access logs|n/a
-|access_log_prefix|What prefix should be used for the logs saved in S3|n/a
-|http_version|What version of HTTP should the CloudFront distribution use?|http2
-|root_object_location|What is the name of the root object that CloudFront will use?|index.html
-|price_class|What price class should CloudFront use for the distribution?|PriceClass_All
-|default_ttl|Default amount of time (in seconds) that an object is in a CloudFront cache|60
-|min_ttl|Minimum amount of time that you want objects to stay in CloudFront caches|0
-|max_ttl|Maximum amount of time (in seconds) that an object is in a CloudFront cache|3600
+|Name | Type | Description | Default Value|
+--- | --- | --- | ---
+aws_region |  | region where provisioning should happen | 
+sitename_prefix |  | prefix of site name e.g. for www.example.com this would be www | 
+domain_root |  | domain root for site e.g. example.com.  This must be available in Route53. | 
+access_log_bucket |  | S3 bucket where access logs will be placed | 
+access_log_prefix |  | prefix used for any access logs written to S3 | 
+http_version |  | version of http to use on this site | http2
+root_object_location |  | name of object to show when root of site is opened in a browser | index.html
+price_class |  | price class for the distribution, for more details see here https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_DistributionConfig.html | PriceClass_All
+default_ttl |  | Default amount of time (in seconds) that an object is in a CloudFront cache | 60
+min_ttl |  | Minimum amount of time that you want objects to stay in CloudFront caches | 0
+max_ttl |  | Maximum amount of time (in seconds) that an object is in a CloudFront cache | 3600
+viewer_req_edge_lambda_arns | list(string) | list of qualified arns or viewer request edge lambdas which should be placed on the distribution, should all be in us-east-1 | []
+encrypt_buckets | bool | encrypt buckets with default AWS keys | false
+

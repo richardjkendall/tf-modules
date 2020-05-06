@@ -1,49 +1,49 @@
-# ECS HAproxy
-
-## Description
-
-Deploys a service-discovery aware version of HAproxy along with an application load balancer for SSL offload.  It will automatically add (and remove) backends and front-end routing rules as new services are deployed and un-deployed.
-
-The code for the haproxy extension is here https://github.com/richardjkendall/haproxy
-
-## Versions
-
-|Release Tag|Description|
-|---|---|
-|v24|Fixes and support for setting passwords via secrets, this is the only version that will work|
+ecs-haproxy
+======
 
 
-## Variables
+Deploys a version of haproxy on ECS which monitors a service discovery namespace and dynamically adds/removes backends as they change.  Can either create its own ALB or work with an existing ALB.
 
-|Variable|Description|Default|Version
-|---|---|---|---|
-|aws_region|Region where the ECS cluster should be provisioned|n/a
-|cluster_name|Name of the ECS cluster where the service will run|n/a
-|service_name|Name of the ECS service which will run|haproxy
-|task_name|Name of the task definition which will run|haproxy
-|tag_name|Which tag to use when picking up the image from the docker repository|latest
-|service_registry_id|ID for the service registry instance to use to register the haproxy service|n/a
-|service_registry_service_name|Name of the service to use in the service registry (see note)|haproxy-do-not-use|
-|cpu|CPU units for the task|128
-|memory|MB of memory for the task|256
-|default_domain|Domain to send unrouted requests to (requests which don't match any of the frontend rules)|n/a
-|namespace_map|Mapping of service discovery namespaces to domain roots (explained below)|n/a
-|refresh_rate|How often the services should be refreshed (in seconds)|30
-|prom_password_ssm_secret|Name of the SSM parameter which contains the password used to secure the Prometheus metrics end-point|n/a
-|stats_password_ssm_secret|Name of the SSM parameter which contains the password used to secure the HAproxy stats pages|n/a
-|lb_subnets|List of subnet IDs to use for the application load balancer|n/a
-|vpc_id|VPC ID for the VPC containing the subnets|n/a
-|listener_cert_arn|ARN for the certificate which will be attached to the HTTPS listener on the ALB|n/a
-|host_name|Name of the host for the ALB endpoint e.g. for alb.example.com this would be 'alb'|n/a
-|root_domain|Name of the root domain for the ALB endpoint e.g. for alb.example.com this would be 'example.com'.  This must be a Route53 managed zone.|n/a
-|number_of_tasks|How many tasks should be deployed|2
+Releases
+------
 
-Note: The adding of the haproxy instances to the service registry is to help find them for purposes of scraping metrics and checking status.  That's why the default name for the service is 'haproxy-do-not-use' - no traffic should be sent to the service.
+|Tag | Message | Commit|
+--- | --- | ---
+v50 | ecs-haproxy: adding support for lb rule priority | b11f20
+v49 | ecs-haproxy,alb: start of work to allow multiple services to share a single ALB | 15f092
+v23 | adding support for password secrets | 14006d
+v22 | adding ability to change tag on haproxy image | b02551
+v20 | fixing issue with default val for healthcheck | ae25b4
+v19 | added haproxy health check | c135a9
+v17 | adding haproxy healthcheck changes | d253a9
+v16 | adding haproxy module and small changes to the ecs-service module to support it | fcec2c
 
-### namespace_map
-List of objects, each with the following fields:
+Variables
+------
 
-|Field|Type|Purpose
-|---|---|---|
-|namespace|string|ID for the namespace which should be mapped
-|domainname|string|Name of the root of the domain name which should be used for the services in the namespace e.g. example.com
+|Name | Type | Description | Default Value|
+--- | --- | --- | ---
+aws_region |  | region where provisioning should happen | 
+cluster_name |  | name of cluster where service will run | 
+service_name |  | name of ECS service | haproxy
+task_name |  | name of ECS container | haproxy
+tag_name | string | name of tag of haproxy image to use | latest
+service_registry_id |  | ID for the AWS service discovery namespace we will use | 
+service_registry_service_name |  | name for service we will use in the service registry | haproxy-do-not-use
+cpu | number | CPU units for the task | 128
+memory | number | memory for the task | 256
+default_domain |  | domain where unmatched requests are redirected | 
+namespace_map | list(object({domainname=string,namespace=string})) | map of namespaces to domains | 
+refresh_rate |  | now often (in seconds) service changes be found and applied | 30
+prom_password_ssm_secret | string | name of ssm secret which contains prom metrics endpoint password | 
+stats_password_ssm_secret | string | name of ssm secret which contains stats endpoint password | 
+lb_subnets | list(string) | subnets for the load balancer, should have public IP assignment possible + IGW attached | []
+vpc_id |  | ID for the VPC we will use | 
+listener_cert_arn |  | arn for the listener certifcate the load balancer will use | 
+host_name |  | host name for DNS entry created to point to load balancer | haproxy-lb
+root_domain |  | root domain used for DNS entry created to point to load balancer | 
+number_of_tasks | number | number of tasks to spawn for haproxy | 2
+create_lb | bool | should the module create a load balancer or link to an existing one | true
+listener_arn | string | arn of existing load balancer listener if linking to an existing lb | 
+rule_priority | number | priority used for rule on existing alb | 100
+

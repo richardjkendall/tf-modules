@@ -1,21 +1,24 @@
-# S3 Redirect
+s3-redirect
+======
 
-## Description
 
-Creates an S3 bucket where all requests to the S3 Webserver are redirected to a domain of your choice.  Designed to implement simple domain based redirects e.g. example.com to www.example.com.
+Creates simple HTTP only domain redirects using S3.
 
-## Versions
+Releases
+------
 
-|Release Tag|Description|
-|---|---|
-|v12|Initial release of module
+|Tag | Message | Commit|
+--- | --- | ---
+v12 | added s3 redirect module | 18b715
 
-## Variables
+Variables
+------
 
-|Variable|Description|Default|
-|---|---|---|
-|aws_region|Region where the static site will be deployed|n/a
-|sitename_prefix|Prefix of site name e.g. for www.example.com this would be www|n/a
-|domain_root|Domain root for site e.g. for www.example.com this would be example.com.  This must be available in Route53.|n/a
-|redirect_target_domain|Domain to use for redirect|n/a
-|redirect_protocol|Protocol to use for redirect|https
+|Name | Type | Description | Default Value|
+--- | --- | --- | ---
+aws_region |  | region where provisioning should happen | 
+sitename_prefix |  | prefix of site name e.g. for www.example.com this would be www | 
+domain_root |  | domain root for site e.g. example.com.  This must be available in Route53. | 
+redirect_target_domain |  | domain to use for redirect | 
+redirect_protocol |  | protocol to use for redirect | https
+
