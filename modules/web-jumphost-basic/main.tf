@@ -1,8 +1,8 @@
 /*
 title: web-jumpost-basic
 desc: Deploys a browser based console protected behind http basic auth using a dynamo db table to store user details.
-depends: ecs-service
 partners: ecs-haproxy
+depends: ecs-service
 */
 
 provider "aws" {

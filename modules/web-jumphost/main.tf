@@ -1,8 +1,8 @@
 /*
 title: web-jumpost
 desc: Deploys a browser based console protected behind OIDC login.
-depends: ecs-service
 partners: ecs-haproxy
+depends: ecs-service
 */
 
 provider "aws" {
