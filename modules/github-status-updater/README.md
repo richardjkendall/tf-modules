@@ -37,3 +37,10 @@ Variables
 `gh_access_token_parameter` | `string` | name of ssm parameter which contains the github access token | ``
 `delay_seconds` | `number` | delay seconds to set on the sqs queue which picks up messages from sns topic | `10`
 
+Outputs
+------
+
+|Name | Description|
+--- | ---
+sns_topic_arn | 
+
