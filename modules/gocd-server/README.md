@@ -7,9 +7,8 @@
 Releases
 ------
 
-|Tag | Message | Commit|
---- | --- | ---
-v48 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `7a44f8`
+
+There have been no releases yet for this module
 
 Variables
 ------

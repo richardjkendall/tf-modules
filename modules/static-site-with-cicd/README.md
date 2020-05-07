@@ -22,14 +22,8 @@ Works with
 Releases
 ------
 
-|Tag | Message | Commit|
---- | --- | ---
-v55 | static-site-with-cicd: adding support for sending notifications | `67d854`
-v46 | basic-cicd-s3-pipeline: added support for build job to become root | `001e53`
-v45 | static-site: adding s3 bucket encryption support | `c383f3`
-v40 | static-site-cicd-oidc-auth: and supporting module changes | `9f9d6b`
-v11 | more variables description updates | `1fd416`
-v10 | added static site with cicd + small fixes to other modules | `8c85c6`
+
+There have been no releases yet for this module
 
 Variables
 ------
@@ -52,11 +46,4 @@ Variables
 `send_notifications` | `bool` | should pipeline notifications be sent | `false`
 `sns_topic_for_notifications` | `string` | arn for sns topic to send notifications to | ``
 `notifications_to_send` | `list(string)` | which notifications should we send, for values see here https://docs.aws.amazon.com/codestar-notifications/latest/userguide/concepts.html#concepts-api | `[codepipeline-pipeline-pipeline-execution-failed, codepipeline-pipeline-pipeline-execution-canceled, codepipeline-pipeline-pipeline-execution-started, codepipeline-pipeline-pipeline-execution-resumed, codepipeline-pipeline-pipeline-execution-succeeded, codepipeline-pipeline-pipeline-execution-superseded]`
-
-Outputs
-------
-
-|Name | Description|
---- | ---
-webhook_url | 
 

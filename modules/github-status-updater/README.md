@@ -22,10 +22,8 @@ Works with
 Releases
 ------
 
-|Tag | Message | Commit|
---- | --- | ---
-v56 | github-status-updater: added delivery day on first sqs queue, added variable def | `3ed544`
-v54 | github-status-updater: adding output of sns topic arn | `2d0b49`
+
+There have been no releases yet for this module
 
 Variables
 ------
@@ -36,11 +34,4 @@ Variables
 `gh_username` | `string` | github username | ``
 `gh_access_token_parameter` | `string` | name of ssm parameter which contains the github access token | ``
 `delay_seconds` | `number` | delay seconds to set on the sqs queue which picks up messages from sns topic | `10`
-
-Outputs
-------
-
-|Name | Description|
---- | ---
-sns_topic_arn | 
 

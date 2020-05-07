@@ -15,11 +15,8 @@ Works with
 Releases
 ------
 
-|Tag | Message | Commit|
---- | --- | ---
-v52 | alb: fixing output of sec group | `a4d174`
-v51 | alb: adding output of sec group id | `bb44e4`
-v49 | ecs-haproxy,alb: start of work to allow multiple services to share a single ALB | `15f092`
+
+There have been no releases yet for this module
 
 Variables
 ------
@@ -34,13 +31,4 @@ Variables
 `def_redir_scheme` | `string` | url scheme used for default redirect | `http`
 `def_redir_host` | `string` | host used for default redirect | ``
 `def_redir_path` | `string` | path for default redirect | `/`
-
-Outputs
-------
-
-|Name | Description|
---- | ---
-lb_arn | 
-listener_arn | 
-lb_sec_group_id | 
 

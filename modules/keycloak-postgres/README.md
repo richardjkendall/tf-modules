@@ -21,9 +21,8 @@ Works with
 Releases
 ------
 
-|Tag | Message | Commit|
---- | --- | ---
-v29 | keycloak-postgres: added module | `19c19c`
+
+There have been no releases yet for this module
 
 Variables
 ------

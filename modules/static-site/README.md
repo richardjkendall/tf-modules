@@ -15,22 +15,8 @@ Works with
 Releases
 ------
 
-|Tag | Message | Commit|
---- | --- | ---
-v55 | static-site-with-cicd: adding support for sending notifications | `67d854`
-v46 | basic-cicd-s3-pipeline: added support for build job to become root | `001e53`
-v45 | static-site: adding s3 bucket encryption support | `c383f3`
-v40 | static-site-cicd-oidc-auth: and supporting module changes | `9f9d6b`
-v11 | more variables description updates | `1fd416`
-v10 | added static site with cicd + small fixes to other modules | `8c85c6`
-v8 | fixed hosted_zone_typo | `5eaa93`
-v7 | fixing r53 incorrect attributes | `b3e380`
-v6 | added r53 for cf distribution | `6a514a`
-v5 | adding back restrictions block | `ea8ace`
-v4 | fixed typo in r53 zone | `aa03fa`
-v3 | fixed mispelled var name | `abdcb1`
-v2 | fixing duplicated variable aws_region | `abd659`
-v1 | adding first go at static site module | `af683f`
+
+There have been no releases yet for this module
 
 Variables
 ------
@@ -50,13 +36,4 @@ Variables
 `max_ttl` | `not specified` | Maximum amount of time (in seconds) that an object is in a CloudFront cache | `3600`
 `viewer_req_edge_lambda_arns` | `list(string)` | list of qualified arns or viewer request edge lambdas which should be placed on the distribution, should all be in us-east-1 | `[]`
 `encrypt_buckets` | `bool` | encrypt buckets with default AWS keys | `false`
-
-Outputs
-------
-
-|Name | Description|
---- | ---
-ssl_cert_arn | 
-cf_origin_s3_bucket_id | 
-cf_distribution_id | 
 

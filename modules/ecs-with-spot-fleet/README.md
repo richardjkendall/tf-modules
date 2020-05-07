@@ -7,9 +7,8 @@ Builds an EC2 based ECS clusyer backed by an EC2 instance fleet using spot insta
 Releases
 ------
 
-|Tag | Message | Commit|
---- | --- | ---
-v13 | fixes on ecs cluster module | `288c89`
+
+There have been no releases yet for this module
 
 Variables
 ------
