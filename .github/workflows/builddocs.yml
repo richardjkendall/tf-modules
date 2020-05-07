@@ -17,5 +17,7 @@ jobs:
       run : |
         git_hash=$(git rev-parse --short "$GITHUB_SHA")
         git add **/*.md
+        git config user.email "richard@rjk.email"
+        git config user.name "Robot"
         git commit -m "docs for commit $git_hash"
         git push
