@@ -33,3 +33,10 @@ Variables
 `http_method` | `string` | HTTP method for the API | `ANY`
 `stage_name` | `string` | name of the API stage to be deployed | `prod`
 
+Outputs
+------
+
+|Name | Description|
+--- | ---
+base_url | 
+

@@ -32,3 +32,12 @@ Variables
 `def_redir_host` | `string` | host used for default redirect | ``
 `def_redir_path` | `string` | path for default redirect | `/`
 
+Outputs
+------
+
+|Name | Description|
+--- | ---
+lb_arn | 
+listener_arn | 
+lb_sec_group_id | 
+

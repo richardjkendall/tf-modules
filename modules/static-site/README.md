@@ -37,3 +37,12 @@ Variables
 `viewer_req_edge_lambda_arns` | `list(string)` | list of qualified arns or viewer request edge lambdas which should be placed on the distribution, should all be in us-east-1 | `[]`
 `encrypt_buckets` | `bool` | encrypt buckets with default AWS keys | `false`
 
+Outputs
+------
+
+|Name | Description|
+--- | ---
+ssl_cert_arn | 
+cf_origin_s3_bucket_id | 
+cf_distribution_id | 
+

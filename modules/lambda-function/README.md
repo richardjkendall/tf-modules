@@ -35,3 +35,13 @@ Variables
 `publish` | `bool` | should we publish this lambda function, should be true for lambda@edge | `false`
 `build_environment` | `map(string)` | map of environment variables passed to the build job | `{}`
 
+Outputs
+------
+
+|Name | Description|
+--- | ---
+function_arn | 
+invoke_arn | 
+qualified_arn | 
+function_name | 
+
