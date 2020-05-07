@@ -7,9 +7,15 @@ on:
 
 jobs:
   build:
-    name: release linux/amd64
+    name: build docs
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
     - name: build docs
       uses: richardjkendall/tf-auto-document.action@v0.01
+    - name: commit doc changes
+      run : |
+        git_hash=$(git rev-parse --short "$GITHUB_SHA")
+        git add **/*.md
+        git commit -m "docs for commit $git_hash"
+        git push
