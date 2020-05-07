@@ -1,0 +1,15 @@
+name: build docs
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - '**.tf'
+
+jobs:
+  build:
+    name: release linux/amd64
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build docs
+      uses: richardjkendall/tf-auto-document.action@v0.01
