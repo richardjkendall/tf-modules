@@ -14,7 +14,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: build docs
-      uses: richardjkendall/tf-auto-document.action@v0.04
+      uses: richardjkendall/tf-auto-document.action@v0.05
       with:
         modulesFolder: 'modules'
     - name: commit doc changes
