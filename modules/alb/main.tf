@@ -1,7 +1,7 @@
 /*
 title: alb
 desc: Creates an ALB with a linked HTTPS listener.  Designed to be used with other modules which add target groups and listener rules. 
-partners: ecs-haproxy, atlantis-fargate 
+partners: ecs-haproxy, atlantis-fargate  
 */
 
 provider "aws" {
