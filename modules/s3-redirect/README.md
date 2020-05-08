@@ -7,8 +7,9 @@ Creates simple HTTP only domain redirects using S3.
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v12 | added s3 redirect module | `18b715`
 
 Variables
 ------

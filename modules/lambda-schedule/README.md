@@ -14,8 +14,9 @@ Works with
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v26 | added ecs-agent-updater module | `5d7d77`
 
 Variables
 ------

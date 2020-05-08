@@ -15,8 +15,10 @@ Depends on
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v57 | ecs-service-with-cicd: adding support for notifications | `dea61c`
+v18 | adding ECS pipeline and ECS service with pipeline | `53a5c3`
 
 Variables
 ------

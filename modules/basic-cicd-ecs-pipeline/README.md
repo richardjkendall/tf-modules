@@ -15,8 +15,11 @@ Works with
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v59 | cicd: fix notify name has to be unique, take 2 | `2506d0`
+v58 | cicd: fix notify name has to be unique | `caad56`
+v18 | adding ECS pipeline and ECS service with pipeline | `53a5c3`
 
 Variables
 ------

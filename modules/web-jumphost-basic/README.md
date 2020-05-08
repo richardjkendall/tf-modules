@@ -21,8 +21,10 @@ Works with
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v37 | web-jumphost-basic: added task role to access dynamodb table | `d06f26`
+v35 | web-jumphost-basic: adding jumphost with basic auth support | `384955`
 
 Variables
 ------

@@ -14,8 +14,17 @@ Works with
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v57 | ecs-service-with-cicd: adding support for notifications | `dea61c`
+v36 | ecs-service: added support for task role | `95295c`
+v27 | added prom-grafana module | `4662e1`
+v25 | ecs-service: added support for EFS volumes | `4592a9`
+v24 | fixing execution role arn on service | `3b1802`
+v21 | fix healthcheck command type | `0b69ad`
+v18 | adding ECS pipeline and ECS service with pipeline | `53a5c3`
+v16 | adding haproxy module and small changes to the ecs-service module to support it | `fcec2c`
+v14 | added basic ECS service module | `d9594d`
 
 Variables
 ------

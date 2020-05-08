@@ -21,8 +21,10 @@ Works with
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v34 | webdav-server: changes to support caching | `3d8c46`
+v31 | webdav-server: adding first version | `f2a333`
 
 Variables
 ------

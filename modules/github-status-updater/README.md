@@ -22,8 +22,10 @@ Works with
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v56 | github-status-updater: added delivery day on first sqs queue, added variable def | `3ed544`
+v54 | github-status-updater: adding output of sns topic arn | `2d0b49`
 
 Variables
 ------

@@ -15,8 +15,11 @@ Depends on
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v46 | basic-cicd-s3-pipeline: added support for build job to become root | `001e53`
+v45 | static-site: adding s3 bucket encryption support | `c383f3`
+v40 | static-site-cicd-oidc-auth: and supporting module changes | `9f9d6b`
 
 Variables
 ------

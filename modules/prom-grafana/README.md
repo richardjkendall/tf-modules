@@ -21,8 +21,9 @@ Works with
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v27 | added prom-grafana module | `4662e1`
 
 Variables
 ------

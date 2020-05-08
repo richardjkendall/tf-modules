@@ -21,8 +21,14 @@ Works with
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v50 | ecs-haproxy: adding support for lb rule priority | `b11f20`
+v49 | ecs-haproxy,alb: start of work to allow multiple services to share a single ALB | `15f092`
+v23 | adding support for password secrets | `14006d`
+v22 | adding ability to change tag on haproxy image | `b02551`
+v17 | adding haproxy healthcheck changes | `d253a9`
+v16 | adding haproxy module and small changes to the ecs-service module to support it | `fcec2c`
 
 Variables
 ------
