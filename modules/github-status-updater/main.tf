@@ -85,6 +85,21 @@ data "aws_iam_policy_document" "kms_key" {
   count = var.encrypt ? 1 : 0
 
   statement {
+    sid = "AllowAccountAccess"
+    effect = "Allow"
+    actions = [
+      "kms:*"
+    ]
+    resources = [
+      "*"
+    ]
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+    } 
+  }
+  
+  statement {
     sid = "SNSallowedtousekey"
     effect = "Allow"
     principals {
