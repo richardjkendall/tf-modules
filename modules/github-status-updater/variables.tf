@@ -18,3 +18,9 @@ variable "delay_seconds" {
   default = 10
   description = "delay seconds to set on the sqs queue which picks up messages from sns topic"
 }
+
+variable "encrypt" {
+  type = bool
+  default = false
+  description = "should encryption be enabled on SQS queues"
+}
