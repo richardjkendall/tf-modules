@@ -24,6 +24,8 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v62 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `cc7ddf`
+v61 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `932082`
 v60 | gsu: adding encryption for sqs queues | `97e200`
 v56 | github-status-updater: added delivery day on first sqs queue, added variable def | `3ed544`
 v54 | github-status-updater: adding output of sns topic arn | `2d0b49`
