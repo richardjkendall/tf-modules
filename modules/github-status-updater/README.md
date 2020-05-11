@@ -24,6 +24,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v63 | gsu: updates to lambda permissions for encryption, take 2 | `e88fef`
 v62 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `cc7ddf`
 v61 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `932082`
 v60 | gsu: adding encryption for sqs queues | `97e200`
