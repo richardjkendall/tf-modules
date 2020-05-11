@@ -239,7 +239,9 @@ data "aws_iam_policy_document" "enricher_policy" {
       ]
 
       actions = [
-        "kms:Decrypt"
+        "kms:Decrypt",
+        "kms:Encrypt",
+        "kms:GenerateDataKey*"
       ]
     }
   }
@@ -320,9 +322,7 @@ data "aws_iam_policy_document" "poster_policy" {
       ]
 
       actions = [
-        "kms:Decrypt",
-        "kms:Encrypt",
-        "kms:GenerateDataKey*"
+        "kms:Decrypt"
       ]
     }
   }
