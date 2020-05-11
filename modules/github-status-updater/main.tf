@@ -226,6 +226,23 @@ data "aws_iam_policy_document" "enricher_policy" {
       "sqs:ReceiveMessage",
     ]
   }
+
+  dynamic "statement" {
+    for_each = var.encrypt ? ["b"] : []
+
+    content {
+      sid       = "4"
+      effect    = "Allow"
+
+      resources = [
+        aws_kms_key.kms_key.0.arn
+      ]
+
+      actions = [
+        "kms:Decrypt"
+      ]
+    }
+  }
 }
 
 resource "aws_iam_policy" "enricher_policy" {
@@ -288,6 +305,26 @@ data "aws_iam_policy_document" "poster_policy" {
       "sqs:GetQueueAttributes",
       "sqs:ReceiveMessage",
     ]
+  }
+
+
+  dynamic "statement" {
+    for_each = var.encrypt ? ["b"] : []
+
+    content {
+      sid       = "3"
+      effect    = "Allow"
+
+      resources = [
+        aws_kms_key.kms_key.0.arn
+      ]
+
+      actions = [
+        "kms:Decrypt",
+        "kms:Encrypt",
+        "kms:GenerateDataKey*"
+      ]
+    }
   }
 }
 
