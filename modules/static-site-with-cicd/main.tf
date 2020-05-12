@@ -38,6 +38,7 @@ module "cicd" {
   s3_bucket                 = module.static_site.cf_origin_s3_bucket_id
   encrypt_buckets           = var.encrypt_buckets
   allow_root                = var.allow_root
+  build_image               = var.build_image
 
   send_notifications          = var.send_notifications
   sns_topic_for_notifications = var.sns_topic_for_notifications
