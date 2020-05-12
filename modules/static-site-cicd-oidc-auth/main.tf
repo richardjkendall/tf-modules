@@ -35,6 +35,7 @@ module "static_site" {
   gh_branch                 = var.gh_branch
   encrypt_buckets           = var.encrypt_buckets
   allow_root                = var.allow_root
+  build_image               = var.build_image
 
   /* notifications */
   send_notifications          = var.send_notifications

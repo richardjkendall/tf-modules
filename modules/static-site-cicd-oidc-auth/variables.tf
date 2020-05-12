@@ -121,3 +121,9 @@ variable "notifications_to_send" {
     "codepipeline-pipeline-pipeline-execution-superseded"
   ]
 } 
+
+variable "build_image" {
+  type = string
+  default = "aws/codebuild/standard:2.0"
+  description = "what build image should be used to run the build job"
+}
