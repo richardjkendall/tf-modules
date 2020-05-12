@@ -17,6 +17,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v64 | static-site-cicd-oidc-auth: adding support to change build image | `51634e`
 v55 | static-site-with-cicd: adding support for sending notifications | `67d854`
 v46 | basic-cicd-s3-pipeline: added support for build job to become root | `001e53`
 v45 | static-site: adding s3 bucket encryption support | `c383f3`
