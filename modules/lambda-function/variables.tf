@@ -43,6 +43,12 @@ variable "code_repository" {
   type = string
 }
 
+variable "code_branch" {
+  description = "branch to use from code repository"
+  type = string
+  default = "master"
+}
+
 variable "execution_role_policies" {
   type = list(string)
   description = "list of arns for policies which should be attached to the ECS instance role"

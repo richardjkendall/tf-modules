@@ -1,6 +1,6 @@
 /*
 title: lambda-function
-desc: Creates a python lambda function using code in a public github repository.  Uses docker to build the deployment package.  See https://github.com/richardjkendall/lambda-builder for details of how the function is built.
+desc: Creates a python lambda function using code in a public github repository.  Uses docker to build the deployment package.  Also depends on jq and cut to determine if code has changed in git and a function rebuild is needed.  See https://github.com/richardjkendall/lambda-builder for details of how the function is built.
 partners: api-lambda, github-status-updater
 */
 
@@ -22,9 +22,18 @@ locals {
   }, var.build_environment)
 }
 
+data "external" "check_sha" {
+  program = ["bash", "${path.module}/checkhead.sh"]
+
+  query = {
+    repo   = var.code_repository
+    branch = "master"
+  }
+}
+
 resource "null_resource" "packager" {
   triggers = {
-    always_run = uuid()
+    commit_sha = data.external.check_sha.result["sha"]
   }
   provisioner "local-exec" {
     command = "mkdir -p ${path.module}/${var.function_name}/output"
