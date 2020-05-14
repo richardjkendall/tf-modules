@@ -2,7 +2,7 @@ lambda-function
 ======
 
 
-Creates a python lambda function using code in a public github repository.  Uses docker to build the deployment package.  See https://github.com/richardjkendall/lambda-builder for details of how the function is built.
+Creates a python lambda function using code in a public github repository.  Uses docker to build the deployment package.  Also depends on jq and cut to determine if code has changed in git and a function rebuild is needed.  See https://github.com/richardjkendall/lambda-builder for details of how the function is built.
 
 Works with
 ------
@@ -39,6 +39,7 @@ Variables
 `timeout` | `number` | how many seconds should the function be allowed to run for | `10`
 `environment_variables` | `map(string)` | map of environment variables passed to the function | `{}`
 `code_repository` | `string` | code repository for the lambda function | ``
+`code_branch` | `string` | branch to use from code repository | `master`
 `execution_role_policies` | `list(string)` | list of arns for policies which should be attached to the ECS instance role | ``
 `publish` | `bool` | should we publish this lambda function, should be true for lambda@edge | `false`
 `build_environment` | `map(string)` | map of environment variables passed to the build job | `{}`

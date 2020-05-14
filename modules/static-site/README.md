@@ -17,6 +17,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v65 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `b58083`
 v64 | static-site-cicd-oidc-auth: adding support to change build image | `51634e`
 v55 | static-site-with-cicd: adding support for sending notifications | `67d854`
 v46 | basic-cicd-s3-pipeline: added support for build job to become root | `001e53`
