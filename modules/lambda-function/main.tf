@@ -22,6 +22,7 @@ locals {
   }, var.build_environment)
 }
 
+/*
 data "external" "check_sha" {
   program = ["bash", "${path.module}/checkhead.sh"]
 
@@ -29,11 +30,12 @@ data "external" "check_sha" {
     repo   = var.code_repository
     branch = "master"
   }
-}
+}*/
 
 resource "null_resource" "packager" {
   triggers = {
-    commit_sha = data.external.check_sha.result["sha"]
+    //commit_sha = data.external.check_sha.result["sha"]
+    trigger = uuid()
   }
   provisioner "local-exec" {
     command = "mkdir -p ${path.module}/${var.function_name}/output"
