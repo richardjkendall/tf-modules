@@ -1,0 +1,111 @@
+[
+  {
+    "name": "proxy",
+    "image": "richardjkendall/basicauth-rproxy-perpath",
+    "cpu": 128,
+    "memory": 128,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "hostPort": 0,
+        "protocol": "tcp"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+          "awslogs-group": "/ecs/${cluster}/${service}",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "rproxy"
+      }
+    },
+    "environment": [
+      { "name": "REGION",
+        "value": "${region}" },
+      { "name": "UPSTREAM",
+        "value": "atlantis:4141/" },
+      { "name": "TABLE",
+        "value": "${table}" },
+      { "name": "REALM",
+        "value": "${realm}" },
+      { "name": "CACHE_FOLDER",
+        "value": "${folder}" },
+      { "name": "CACHE_DURATION",
+        "value": "${duration}" },
+      { "name": "PATHS",
+        "value": "[{\"folder\": \"/\", \"auth\": \"yes\"}, {\"folder\": \"/events\", \"auth\": \"no\"}]"}
+    ],
+    "links": ["atlantis"]
+  },
+  {
+    "name": "atlantis",
+    "image": "richardjkendall/atlantis",
+    "cpu": ${cpu},
+    "memory": ${memory},
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 4141,
+        "hostPort": 4141,
+        "protocol": "tcp"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/${cluster}/${service}",
+        "awslogs-region": "${region}",
+        "awslogs-stream-prefix": "atlantis"
+      }
+    },
+    "secrets": [
+      {
+        "name": "ATLANTIS_GH_WEBHOOK_SECRET",
+        "valueFrom": "${gh_webhook_secret}"
+      },
+      {
+        "name": "ATLANTIS_GH_TOKEN",
+        "valueFrom": "${gh_token}"
+      }
+    ],
+    "environment": [
+      {
+        "name": "ATLANTIS_ALLOW_REPO_CONFIG",
+        "value": "false"
+      },
+      {
+        "name": "ATLANTIS_GH_USER",
+        "value": "${gh_user}"
+      },
+      {
+        "name": "ATLANTIS_PORT",
+        "value": "4141"
+      },
+      {
+        "name": "ATLANTIS_REPO_WHITELIST",
+        "value": "${whitelist}"
+      },
+      {
+        "name": "ATLANTIS_ATLANTIS_URL",
+        "value": "${url}"
+      },
+      {
+        "name": "TERRAGRUNT_IAM_ROLE",
+        "value": "${iam_role}"
+      },
+      {
+        "name": "ATLANTIS_REPO_CONFIG_JSON",
+        "value": ${repoconfig}
+      },
+      {
+        "name": "ATLANTIS_AZUREDEVOPS_BASIC_AUTH",
+        "value": "${random_secret}"
+      },
+      {
+        "name": "ATLANTIS_GITLAB_WEBHOOK_SECRET",
+        "value": "${random_secret}"
+      }
+    ]
+  }
+]

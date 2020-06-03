@@ -1,0 +1,31 @@
+{
+  "repos": [
+    {
+      "Id": "/.*/",
+      "apply_requirements": [
+        "mergeable"
+      ],
+      "workflow": "terragrunt",
+      "allowed_overrides": [],
+      "allow_custom_workflows": false
+    }
+  ],
+  "workflows": {
+    "terragrunt": {
+      "apply": {
+        "steps": [
+          {
+            "run": "terragrunt apply -no-color \"$PLANFILE\""
+          }
+        ]
+      },
+      "plan": {
+        "steps": [
+          {
+            "run": "terragrunt plan -no-color -out \"$PLANFILE\""
+          }
+        ]
+      }
+    }
+  }
+}
