@@ -23,8 +23,8 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v34 | webdav-server: changes to support caching | `3d8c46`
-v31 | webdav-server: adding first version | `f2a333`
+v34 | webdav-server: changes to support caching | `3d8c46a`
+v31 | webdav-server: adding first version | `f2a3335`
 
 Variables
 ------

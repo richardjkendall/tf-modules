@@ -17,7 +17,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v66 | atlantis-ec2: first version | `03f28d`
+v66 | atlantis-ec2: first version | `03f28de`
 
 Variables
 ------

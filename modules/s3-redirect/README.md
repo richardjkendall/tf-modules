@@ -9,7 +9,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v12 | added s3 redirect module | `18b715`
+v12 | added s3 redirect module | `18b7151`
 
 Variables
 ------

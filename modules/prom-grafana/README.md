@@ -23,7 +23,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v27 | added prom-grafana module | `4662e1`
+v27 | added prom-grafana module | `4662e19`
 
 Variables
 ------

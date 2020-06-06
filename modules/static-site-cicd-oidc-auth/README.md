@@ -17,11 +17,11 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v65 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `b58083`
-v64 | static-site-cicd-oidc-auth: adding support to change build image | `51634e`
-v46 | basic-cicd-s3-pipeline: added support for build job to become root | `001e53`
-v45 | static-site: adding s3 bucket encryption support | `c383f3`
-v40 | static-site-cicd-oidc-auth: and supporting module changes | `9f9d6b`
+v65 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `b58083a`
+v64 | static-site-cicd-oidc-auth: adding support to change build image | `51634e9`
+v46 | basic-cicd-s3-pipeline: added support for build job to become root | `001e53e`
+v45 | static-site: adding s3 bucket encryption support | `c383f32`
+v40 | static-site-cicd-oidc-auth: and supporting module changes | `9f9d6b3`
 
 Variables
 ------

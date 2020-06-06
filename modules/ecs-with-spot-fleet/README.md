@@ -9,7 +9,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v13 | fixes on ecs cluster module | `288c89`
+v13 | fixes on ecs cluster module | `288c892`
 
 Variables
 ------

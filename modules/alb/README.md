@@ -17,9 +17,9 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v52 | alb: fixing output of sec group | `a4d174`
-v51 | alb: adding output of sec group id | `bb44e4`
-v49 | ecs-haproxy,alb: start of work to allow multiple services to share a single ALB | `15f092`
+v52 | alb: fixing output of sec group | `a4d174d`
+v51 | alb: adding output of sec group id | `bb44e40`
+v49 | ecs-haproxy,alb: start of work to allow multiple services to share a single ALB | `15f0922`
 
 Variables
 ------

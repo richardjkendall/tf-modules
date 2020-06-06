@@ -17,8 +17,8 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v57 | ecs-service-with-cicd: adding support for notifications | `dea61c`
-v18 | adding ECS pipeline and ECS service with pipeline | `53a5c3`
+v57 | ecs-service-with-cicd: adding support for notifications | `dea61cd`
+v18 | adding ECS pipeline and ECS service with pipeline | `53a5c33`
 
 Variables
 ------
