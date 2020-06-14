@@ -40,7 +40,7 @@ Variables
 `environment_variables` | `map(string)` | map of environment variables passed to the function | `{}`
 `code_repository` | `string` | code repository for the lambda function | ``
 `code_branch` | `string` | branch to use from code repository | `master`
-`execution_role_policies` | `list(string)` | list of arns for policies which should be attached to the ECS instance role | ``
+`execution_role_policies` | `list(string)` | list of arns for policies which should be attached to the lambda function execution role | ``
 `publish` | `bool` | should we publish this lambda function, should be true for lambda@edge | `false`
 `build_environment` | `map(string)` | map of environment variables passed to the build job | `{}`
 

@@ -32,6 +32,8 @@ Variables
 `code_repository` | `string` | URL for code to be deployed for the API | ``
 `http_method` | `string` | HTTP method for the API | `ANY`
 `stage_name` | `string` | name of the API stage to be deployed | `prod`
+`execution_role_policies` | `list(string)` | list of arns for policies which should be attached to the lambda function execution role | `[]`
+`environment_variables` | `map(string)` | map of environment variables passed to the function | `{}`
 
 Outputs
 ------
