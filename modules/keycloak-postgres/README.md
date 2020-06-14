@@ -23,7 +23,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v29 | keycloak-postgres: added module | `19c19c`
+v29 | keycloak-postgres: added module | `19c19c3`
 
 Variables
 ------

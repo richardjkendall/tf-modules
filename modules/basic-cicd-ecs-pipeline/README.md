@@ -17,9 +17,9 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v59 | cicd: fix notify name has to be unique, take 2 | `2506d0`
-v58 | cicd: fix notify name has to be unique | `caad56`
-v18 | adding ECS pipeline and ECS service with pipeline | `53a5c3`
+v59 | cicd: fix notify name has to be unique, take 2 | `2506d0e`
+v58 | cicd: fix notify name has to be unique | `caad564`
+v18 | adding ECS pipeline and ECS service with pipeline | `53a5c33`
 
 Variables
 ------

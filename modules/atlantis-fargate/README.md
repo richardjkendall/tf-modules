@@ -16,10 +16,10 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v53 | atlantis-fargate: supports external alb | `f49337`
-v33 | atlantis-fargate: adding support for custom deploy IAM policies | `e372ff`
-v32 | atlantis-fargate: adding create instance profile permission | `08692b`
-v15 | fixed permissions on atlantis deployer role | `c94379`
+v53 | atlantis-fargate: supports external alb | `f49337e`
+v33 | atlantis-fargate: adding support for custom deploy IAM policies | `e372ffa`
+v32 | atlantis-fargate: adding create instance profile permission | `08692b6`
+v15 | fixed permissions on atlantis deployer role | `c94379c`
 
 Variables
 ------

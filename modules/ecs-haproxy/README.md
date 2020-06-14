@@ -23,12 +23,12 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v50 | ecs-haproxy: adding support for lb rule priority | `b11f20`
-v49 | ecs-haproxy,alb: start of work to allow multiple services to share a single ALB | `15f092`
-v23 | adding support for password secrets | `14006d`
-v22 | adding ability to change tag on haproxy image | `b02551`
-v17 | adding haproxy healthcheck changes | `d253a9`
-v16 | adding haproxy module and small changes to the ecs-service module to support it | `fcec2c`
+v50 | ecs-haproxy: adding support for lb rule priority | `b11f204`
+v49 | ecs-haproxy,alb: start of work to allow multiple services to share a single ALB | `15f0922`
+v23 | adding support for password secrets | `14006dd`
+v22 | adding ability to change tag on haproxy image | `b02551c`
+v17 | adding haproxy healthcheck changes | `d253a9b`
+v16 | adding haproxy module and small changes to the ecs-service module to support it | `fcec2c0`
 
 Variables
 ------

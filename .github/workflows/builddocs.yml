@@ -4,6 +4,7 @@ on:
     branches: [ master ]
     paths:
       - '**.tf'
+      - '**.yml'
 
 jobs:
   build:
@@ -16,12 +17,13 @@ jobs:
     - name: get all tags
       run: git fetch origin +refs/tags/*:refs/tags/*
     - name: build docs
-      uses: richardjkendall/tf-auto-document.action@v0.05
+      uses: richardjkendall/tf-auto-document.action@v0.06
       with:
         modulesFolder: 'modules'
     - name: commit doc changes
       run : |
         git_hash=$(git rev-parse --short "$GITHUB_SHA")
+        git add *.md
         git add **/*.md
         git config user.email "richard@rjk.email"
         git config user.name "Robot"

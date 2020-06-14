@@ -17,7 +17,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v26 | added ecs-agent-updater module | `5d7d77`
+v26 | added ecs-agent-updater module | `5d7d779`
 
 Variables
 ------
