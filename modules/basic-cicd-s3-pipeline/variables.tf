@@ -72,6 +72,7 @@ variable "send_notifications" {
 variable "sns_topic_for_notifications" {
   type = string
   description = "arn for sns topic to send notifications to"
+  default = ""
 }
 
 variable "notifications_to_send" {

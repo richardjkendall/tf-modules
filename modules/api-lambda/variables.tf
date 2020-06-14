@@ -52,3 +52,15 @@ variable "stage_name" {
   description = "name of the API stage to be deployed"
   default = "prod"
 }
+
+variable "execution_role_policies" {
+  type = list(string)
+  description = "list of arns for policies which should be attached to the lambda function execution role"
+  default = []
+}
+
+variable "environment_variables" {
+  type = map(string)
+  default = {}
+  description = "map of environment variables passed to the function"
+}

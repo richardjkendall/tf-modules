@@ -51,7 +51,7 @@ variable "code_branch" {
 
 variable "execution_role_policies" {
   type = list(string)
-  description = "list of arns for policies which should be attached to the ECS instance role"
+  description = "list of arns for policies which should be attached to the lambda function execution role"
 }
 
 variable "publish" {

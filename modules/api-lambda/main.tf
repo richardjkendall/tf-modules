@@ -23,11 +23,9 @@ module "lambda_function" {
   memory            = var.memory
   code_repository   = var.code_repository
   
-  execution_role_policies = []
+  execution_role_policies = var.execution_role_policies
 
-  environment_variables = {
-    dummy = "dummy"
-  }
+  environment_variables = var.environment_variables
 }
 
 resource "aws_api_gateway_rest_api" "gateway" {
