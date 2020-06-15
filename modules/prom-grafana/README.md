@@ -23,6 +23,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v67 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `e522a91`
 v27 | added prom-grafana module | `4662e19`
 
 Variables

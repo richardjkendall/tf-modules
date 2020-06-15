@@ -9,6 +9,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v67 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `e522a91`
 v12 | added s3 redirect module | `18b7151`
 
 Variables

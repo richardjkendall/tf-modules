@@ -9,6 +9,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v67 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `e522a91`
 v13 | fixes on ecs cluster module | `288c892`
 
 Variables

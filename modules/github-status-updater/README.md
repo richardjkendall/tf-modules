@@ -24,6 +24,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v67 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `e522a91`
 v63 | gsu: updates to lambda permissions for encryption, take 2 | `e88fefe`
 v62 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `cc7ddf2`
 v61 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `9320820`

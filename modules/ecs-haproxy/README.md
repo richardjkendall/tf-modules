@@ -23,6 +23,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v67 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `e522a91`
 v50 | ecs-haproxy: adding support for lb rule priority | `b11f204`
 v49 | ecs-haproxy,alb: start of work to allow multiple services to share a single ALB | `15f0922`
 v23 | adding support for password secrets | `14006dd`
