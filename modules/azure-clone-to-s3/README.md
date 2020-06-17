@@ -14,8 +14,9 @@ Depends on
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v68 | azure-clone-to-s3: enabled versioning on bucket | `49146d5`
 
 Variables
 ------
