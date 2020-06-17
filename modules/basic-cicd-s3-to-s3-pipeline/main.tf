@@ -98,7 +98,9 @@ data "aws_iam_policy_document" "code_build_policy_document" {
       data.aws_s3_bucket.target_bucket.arn,
       "${data.aws_s3_bucket.target_bucket.arn}/*",
       aws_s3_bucket.build_bucket.arn,
-      "${aws_s3_bucket.build_bucket.arn}/*"
+      "${aws_s3_bucket.build_bucket.arn}/*",
+      "arn:aws:s3:::${var.source_s3_bucket}",
+      "arn:aws:s3:::${var.source_s3_bucket}/*",
     ]
   }
 
@@ -172,7 +174,7 @@ resource "aws_iam_policy_attachment" "attach_cp_policy_to_role" {
 }
 
 resource "aws_codebuild_project" "codebuild_project" {
-  name          = "basic-cicd-build-${source_s3_prefix}-${var.cf_distribution}"
+  name          = "basic-cicd-build-s3-${var.source_s3_prefix}-${var.cf_distribution}"
   description   = "build site ${var.site_name} for CF dist ${var.cf_distribution} from s3 bucket ${var.source_s3_bucket} using prefix ${var.source_s3_prefix}"
   build_timeout = var.build_timeout
   service_role  = aws_iam_role.code_build_role.arn
@@ -249,12 +251,81 @@ resource "aws_codepipeline" "buildpipeline" {
       category        = "Build"
       owner           = "AWS"
       provider        = "CodeBuild"
-      input_artifacts = [var.gh_branch]
+      input_artifacts = ["SrcOut"]
       version         = "1"
 
       configuration = {
-        ProjectName = "basic-cicd-build-${var.source_s3_prefix}-${var.cf_distribution}"
+        ProjectName = "basic-cicd-build-s3-${var.source_s3_prefix}-${var.cf_distribution}"
       }
     }
   }
+}
+
+/* need a clouwatch event to trigger the pipeline on s3 upload */
+
+data "aws_iam_policy_document" "cw_event_assume_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["events.amazonaws.com"]
+    }
+  }
+}
+
+data "aws_iam_policy_document" "cw_event_policy" {
+  statement {
+    effect    = "Allow"
+    actions   = [
+      "codepipeline:StartPipelineExecution",
+      "codepipeline:GetPipelineState",
+      "codepipeline:GetPipeline"
+    ]
+    resources = [
+      aws_codepipeline.buildpipeline.arn
+    ]
+  }
+}
+
+resource "aws_iam_role" "cw_event_role" {
+  assume_role_policy = data.aws_iam_policy_document.cw_event_assume_policy.json
+}
+
+resource "aws_iam_policy" "cw_event_policy" {
+  policy = data.aws_iam_policy_document.cw_event_policy.json
+}
+
+resource "aws_iam_policy_attachment" "cw_event_policy" {
+  name        = "basic-cicd-cloudwatch-${var.site_name}-${var.cf_distribution}-cp-attach"
+  roles       = [aws_iam_role.cw_event_role.name]
+  policy_arn  = aws_iam_policy.cw_event_policy.arn
+}
+
+resource "aws_cloudwatch_event_rule" "trigger" {
+  name_prefix   = "cicd-trigger"
+  event_pattern = <<PATTERN
+{
+  "source": ["aws.s3"],
+  "detail-type": ["AWS API Call via CloudTrail"],
+  "detail": {
+    "eventSource": ["s3.amazonaws.com"],
+    "eventName": [
+      "CopyObject",
+      "CompleteMultipartUpload",
+      "PutObject"
+    ],
+    "requestParameters": {
+      "bucketName": ["${var.source_s3_bucket}"],
+      "key": ["${var.source_s3_prefix}/latest.zip"]
+    }
+  }
+}
+PATTERN
+}
+
+resource "aws_cloudwatch_event_target" "trigger" {
+  arn       = aws_codepipeline.buildpipeline.arn
+  rule      = aws_cloudwatch_event_rule.trigger.name
+  role_arn  = aws_iam_role.cw_event_role.arn
 }
