@@ -37,7 +37,7 @@ lambda-schedule | Creates a schedule for triggering a lambda function. | [more d
 prom-grafana | Deploys an instance of prometheus and grafana running on ECS and connected to each other.  Uses EFS to store data.  Created to help monitor haproxy. | [more details](modules/prom-grafana/README.md)
 s3-redirect | Creates simple HTTP only domain redirects using S3. | [more details](modules/s3-redirect/README.md)
 static-site | Deploys a simple static site on CloudFront backed by an S3 origin.  Logs access request to S3. | [more details](modules/static-site/README.md)
-static-site-with-cicd | Deploys a simple static site on CloudFront backed by an S3 origin with CICD from github. | [more details](modules/static-site-azure-cicd/README.md)
+static-site-azure-cicd | Deploys a simple static site on CloudFront backed by an S3 origin with CICD from an azure devops repo.  Works with the azure-clone-to-s3 API. | [more details](modules/static-site-azure-cicd/README.md)
 static-site-cicd-oidc-auth | Deploys a simple static site on CloudFront backed by an S3 origin with CICD from github and protected by OIDC based login. | [more details](modules/static-site-cicd-oidc-auth/README.md)
 static-site-with-cicd | Deploys a simple static site on CloudFront backed by an S3 origin with CICD from github. | [more details](modules/static-site-with-cicd/README.md)
 web-jumpost | Deploys a browser based console protected behind OIDC login. | [more details](modules/web-jumphost/README.md)
