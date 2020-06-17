@@ -19,6 +19,10 @@ resource "aws_s3_bucket" "build_bucket" {
 
   bucket_prefix = "azure-cp-build"
 
+  versioning {
+    enabled = true
+  }
+
   dynamic "server_side_encryption_configuration" {
     for_each = var.encrypt_buckets == true ? [ "blah" ] : []
 
