@@ -1,8 +1,8 @@
 /*
-title: static-site-with-cicd
-desc: Deploys a simple static site on CloudFront backed by an S3 origin with CICD from github.
-partners: static-site-cicd-oidc-auth
-depends: static-site, basic-cicd-s3-pipeline
+title: static-site-azure-cicd
+desc: Deploys a simple static site on CloudFront backed by an S3 origin with CICD from an azure devops repo.  Works with the azure-clone-to-s3 API.
+partners: static-site-azure-cicd-oidc-auth, azure-clone-to-s3
+depends: static-site, basic-cicd-s3-to-s3-pipeline
 */
 
 provider "aws" {
