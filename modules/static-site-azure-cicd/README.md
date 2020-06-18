@@ -1,29 +1,31 @@
-static-site-with-cicd
+static-site-azure-cicd
 ======
 
 
-Deploys a simple static site on CloudFront backed by an S3 origin with CICD from github.
+Deploys a simple static site on CloudFront backed by an S3 origin with CICD from an azure devops repo.  Works with the azure-clone-to-s3 API.
 
 Depends on
 ------
 
 * [static-site](../static-site/README.md)
-* [basic-cicd-s3-pipeline](../basic-cicd-s3-pipeline/README.md)
+* [basic-cicd-s3-to-s3-pipeline](../basic-cicd-s3-to-s3-pipeline/README.md)
 
 
 
 Works with
 ------
 
-* [static-site-cicd-oidc-auth](../static-site-cicd-oidc-auth/README.md)
+* [static-site-azure-cicd-oidc-auth](../static-site-azure-cicd-oidc-auth/README.md)
+* [azure-clone-to-s3](../azure-clone-to-s3/README.md)
 
 
 
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v69 | static-site-azure-cicd: added first version | `50a0fb7`
 
 Variables
 ------

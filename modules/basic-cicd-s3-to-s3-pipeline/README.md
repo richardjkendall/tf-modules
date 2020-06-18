@@ -14,8 +14,9 @@ Works with
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v69 | static-site-azure-cicd: added first version | `50a0fb7`
 
 Variables
 ------
