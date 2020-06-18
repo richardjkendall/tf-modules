@@ -26,6 +26,8 @@ resource "aws_s3_bucket" "build_bucket" {
     Site = var.site_name
   }
 
+  force_destroy = true
+
   dynamic "server_side_encryption_configuration" {
     for_each = var.encrypt_buckets == true ? [ "blah" ] : []
 

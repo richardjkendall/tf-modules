@@ -40,6 +40,8 @@ resource "aws_s3_bucket" "cf_origin_s3_bucket" {
 
   acl = "private"
 
+  force_destroy = true
+
   cors_rule {
     allowed_methods = ["HEAD", "GET", "PUT", "POST"]
     allowed_origins = ["https*"]
