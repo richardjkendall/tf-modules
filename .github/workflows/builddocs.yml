@@ -17,7 +17,7 @@ jobs:
     - name: get all tags
       run: git fetch origin +refs/tags/*:refs/tags/*
     - name: build docs
-      uses: richardjkendall/tf-auto-document.action@v0.06
+      uses: richardjkendall/tf-auto-document.action@v0.07
       with:
         modulesFolder: 'modules'
     - name: commit doc changes
