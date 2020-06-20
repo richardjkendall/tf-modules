@@ -105,6 +105,8 @@ data "aws_iam_policy_document" "trail_bucket_policy" {
 }
 
 resource "aws_s3_bucket_policy" "trail_bucket_policy" {
+  depends_on = [aws_s3_bucket_public_access_block.block_trail_bucket_pub_access]
+
   bucket = aws_s3_bucket.trail_bucket.id
   policy = data.aws_iam_policy_document.trail_bucket_policy.json
 }
@@ -119,6 +121,11 @@ resource "aws_s3_bucket_public_access_block" "block_trail_bucket_pub_access" {
 }
 
 resource "aws_cloudtrail" "s3_events_trail" {
+  depends_on = [
+    aws_s3_bucket_public_access_block.block_trail_bucket_pub_access,
+    aws_s3_bucket_policy.trail_bucket_policy
+  ]
+
   name                          = "azure-cp-s3-trail"
   s3_bucket_name                = aws_s3_bucket.trail_bucket.id
   include_global_service_events = false
