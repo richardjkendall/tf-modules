@@ -17,7 +17,6 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v67 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `e522a91`
 v57 | ecs-service-with-cicd: adding support for notifications | `dea61cd`
 v18 | adding ECS pipeline and ECS service with pipeline | `53a5c33`
 

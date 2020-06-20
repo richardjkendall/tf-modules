@@ -16,7 +16,6 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v67 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `e522a91`
 v53 | atlantis-fargate: supports external alb | `f49337e`
 v33 | atlantis-fargate: adding support for custom deploy IAM policies | `e372ffa`
 v32 | atlantis-fargate: adding create instance profile permission | `08692b6`

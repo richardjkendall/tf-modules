@@ -17,7 +17,6 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v67 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `e522a91`
 v44 | lambda-function: undoing changes for lambda packaging | `6351d80`
 v43 | lambda-function: trying to fix windows packaging | `142ba28`
 v42 | lambda-function: trying to fix packager to work on cygwin | `7ed6658`

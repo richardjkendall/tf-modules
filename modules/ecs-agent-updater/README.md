@@ -17,7 +17,6 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v67 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `e522a91`
 v26 | added ecs-agent-updater module | `5d7d779`
 
 Variables

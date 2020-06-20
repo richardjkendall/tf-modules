@@ -18,8 +18,6 @@ Releases
 |Tag | Message | Commit|
 --- | --- | ---
 v69 | static-site-azure-cicd: added first version | `50a0fb7`
-v67 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `e522a91`
-v65 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `b58083a`
 v64 | static-site-cicd-oidc-auth: adding support to change build image | `51634e9`
 v55 | static-site-with-cicd: adding support for sending notifications | `67d8541`
 v46 | basic-cicd-s3-pipeline: added support for build job to become root | `001e53e`

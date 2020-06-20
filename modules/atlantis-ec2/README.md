@@ -17,7 +17,6 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v67 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `e522a91`
 v66 | atlantis-ec2: first version | `03f28de`
 
 Variables

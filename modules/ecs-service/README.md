@@ -16,7 +16,6 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v67 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `e522a91`
 v57 | ecs-service-with-cicd: adding support for notifications | `dea61cd`
 v36 | ecs-service: added support for task role | `95295cc`
 v27 | added prom-grafana module | `4662e19`

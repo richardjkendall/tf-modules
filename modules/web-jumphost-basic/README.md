@@ -23,7 +23,6 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v67 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `e522a91`
 v37 | web-jumphost-basic: added task role to access dynamodb table | `d06f262`
 v35 | web-jumphost-basic: adding jumphost with basic auth support | `3849551`
 

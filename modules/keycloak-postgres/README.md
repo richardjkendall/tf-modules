@@ -23,7 +23,6 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
-v67 | Merge branch 'master' of https://github.com/richardjkendall/tf-modules | `e522a91`
 v29 | keycloak-postgres: added module | `19c19c3`
 
 Variables
