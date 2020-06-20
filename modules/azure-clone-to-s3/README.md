@@ -16,6 +16,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v71 | azure-clone-to-s3: adding cloudtrail | `8cf3d54`
 v68 | azure-clone-to-s3: enabled versioning on bucket | `49146d5`
 
 Variables
