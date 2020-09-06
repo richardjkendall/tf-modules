@@ -129,3 +129,9 @@ variable "task_role_policies" {
   default = []
   type = list(string)
 }
+
+variable "repository_credentials_secret" {
+  description = "secret for credentials to access the docker repository, needed if using a private repository"
+  default = ""
+  type = string
+}

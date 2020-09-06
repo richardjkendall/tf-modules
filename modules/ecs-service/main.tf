@@ -13,6 +13,10 @@ terraform {
 }
 
 locals {
+  repository_credentials = var.repository_credentials_secret == "" ? null : {
+    credentialsParameter = var.repository_credentials_secret
+  }
+
   container_task_def = [{
     name          = var.task_name
     image         = var.image
@@ -33,6 +37,8 @@ locals {
     environment = var.environment
     healthCheck = var.healthcheck
     mountPoints = var.mount_points
+
+    repositoryCredentials = local.repository_credentials
   }]
 }
 
@@ -63,6 +69,8 @@ data "aws_iam_policy_document" "ecs_task_role_assume_policy" {
 resource "aws_iam_role" "task_role" {
   assume_role_policy = data.aws_iam_policy_document.ecs_task_role_assume_policy.json
 }
+
+
 
 resource "aws_iam_role_policy_attachment" "task_user_policies" {
   count       = length(var.task_role_policies)
@@ -96,8 +104,28 @@ data "aws_iam_policy_document" "service_role_policy" {
   }
 }
 
+data "aws_iam_policy_document" "get_secret_policy" {
+  count = var.repository_credentials_secret == "" ? 0 : 1
+
+  statement {
+    sid = "1"
+    effect = "Allow"
+
+    actions = ["secretsmanager:GetSecretValue"]
+
+    resources = [var.repository_credentials_secret]
+  }
+
+}
+
 resource "aws_iam_policy" "service_role_policy" {
   policy = data.aws_iam_policy_document.service_role_policy.json
+}
+
+resource "aws_iam_policy" "get_secret_policy" {
+  count = var.repository_credentials_secret == "" ? 0 : 1
+
+  policy = data.aws_iam_policy_document.get_secret_policy[0].json
 }
 
 resource "aws_iam_role" "service_role" {
@@ -112,6 +140,13 @@ resource "aws_iam_role_policy_attachment" "service_managed_ecs_policy_attach" {
 resource "aws_iam_role_policy_attachment" "service_role_policy_attach" {
   role       = aws_iam_role.service_role.name
   policy_arn = aws_iam_policy.service_role_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "secret_role_policy_attach" {
+  count = var.repository_credentials_secret == "" ? 0 : 1
+
+  role       = aws_iam_role.service_role.name
+  policy_arn = aws_iam_policy.get_secret_policy[0].arn
 }
 
 resource "aws_ecs_task_definition" "task" {
