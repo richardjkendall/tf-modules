@@ -51,4 +51,5 @@ Variables
 `number_of_tasks` | `number` | number of tasks to spawn for service | `2`
 `load_balancer` | `object({container_name=string,container_port=number,target_group_arn=string})` | application load balancer associated with the service | `ERROR: cannot convert!`
 `task_role_policies` | `list(string)` | list of ARNs of policies to attach to the task role | `[]`
+`repository_credentials_secret` | `string` | secret for credentials to access the docker repository, needed if using a private repository | ``
 
