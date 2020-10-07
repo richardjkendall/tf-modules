@@ -52,7 +52,7 @@
   },
   {
     "name": "postgres",
-    "image": "postgres",
+    "image": "postgres:12",
     "cpu": 512,
     "memory": 512,
     "essential": true,
