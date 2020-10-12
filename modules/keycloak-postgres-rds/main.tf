@@ -1,6 +1,6 @@
 /*
-title: keycloak-postgres
-desc: Deploys an instance of JBoss Keycloak backed by a postgres database on an ECS cluster
+title: keycloak-postgres-rds
+desc: Deploys an instance of JBoss Keycloak backed by a postgres database running on RDS
 partners: ecs-haproxy
 depends: ecs-service, postgres-rds
 */
