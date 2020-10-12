@@ -17,6 +17,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v75 | static-site: updating to match latest aws provider for acm validation | `553a12c`
 v69 | static-site-azure-cicd: added first version | `50a0fb7`
 v64 | static-site-cicd-oidc-auth: adding support to change build image | `51634e9`
 v55 | static-site-with-cicd: adding support for sending notifications | `67d8541`
