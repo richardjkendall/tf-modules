@@ -16,6 +16,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v77 | keycloak-postgres-rds: new module and supporting modules added | `b0c0643`
 v74 | ecs-service: adding support for private image registry | `c87d46c`
 v57 | ecs-service-with-cicd: adding support for notifications | `dea61cd`
 v36 | ecs-service: added support for task role | `95295cc`

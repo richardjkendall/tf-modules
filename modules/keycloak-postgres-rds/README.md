@@ -1,8 +1,8 @@
-keycloak-postgres
+keycloak-postgres-rds
 ======
 
 
-Deploys an instance of JBoss Keycloak backed by a postgres database on an ECS cluster
+Deploys an instance of JBoss Keycloak backed by a postgres database running on RDS
 
 Depends on
 ------
@@ -22,8 +22,9 @@ Works with
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v77 | keycloak-postgres-rds: new module and supporting modules added | `b0c0643`
 
 Variables
 ------

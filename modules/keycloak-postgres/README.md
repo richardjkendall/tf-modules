@@ -23,6 +23,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v77 | keycloak-postgres-rds: new module and supporting modules added | `b0c0643`
 v29 | keycloak-postgres: added module | `19c19c3`
 
 Variables

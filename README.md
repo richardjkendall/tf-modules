@@ -31,7 +31,7 @@ ecs-service-with-cicd | Builds an ECS service connected to a github reposistory 
 ecs-with-spot-fleet | Builds an EC2 based ECS clusyer backed by an EC2 instance fleet using spot instances. | [more details](modules/ecs-with-spot-fleet/README.md)
 github-status-updater | Creates an SNS topic which you can attach to codepipeline instances to send notifications.  Notifications are converted to github status labels and posted to github. | [more details](modules/github-status-updater/README.md)
 keycloak-postgres | Deploys an instance of JBoss Keycloak backed by a postgres database on an ECS cluster | [more details](modules/keycloak-postgres/README.md)
-keycloak-postgres | Deploys an instance of JBoss Keycloak backed by a postgres database on an ECS cluster | [more details](modules/keycloak-postgres-rds/README.md)
+keycloak-postgres-rds | Deploys an instance of JBoss Keycloak backed by a postgres database running on RDS | [more details](modules/keycloak-postgres-rds/README.md)
 lambda-builder | This module is unfinished.  Builds lambda function artifacts and uploads to a S3 bucket.  See https://github.com/richardjkendall/lambda-builder for details of how the function is built. | [more details](modules/lambda-builder/README.md)
 lambda-function | Creates a python lambda function using code in a public github repository.  Uses docker to build the deployment package.  Also depends on jq and cut to determine if code has changed in git and a function rebuild is needed.  See https://github.com/richardjkendall/lambda-builder for details of how the function is built. | [more details](modules/lambda-function/README.md)
 lambda-schedule | Creates a schedule for triggering a lambda function. | [more details](modules/lambda-schedule/README.md)
