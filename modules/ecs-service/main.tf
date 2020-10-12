@@ -4,10 +4,6 @@ desc: Deploys a simple ECS service backed by a simple task.  You can pass in you
 partners: ecs-with-spot-fleet
 */
 
-provider "aws" {
-  region = var.aws_region
-}
-
 terraform {
   backend "s3" {}
 }
