@@ -1,7 +1,7 @@
 [
   {
     "name": "keycloak",
-    "image": "jboss/keycloak",
+    "image": "${image}",
     "cpu": 512,
     "memory": 512,
     "essential": true,

@@ -43,6 +43,7 @@ module "service" {
     service       = var.service_name
     admin_passwd  = var.keycloak_admin_user_password_secret
     db_passwd     = var.postgres_password_secret
+    image         = var.keycloak_image
   })
 
   efs_volumes = [

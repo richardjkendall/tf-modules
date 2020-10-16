@@ -37,3 +37,9 @@ variable "postgres_password_secret" {
   description = "name of secret containing password for postgres"
   type = string
 }
+
+variable "keycloak_image" {
+    type = string
+    description = "should we use a different image for keycloak"
+    default = "jboss/keycloak"
+}
