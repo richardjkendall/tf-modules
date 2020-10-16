@@ -2,8 +2,8 @@
   {
     "name": "keycloak",
     "image": "${image}",
-    "cpu": 512,
-    "memory": 512,
+    "cpu": ${cpu},
+    "memory": ${memory},
     "essential": true,
     "portMappings": [
       {

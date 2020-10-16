@@ -27,6 +27,10 @@ module "rds" {
   database_user         = "keycloak"
   database_password     = data.aws_ssm_parameter.db_password.value
   allowed_ingress_group = var.client_sec_group
+  storage_size          = var.db_storage_size
+  storage_type          = var.db_storage_type
+  instance_class        = var.db_instance_class
+  multi_az              = var.db_multi_az
 }
 
 data "aws_iam_policy_document" "ses_send_policy_document" {
@@ -61,8 +65,8 @@ module "service" {
 
   task_name          = "keycloak"
   image              = "not used"
-  cpu                = 512
-  memory             = 512
+  cpu                = var.cpu
+  memory             = var.memory
   network_mode       = "bridge"
   number_of_tasks    = 1
 
@@ -78,6 +82,8 @@ module "service" {
     region        = var.aws_region
     cluster       = var.cluster_name
     service       = var.service_name
+    cpu           = var.cpu
+    memory        = var.memory
     admin_passwd  = var.keycloak_admin_user_password_secret
     db_passwd     = var.postgres_password_secret
     db_host       = module.rds.db_host
