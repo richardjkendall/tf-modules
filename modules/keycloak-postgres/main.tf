@@ -13,6 +13,25 @@ terraform {
   backend "s3" {}
 }
 
+data "aws_iam_policy_document" "ses_send_policy_document" {
+  statement {
+    sid     = ""
+    effect  = "Allow"
+    actions = [
+      "ses:SendEmail",
+      "ses:SendRawEmail",
+      "ses:SendTemplatedEmail"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "ses_send_policy" {
+  policy = data.aws_iam_policy_document.ses_send_policy_document.json
+}
+
 module "service" {
   source = "../ecs-service"
 
@@ -53,4 +72,9 @@ module "service" {
       rootDirectory = var.postgres_data_directory 
     }
   ]
+
+  task_role_policies = [
+    aws_iam_policy.ses_send_policy.id
+  ]
+  
 }
