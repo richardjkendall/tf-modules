@@ -23,6 +23,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v79 | keycloak-postgres: enabling custom keycloak images to be used | `5311cbe`
 v77 | keycloak-postgres-rds: new module and supporting modules added | `b0c0643`
 v29 | keycloak-postgres: added module | `19c19c3`
 
@@ -40,4 +41,5 @@ Variables
 `postgres_data_directory` | `string` | directory on the filesystem which contains the postgres database | ``
 `keycloak_admin_user_password_secret` | `string` | name of secret containing keycloak admin user password | ``
 `postgres_password_secret` | `string` | name of secret containing password for postgres | ``
+`keycloak_image` | `string` | should we use a different image for keycloak | `jboss/keycloak`
 
