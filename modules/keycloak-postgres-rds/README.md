@@ -37,8 +37,14 @@ Variables
 `service_name` | `not specified` | name of ECS service | ``
 `service_registry_id` | `not specified` | ID for the AWS service discovery namespace we will use | ``
 `service_registry_service_name` | `not specified` | name for service we will use in the service registry | ``
+`cpu` | `number` | cpu allocation to the keycloak task | `512`
+`memory` | `number` | memory allocation to the keycloak task | `512`
 `keycloak_admin_user_password_secret` | `string` | name of secret containing keycloak admin user password | ``
 `postgres_password_secret` | `string` | name of secret containing password for postgres | ``
 `client_sec_group` | `string` | security group for the instances which should have access to the database | ``
 `keycloak_image` | `string` | should we use a different image for keycloak | `jboss/keycloak`
+`db_storage_size` | `number` | number of GB of storage which is allocated | `10`
+`db_storage_type` | `string` | type of storage used for database | `gp2`
+`db_instance_class` | `string` | what class of underlying instances should be used | `db.t3.small`
+`db_multi_az` | `bool` | should the database be deployed across multiple AZs | `false`
 
