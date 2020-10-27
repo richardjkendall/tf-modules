@@ -34,6 +34,7 @@ keycloak-postgres | Deploys an instance of JBoss Keycloak backed by a postgres d
 keycloak-postgres-rds | Deploys an instance of JBoss Keycloak backed by a postgres database running on RDS | [more details](modules/keycloak-postgres-rds/README.md)
 lambda-builder | This module is unfinished.  Builds lambda function artifacts and uploads to a S3 bucket.  See https://github.com/richardjkendall/lambda-builder for details of how the function is built. | [more details](modules/lambda-builder/README.md)
 lambda-function | Creates a python lambda function using code in a public github repository.  Uses docker to build the deployment package.  Also depends on jq and cut to determine if code has changed in git and a function rebuild is needed.  See https://github.com/richardjkendall/lambda-builder for details of how the function is built. | [more details](modules/lambda-function/README.md)
+lambda-function-node | Creates a nodejs lambda function using code in a public github repository.  Uses docker to build the deployment package. | [more details](modules/lambda-function-node/README.md)
 lambda-schedule | Creates a schedule for triggering a lambda function. | [more details](modules/lambda-schedule/README.md)
 postgres-rds | Sets up a basic RDS using postgres | [more details](modules/postgres-rds/README.md)
 prom-grafana | Deploys an instance of prometheus and grafana running on ECS and connected to each other.  Uses EFS to store data.  Created to help monitor haproxy. | [more details](modules/prom-grafana/README.md)
