@@ -15,8 +15,9 @@ Works with
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v81 | lambda-function-node & static-site: small tweaks to get fix-cf-roots working | `da61f22`
 
 Variables
 ------

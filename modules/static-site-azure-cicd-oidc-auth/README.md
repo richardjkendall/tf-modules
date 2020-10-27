@@ -47,4 +47,5 @@ Variables
 `auth_cookie_name` | `string` | name of cookie used to hold auth token | `auth`
 `refresh_cookie_name` | `string` | name of cookie used to hold refresh token | `rt`
 `val_api_url` | `string` | URL for JWT validation API | ``
+`fix_non_specific_paths` | `bool` | should we apply a lambda@edge function on origin requests to fix paths which are missing the expected root object? | `false`
 
