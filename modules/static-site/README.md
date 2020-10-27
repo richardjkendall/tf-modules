@@ -53,6 +53,7 @@ Variables
 `max_ttl` | `not specified` | Maximum amount of time (in seconds) that an object is in a CloudFront cache | `3600`
 `viewer_req_edge_lambda_arns` | `list(string)` | list of qualified arns or viewer request edge lambdas which should be placed on the distribution, should all be in us-east-1 | `[]`
 `encrypt_buckets` | `bool` | encrypt buckets with default AWS keys | `false`
+`fix_non_specific_paths` | `bool` | should we apply a lambda@edge function on origin requests to fix paths which are missing the expected root object? | `false`
 
 Outputs
 ------
