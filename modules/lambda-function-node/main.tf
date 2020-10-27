@@ -4,12 +4,6 @@ desc: Creates a nodejs lambda function using code in a public github repository.
 partners: api-lambda, github-status-updater
 */
 
-/*provider "aws" {
-  region = var.aws_region
-}*/
-
-//provider "archive" {}
-
 terraform {
   backend "s3" {}
 }
@@ -33,7 +27,7 @@ resource "null_resource" "packager" {
     command = "find ${path.module}/${var.function_name}/output -mindepth 1 -delete "
   }
   provisioner "local-exec" {
-    command = "env -u HOME > env-${var.function_name}.txt; docker run --rm --env-file env-${var.function_name}.txt -v ${abspath(path.module)}/${var.function_name}/output:/output richardjkendall/lambda-builder-node"
+    command = "env -u HOME -u PATH -u PWD > env-${var.function_name}.txt; docker run --rm --env-file env-${var.function_name}.txt -v ${abspath(path.module)}/${var.function_name}/output:/output richardjkendall/lambda-builder-node"
     environment = local.build_vars
   }
 }

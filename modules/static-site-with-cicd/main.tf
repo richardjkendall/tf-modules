@@ -23,6 +23,8 @@ module "static_site" {
   encrypt_buckets     = var.encrypt_buckets
 
   viewer_req_edge_lambda_arns = var.viewer_req_edge_lambda_arns
+
+  fix_non_specific_paths = var.fix_non_specific_paths
 }
 
 module "cicd" {

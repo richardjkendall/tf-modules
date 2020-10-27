@@ -127,3 +127,9 @@ variable "build_image" {
   default = "aws/codebuild/standard:2.0"
   description = "what build image should be used to run the build job"
 }
+
+variable "fix_non_specific_paths" {
+  type = bool
+  default = false
+  description = "should we apply a lambda@edge function on origin requests to fix paths which are missing the expected root object?"
+}

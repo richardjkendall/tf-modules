@@ -56,3 +56,9 @@ variable "source_s3_prefix" {
   description = "S3 bucket prefix used for the source build zip file"
   type = string
 }
+
+variable "fix_non_specific_paths" {
+  type = bool
+  default = false
+  description = "should we apply a lambda@edge function on origin requests to fix paths which are missing the expected root object?"
+}

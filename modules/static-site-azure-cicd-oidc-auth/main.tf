@@ -22,12 +22,13 @@ module "static_site" {
   source              = "../static-site-azure-cicd/"
 
   /* static site */
-  sitename_prefix     = var.sitename_prefix
-  domain_root         = var.domain_root
-  aws_region          = var.aws_region
-  access_log_bucket   = var.access_log_bucket
-  access_log_prefix   = var.access_log_prefix
-  encrypt_buckets     = var.encrypt_buckets
+  sitename_prefix        = var.sitename_prefix
+  domain_root            = var.domain_root
+  aws_region             = var.aws_region
+  access_log_bucket      = var.access_log_bucket
+  access_log_prefix      = var.access_log_prefix
+  encrypt_buckets        = var.encrypt_buckets
+  fix_non_specific_paths = var.fix_non_specific_paths
 
   /* cicd */
   allow_root          = var.allow_root

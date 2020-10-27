@@ -21,11 +21,12 @@ module "static_site" {
   source = "../static-site-with-cicd/"
 
   /* static site */
-  sitename_prefix     = var.sitename_prefix
-  domain_root         = var.domain_root
-  aws_region          = var.aws_region
-  access_log_bucket   = var.access_log_bucket
-  access_log_prefix   = var.access_log_prefix
+  sitename_prefix        = var.sitename_prefix
+  domain_root            = var.domain_root
+  aws_region             = var.aws_region
+  access_log_bucket      = var.access_log_bucket
+  access_log_prefix      = var.access_log_prefix
+  fix_non_specific_paths = var.fix_non_specific_paths
 
   /* cicd */
   gh_username               = var.gh_username
