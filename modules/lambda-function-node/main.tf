@@ -4,11 +4,11 @@ desc: Creates a nodejs lambda function using code in a public github repository.
 partners: api-lambda, github-status-updater
 */
 
-provider "aws" {
+/*provider "aws" {
   region = var.aws_region
-}
+}*/
 
-provider "archive" {}
+//provider "archive" {}
 
 terraform {
   backend "s3" {}

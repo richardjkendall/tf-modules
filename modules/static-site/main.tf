@@ -20,6 +20,8 @@ terraform {
 locals {
   aliases   = [join(".", [var.sitename_prefix, var.domain_root])]
   origin_id = join("-", ["access-identity", var.sitename_prefix, var.domain_root])
+  domain_root_wo_dots = replace(var.domain_root, ".", "-")
+  sitename_prefix_wo_dots = replace(var.sitename_prefix, ".", "-")
 }
 
 resource "aws_cloudfront_origin_access_identity" "static_website_origin_access_identity" {
@@ -101,12 +103,16 @@ resource "aws_s3_bucket_policy" "cf_origin_bucket_policy" {
 module "lambda" {
   count = var.fix_non_specific_paths ? 1 : 0
 
-  source = "../lambda-function"
+  source = "../lambda-function-node"
+
+  providers = {
+    aws = aws.us-east-1
+  }
 
   /* need to provision in us-east-1 for lambda@edge to work */
   aws_region        = "us-east-1"
 
-  function_name     = "fix-roots-${local.sitename_prefix_wo_dots}-${local.domain_root_wo_dots}-${var.gh_branch}"
+  function_name     = "fix-roots-${local.sitename_prefix_wo_dots}-${local.domain_root_wo_dots}"
   function_handler  = "index.handler"
   memory            = 128
   timeout           = 5
@@ -148,12 +154,11 @@ resource "aws_cloudfront_distribution" "cdn" {
     }
 
     dynamic "lambda_function_association" {
-      count = var.fix_non_specific_paths ? 1 : 0
+      for_each = var.fix_non_specific_paths ? [1] : []
 
       content {
-        content {
         event_type   = "origin-request"
-        lambda_arn   = module.lambda.qualified_arn
+        lambda_arn   = module.lambda.0.qualified_arn
         include_body = false
       }
     }
