@@ -17,6 +17,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v81 | lambda-function-node & static-site: small tweaks to get fix-cf-roots working | `da61f22`
 v44 | lambda-function: undoing changes for lambda packaging | `6351d80`
 v43 | lambda-function: trying to fix windows packaging | `142ba28`
 v42 | lambda-function: trying to fix packager to work on cygwin | `7ed6658`

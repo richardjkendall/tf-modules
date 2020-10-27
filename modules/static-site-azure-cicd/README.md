@@ -43,4 +43,5 @@ Variables
 `build_image` | `string` | what build image should be used to run the build job | `aws/codebuild/standard:2.0`
 `source_s3_bucket` | `string` | S3 bucket which is the source for the build process | ``
 `source_s3_prefix` | `string` | S3 bucket prefix used for the source build zip file | ``
+`fix_non_specific_paths` | `bool` | should we apply a lambda@edge function on origin requests to fix paths which are missing the expected root object? | `false`
 
