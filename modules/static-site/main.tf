@@ -18,10 +18,18 @@ terraform {
 }
 
 locals {
-  aliases   = [join(".", [var.sitename_prefix, var.domain_root])]
-  origin_id = join("-", ["access-identity", var.sitename_prefix, var.domain_root])
-  domain_root_wo_dots = replace(var.domain_root, ".", "-")
+  aliases                 = [join(".", [var.sitename_prefix, var.domain_root])]
+  origin_id               = join("-", ["access-identity", var.sitename_prefix, var.domain_root])
+  domain_root_wo_dots     = replace(var.domain_root, ".", "-")
   sitename_prefix_wo_dots = replace(var.sitename_prefix, ".", "-")
+
+  custom_error_response = var.custom_404_path == "none" ? [] : [
+    {
+      error_code         = 404
+      response_code      = 404
+      response_page_path = var.custom_404_path
+    }
+  ]
 }
 
 resource "aws_cloudfront_origin_access_identity" "static_website_origin_access_identity" {
@@ -195,6 +203,18 @@ resource "aws_cloudfront_distribution" "cdn" {
     minimum_protocol_version = "TLSv1.2_2018"
     acm_certificate_arn      = aws_acm_certificate.endpoint_cert.arn
     ssl_support_method       = "sni-only"
+  }
+
+  //custom_error_response = local.custom_error_response
+
+  dynamic "custom_error_response" {
+    for_each = var.custom_404_path == "none" ? [] : [ "blah" ]
+
+    content {
+      error_code         = 404
+      response_code      = 404
+      response_page_path = var.custom_404_path
+    }
   }
 
   depends_on = [aws_acm_certificate_validation.cert_validation]
