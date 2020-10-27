@@ -98,6 +98,26 @@ resource "aws_s3_bucket_policy" "cf_origin_bucket_policy" {
   policy = data.aws_iam_policy_document.bucket_policy.json
 }
 
+module "lambda" {
+  count = var.fix_non_specific_paths ? 1 : 0
+
+  source = "../lambda-function"
+
+  /* need to provision in us-east-1 for lambda@edge to work */
+  aws_region        = "us-east-1"
+
+  function_name     = "fix-roots-${local.sitename_prefix_wo_dots}-${local.domain_root_wo_dots}-${var.gh_branch}"
+  function_handler  = "index.handler"
+  memory            = 128
+  timeout           = 5
+
+  environment_variables = {}
+
+  code_repository         = "https://github.com/richardjkendall/fix-cf-root.git"
+  execution_role_policies = []
+  publish                 = true
+}
+
 resource "aws_cloudfront_distribution" "cdn" {
   aliases             = local.aliases
   is_ipv6_enabled     = true
@@ -123,6 +143,17 @@ resource "aws_cloudfront_distribution" "cdn" {
       content {
         event_type   = "viewer-request"
         lambda_arn   = lambda_function_association.value
+        include_body = false
+      }
+    }
+
+    dynamic "lambda_function_association" {
+      count = var.fix_non_specific_paths ? 1 : 0
+
+      content {
+        content {
+        event_type   = "origin-request"
+        lambda_arn   = module.lambda.qualified_arn
         include_body = false
       }
     }
