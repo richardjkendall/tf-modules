@@ -27,6 +27,7 @@ module "static_site" {
   access_log_bucket      = var.access_log_bucket
   access_log_prefix      = var.access_log_prefix
   fix_non_specific_paths = var.fix_non_specific_paths
+  custom_404_path        = var.custom_404_path
 
   /* cicd */
   gh_username               = var.gh_username

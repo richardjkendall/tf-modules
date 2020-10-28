@@ -92,3 +92,9 @@ variable "fix_non_specific_paths" {
   default = false
   description = "should we apply a lambda@edge function on origin requests to fix paths which are missing the expected root object?"
 }
+
+variable "custom_404_path" {
+  type = string
+  default = "none"
+  description = "what path should we use for a custom 404 (not found) error page"
+}

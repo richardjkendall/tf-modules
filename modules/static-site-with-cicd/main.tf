@@ -25,6 +25,7 @@ module "static_site" {
   viewer_req_edge_lambda_arns = var.viewer_req_edge_lambda_arns
 
   fix_non_specific_paths = var.fix_non_specific_paths
+  custom_404_path        = var.custom_404_path
 }
 
 module "cicd" {

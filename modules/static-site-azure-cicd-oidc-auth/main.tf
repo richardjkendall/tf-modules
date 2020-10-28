@@ -29,6 +29,7 @@ module "static_site" {
   access_log_prefix      = var.access_log_prefix
   encrypt_buckets        = var.encrypt_buckets
   fix_non_specific_paths = var.fix_non_specific_paths
+  custom_404_path        = var.custom_404_path
 
   /* cicd */
   allow_root          = var.allow_root
