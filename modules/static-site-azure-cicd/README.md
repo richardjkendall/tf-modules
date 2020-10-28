@@ -44,4 +44,5 @@ Variables
 `source_s3_bucket` | `string` | S3 bucket which is the source for the build process | ``
 `source_s3_prefix` | `string` | S3 bucket prefix used for the source build zip file | ``
 `fix_non_specific_paths` | `bool` | should we apply a lambda@edge function on origin requests to fix paths which are missing the expected root object? | `false`
+`custom_404_path` | `string` | what path should we use for a custom 404 (not found) error page | `none`
 

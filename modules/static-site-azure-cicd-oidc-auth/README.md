@@ -48,4 +48,5 @@ Variables
 `refresh_cookie_name` | `string` | name of cookie used to hold refresh token | `rt`
 `val_api_url` | `string` | URL for JWT validation API | ``
 `fix_non_specific_paths` | `bool` | should we apply a lambda@edge function on origin requests to fix paths which are missing the expected root object? | `false`
+`custom_404_path` | `string` | what path should we use for a custom 404 (not found) error page | `none`
 
