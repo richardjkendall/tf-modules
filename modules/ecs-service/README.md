@@ -33,14 +33,14 @@ Variables
 
 |Name | Type | Description | Default Value|
 --- | --- | --- | ---
-`aws_region` | `not specified` | region where provisioning should happen | ``
-`cluster_name` | `not specified` | name of cluster where service will run | ``
-`service_name` | `not specified` | name of ECS service | ``
+`aws_region` | `string` | region where provisioning should happen | ``
+`cluster_name` | `string` | name of cluster where service will run | ``
+`service_name` | `string` | name of ECS service | ``
 `task_def_override` | `any` | used to override the task definition with an external task def | `ERROR: cannot convert!`
-`task_name` | `not specified` | name of ECS container | ``
-`service_registry_id` | `not specified` | ID for the AWS service discovery namespace we will use | ``
-`service_registry_service_name` | `not specified` | name for service we will use in the service registry | ``
-`image` | `not specified` | image task will use | ``
+`task_name` | `string` | name of ECS container | ``
+`service_registry_id` | `string` | ID for the AWS service discovery namespace we will use | ``
+`service_registry_service_name` | `string` | name for service we will use in the service registry | ``
+`image` | `string` | image task will use | ``
 `cpu` | `number` | CPU units for the task | `128`
 `memory` | `number` | memory for the task | `256`
 `port_mappings` | `list(object({containerPort=number,hostPort=number,protocol=string}))` | list of port mappings for the task | ``
@@ -54,4 +54,8 @@ Variables
 `load_balancer` | `object({container_name=string,container_port=number,target_group_arn=string})` | application load balancer associated with the service | `ERROR: cannot convert!`
 `task_role_policies` | `list(string)` | list of ARNs of policies to attach to the task role | `[]`
 `repository_credentials_secret` | `string` | secret for credentials to access the docker repository, needed if using a private repository | ``
+`launch_type` | `string` | should we use EC2 or fargate | `EC2`
+`use_spot` | `bool` | use spot capacity?  only takes effect for a the fargate launch type | `false`
+`fargate_task_subnets` | `list(string)` | list of subnets to use for tasks launched on fargate | `[]`
+`fargate_task_sec_groups` | `list(string)` | list of security groups to use for tasks launched on fargate | `[]`
 
