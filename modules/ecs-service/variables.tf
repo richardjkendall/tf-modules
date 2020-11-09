@@ -1,13 +1,16 @@
 variable "aws_region" {
   description = "region where provisioning should happen"
+  type = string
 }
 
 variable "cluster_name" {
   description = "name of cluster where service will run"
+  type = string
 }
 
 variable "service_name" {
   description = "name of ECS service"
+  type = string
 }
 
 variable "task_def_override" {
@@ -18,18 +21,24 @@ variable "task_def_override" {
 
 variable "task_name" {
   description = "name of ECS container"
+  type = string
 }
 
 variable "service_registry_id" {
   description = "ID for the AWS service discovery namespace we will use"
+  type = string
+  default = ""
 }
 
 variable "service_registry_service_name" {
   description = "name for service we will use in the service registry"
+  type = string
+  default = ""
 }
 
 variable "image" {
   description = "image task will use"
+  type = string
 }
 
 variable "cpu" {
@@ -134,4 +143,28 @@ variable "repository_credentials_secret" {
   description = "secret for credentials to access the docker repository, needed if using a private repository"
   default = ""
   type = string
+}
+
+variable "launch_type" {
+  description = "should we use EC2 or fargate"
+  default = "EC2"
+  type = string
+}
+
+variable "use_spot" {
+  description = "use spot capacity?  only takes effect for a the fargate launch type"
+  default = false
+  type = bool
+}
+
+variable "fargate_task_subnets" {
+  default = []
+  type = list(string)
+  description = "list of subnets to use for tasks launched on fargate"
+}
+
+variable "fargate_task_sec_groups" {
+  default = []
+  type = list(string)
+  description = "list of security groups to use for tasks launched on fargate"
 }

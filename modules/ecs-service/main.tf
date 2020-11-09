@@ -150,7 +150,7 @@ resource "aws_ecs_task_definition" "task" {
 
   family                    = "${var.service_name}-${var.task_name}"
   network_mode              = var.network_mode
-  requires_compatibilities  = ["EC2"]
+  requires_compatibilities  = [ var.launch_type ]
   cpu                       = var.cpu
   memory                    = var.memory
   container_definitions     = coalesce(var.task_def_override, jsonencode(local.container_task_def))
@@ -173,6 +173,8 @@ resource "aws_ecs_task_definition" "task" {
 }
 
 resource "aws_service_discovery_service" "discovery" {
+  count = var.service_registry_id == "" ? 0 : 1
+
   name = var.service_registry_service_name
   
   dns_config {
@@ -196,17 +198,25 @@ resource "aws_ecs_service" "service" {
   cluster           = data.aws_ecs_cluster.cluster.id
   task_definition   = aws_ecs_task_definition.task.arn
   desired_count     = var.number_of_tasks
-  launch_type       = "EC2"
+  launch_type       = var.launch_type == "FARGATE" ? null : var.launch_type
 
-  ordered_placement_strategy {
-    field = "attribute:ecs.availability-zone"
-    type = "spread"
+  dynamic "ordered_placement_strategy" {
+    for_each = var.launch_type == "FARGATE" ? [] : [ "b" ]
+
+    content {
+      field = "attribute:ecs.availability-zone"
+      type = "spread"
+    }
   }
 
-  service_registries {
-    registry_arn    = aws_service_discovery_service.discovery.arn
-    container_name  = var.task_name
-    container_port  = var.port_mappings[0].containerPort
+  dynamic "service_registries" {
+    for_each = var.service_registry_id == "" ? [] : [ "blah" ]
+    
+    content {
+      registry_arn    = aws_service_discovery_service.discovery.arn
+      container_name  = var.task_name
+      container_port  = var.port_mappings[0].containerPort
+    }
   }
 
   dynamic "load_balancer" {
@@ -216,6 +226,33 @@ resource "aws_ecs_service" "service" {
       target_group_arn  = var.load_balancer.target_group_arn
       container_name    = var.load_balancer.container_name
       container_port    = var.load_balancer.container_port
+    }
+  }
+
+  dynamic "network_configuration" {
+    for_each = var.launch_type == "FARGATE" ? [ "b" ] : []
+
+    content {
+      subnets         = var.fargate_task_subnets
+      security_groups = var.fargate_task_sec_groups
+    }
+  }
+
+  dynamic "capacity_provider_strategy" {
+    for_each = var.launch_type == "FARGATE" && var.use_spot ? [ "b" ] : []
+
+    content {
+      capacity_provider = "FARGATE_SPOT"
+      weight            = 100
+    }
+  }
+
+  dynamic "capacity_provider_strategy" {
+    for_each = var.launch_type == "EC2" ? [] : var.launch_type == "FARGATE" && var.use_spot == false ? [ "b" ] : []
+
+    content {
+      capacity_provider = "FARGATE"
+      weight            = 100
     }
   }
 }
