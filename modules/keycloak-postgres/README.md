@@ -23,6 +23,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v87 | keycloak-postgres-*: changes to support setting increased memory for keycloak | `c9af916`
 v79 | keycloak-postgres: enabling custom keycloak images to be used | `5311cbe`
 v77 | keycloak-postgres-rds: new module and supporting modules added | `b0c0643`
 v29 | keycloak-postgres: added module | `19c19c3`
@@ -42,4 +43,9 @@ Variables
 `keycloak_admin_user_password_secret` | `string` | name of secret containing keycloak admin user password | ``
 `postgres_password_secret` | `string` | name of secret containing password for postgres | ``
 `keycloak_image` | `string` | should we use a different image for keycloak | `jboss/keycloak`
+`java_opts` | `string` | options to pass to the JVM | ``
+`keycloak_cpu` | `number` | cpu units to allocated for keycloak | `512`
+`keycloak_memory` | `number` | memory units to allocated for keycloak | `512`
+`postgres_cpu` | `number` | cpu units to allocated for postgres | `512`
+`postgres_memory` | `number` | memory units to allocated for postgres | `512`
 
