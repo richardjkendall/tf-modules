@@ -39,7 +39,37 @@ variable "postgres_password_secret" {
 }
 
 variable "keycloak_image" {
-    type = string
-    description = "should we use a different image for keycloak"
-    default = "jboss/keycloak"
+  type = string
+  description = "should we use a different image for keycloak"
+  default = "jboss/keycloak"
+}
+
+variable "java_opts" {
+  type = string
+  description = "options to pass to the JVM"
+  default = ""
+}
+
+variable "keycloak_cpu" {
+  type = number
+  description = "cpu units to allocated for keycloak"
+  default = 512
+}
+
+variable "keycloak_memory" {
+  type = number
+  description = "memory units to allocated for keycloak"
+  default = 512
+}
+
+variable "postgres_cpu" {
+  type = number
+  description = "cpu units to allocated for postgres"
+  default = 512
+}
+
+variable "postgres_memory" {
+  type = number
+  description = "memory units to allocated for postgres"
+  default = 512
 }

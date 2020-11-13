@@ -88,6 +88,7 @@ module "service" {
     db_passwd     = var.postgres_password_secret
     db_host       = module.rds.db_host
     image         = var.keycloak_image
+    java_opts     = var.java_opts
   })
 
   task_role_policies = [

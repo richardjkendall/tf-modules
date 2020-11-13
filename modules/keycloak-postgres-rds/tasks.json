@@ -50,6 +50,10 @@
       {
         "name": "DB_VENDOR",
         "value": "postgres"
+      },
+      {
+        "name": "JAVA_OPTS",
+        "value": "${java_opts}"
       }
     ]
   }

@@ -51,31 +51,37 @@ variable "client_sec_group" {
 }
 
 variable "keycloak_image" {
-    type = string
-    description = "should we use a different image for keycloak"
-    default = "jboss/keycloak"
+  type = string
+  description = "should we use a different image for keycloak"
+  default = "jboss/keycloak"
 }
 
 variable "db_storage_size" {
-    type = number
-    description = "number of GB of storage which is allocated"
-    default = 10
+  type = number
+  description = "number of GB of storage which is allocated"
+  default = 10
 }
 
 variable "db_storage_type" {
-    type = string
-    description = "type of storage used for database"
-    default = "gp2"
+  type = string
+  description = "type of storage used for database"
+  default = "gp2"
 }
 
 variable "db_instance_class" {
-    type = string
-    description = "what class of underlying instances should be used"
-    default = "db.t3.small"
+  type = string
+  description = "what class of underlying instances should be used"
+  default = "db.t3.small"
 }
 
 variable "db_multi_az" {
-    type = bool
-    description = "should the database be deployed across multiple AZs"
-    default = false
+  type = bool
+  description = "should the database be deployed across multiple AZs"
+  default = false
+}
+
+variable "java_opts" {
+  type = string
+  description = "options to pass to the JVM"
+  default = ""
 }

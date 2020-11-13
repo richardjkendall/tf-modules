@@ -2,8 +2,8 @@
   {
     "name": "keycloak",
     "image": "${image}",
-    "cpu": 512,
-    "memory": 512,
+    "cpu": ${kc_cpu},
+    "memory": ${kc_mem},
     "essential": true,
     "portMappings": [
       {
@@ -46,6 +46,10 @@
       {
         "name": "PROXY_ADDRESS_FORWARDING",
         "value": "true"
+      },
+      {
+        "name": "JAVA_OPTS",
+        "value": "${java_opts}"
       }
     ],
     "links": ["postgres"]
@@ -53,8 +57,8 @@
   {
     "name": "postgres",
     "image": "postgres:12",
-    "cpu": 512,
-    "memory": 512,
+    "cpu": ${pg_cpu},
+    "memory": ${pg_mem},
     "essential": true,
     "portMappings": [
       {
