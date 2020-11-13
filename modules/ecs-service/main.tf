@@ -213,7 +213,7 @@ resource "aws_ecs_service" "service" {
     for_each = var.service_registry_id == "" ? [] : [ "blah" ]
     
     content {
-      registry_arn    = aws_service_discovery_service.discovery.arn
+      registry_arn    = aws_service_discovery_service.discovery.0.arn
       container_name  = var.task_name
       container_port  = var.port_mappings[0].containerPort
     }
