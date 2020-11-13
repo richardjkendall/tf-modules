@@ -14,8 +14,9 @@ Depends on
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v84 | azure-build-agent: new module | `d10bf7c`
 
 Variables
 ------
