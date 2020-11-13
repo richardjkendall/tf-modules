@@ -1,12 +1,8 @@
 name: build docs on tag
 on:
   push:
-    branches: [ master ]
-    paths:
-      - '**.tf'
-      - '**.yml'
     tags:
-      - v*
+      - '*'
 
 jobs:
   build:
