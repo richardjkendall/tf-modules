@@ -53,6 +53,8 @@ module "lambda" {
 module "schedule" {
   source = "../lambda-schedule"
 
+  depends_on = [module.lambda]
+
   aws_region          = var.aws_region
   function_name       = module.lambda.function_name
   schedule_expression = "rate(12 hours)"

@@ -4,10 +4,6 @@ desc: Creates a schedule for triggering a lambda function.
 partners: lambda-function
 */
 
-provider "aws" {
-  region = var.aws_region
-}
-
 terraform {
   backend "s3" {}
 }
