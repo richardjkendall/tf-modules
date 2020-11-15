@@ -26,6 +26,8 @@ resource "aws_db_instance" "db" {
     ]
 
     publicly_accessible = false
+
+    skip_final_snapshot = true
 }
 
 resource "aws_security_group" "allow_pg_in" {
