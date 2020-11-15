@@ -44,7 +44,7 @@ module "service" {
   task_name          = "keycloak"
   image              = "not used"
   cpu                = var.keycloak_cpu + var.postgres_cpu
-  memory             = var.keycloak_mem + var.postgres_mem
+  memory             = var.keycloak_memory + var.postgres_memory
   network_mode       = "bridge"
   number_of_tasks    = 1
 
@@ -65,9 +65,9 @@ module "service" {
     image         = var.keycloak_image
     java_opts     = var.java_opts
     kc_cpu        = var.keycloak_cpu
-    kc_mem        = var.keycloak_mem
+    kc_mem        = var.keycloak_memory
     pg_cpu        = var.postgres_cpu
-    pg_mem        = var.postgres_mem
+    pg_mem        = var.postgres_memory
   })
 
   efs_volumes = [
