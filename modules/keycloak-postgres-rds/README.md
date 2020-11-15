@@ -24,6 +24,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v87 | keycloak-postgres-*: changes to support setting increased memory for keycloak | `c9af916`
 v77 | keycloak-postgres-rds: new module and supporting modules added | `b0c0643`
 
 Variables
@@ -47,4 +48,5 @@ Variables
 `db_storage_type` | `string` | type of storage used for database | `gp2`
 `db_instance_class` | `string` | what class of underlying instances should be used | `db.t3.small`
 `db_multi_az` | `bool` | should the database be deployed across multiple AZs | `false`
+`java_opts` | `string` | options to pass to the JVM | ``
 
