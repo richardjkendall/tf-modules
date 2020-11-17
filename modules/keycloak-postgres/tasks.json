@@ -50,6 +50,10 @@
       {
         "name": "JAVA_OPTS",
         "value": "${java_opts}"
+      },
+      {
+        "name": "KEYCLOAK_LOGLEVEL",
+        "value": "${loglevel}"
       }
     ],
     "links": ["postgres"]

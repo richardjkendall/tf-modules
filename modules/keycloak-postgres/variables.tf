@@ -73,3 +73,9 @@ variable "postgres_memory" {
   description = "memory units to allocated for postgres"
   default = 512
 }
+
+variable "loglevel" {
+  type = string
+  description = "loglevel for app server"
+  default = "INFO"
+}

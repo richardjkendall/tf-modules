@@ -68,6 +68,7 @@ module "service" {
     kc_mem        = var.keycloak_memory
     pg_cpu        = var.postgres_cpu
     pg_mem        = var.postgres_memory
+    loglevel      = var.loglevel
   })
 
   efs_volumes = [
