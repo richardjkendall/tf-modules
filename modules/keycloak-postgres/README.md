@@ -23,6 +23,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v89 | keycloak-postgres: fix memory variable names | `711cb37`
 v87 | keycloak-postgres-*: changes to support setting increased memory for keycloak | `c9af916`
 v79 | keycloak-postgres: enabling custom keycloak images to be used | `5311cbe`
 v77 | keycloak-postgres-rds: new module and supporting modules added | `b0c0643`
@@ -48,4 +49,5 @@ Variables
 `keycloak_memory` | `number` | memory units to allocated for keycloak | `512`
 `postgres_cpu` | `number` | cpu units to allocated for postgres | `512`
 `postgres_memory` | `number` | memory units to allocated for postgres | `512`
+`loglevel` | `string` | loglevel for app server | `INFO`
 
