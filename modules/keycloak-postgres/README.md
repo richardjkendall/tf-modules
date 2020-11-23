@@ -23,6 +23,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v90 | keycloak-postgres: adding support for setting loglevel | `dbd8209`
 v89 | keycloak-postgres: fix memory variable names | `711cb37`
 v87 | keycloak-postgres-*: changes to support setting increased memory for keycloak | `c9af916`
 v79 | keycloak-postgres: enabling custom keycloak images to be used | `5311cbe`
