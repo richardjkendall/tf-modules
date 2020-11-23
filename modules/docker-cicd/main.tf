@@ -25,8 +25,9 @@ resource "aws_s3_bucket" "build_bucket" {
   acl = "private"
 
   tags = {
-    Name = "Static site build bucket"
-    Site = var.site_name
+    Name   = "docker build bucket"
+    Repo   = var.gh_repo
+    Branch = var.gh_branch
   }
 
   force_destroy = true
@@ -51,6 +52,19 @@ resource "aws_s3_bucket_public_access_block" "block_build_bucket_pub_access" {
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
+}
+
+resource "aws_ecr_repository" "repo" {
+  name = var.ecr_repo_name
+
+  dynamic "encryption_configuration" {
+    for_each = var.encrypt_buckets == true ? [ "blah" ] : []
+
+    content {
+      encryption_type = "AES256"
+    }
+  }
+
 }
 
 data "aws_iam_policy_document" "code_build_assume_policy" {
@@ -103,6 +117,33 @@ data "aws_iam_policy_document" "code_build_policy_document" {
       aws_s3_bucket.build_bucket.arn,
       "${aws_s3_bucket.build_bucket.arn}/*"
     ]
+  }
+
+  statement {
+    sid     = ""
+    effect  = "Allow"
+    actions = [
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:BatchGetImage",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:PutImage",
+      "ecr:InitiateLayerUpload",
+      "ecr:UploadLayerPart",
+      "ecr:CompleteLayerUpload"
+    ]
+    resources = [
+      "arn:aws:ecr:${var.aws_region}:${data.aws_caller_identity.current.account_id}:repository/${var.ecr_repo_name}"
+    ]
+  }
+
+  statement {
+    sid       = ""
+    effect    = "Allow"
+    actions   = [
+      "ssm:GetParameters",
+      "ecr:GetAuthorizationToken"
+    ]
+    resources = ["*"]
   }
 }
 
@@ -189,8 +230,27 @@ resource "aws_codebuild_project" "codebuild_project" {
     privileged_mode             = var.allow_root
 
     environment_variable {
-      name  = "TARGET_BUCKET"
-      value = var.s3_bucket
+      name  = "ECR_URL"
+      value = aws_ecr_repository.repo.repository_url
+    }
+
+    dynamic "environment_variable" {
+      for_each = var.build_environment
+
+      content {
+        name  = environment_variable.value.name
+        value = environment_variable.value.value
+      }
+    }
+
+    dynamic "environment_variable" {
+      for_each = var.build_secrets
+
+      content {
+        name  = environment_variable.value.name
+        value = environment_variable.value.valueFrom
+        type  = "PARAMETER_STORE"
+      }
     }
 
   }
@@ -264,7 +324,7 @@ resource "aws_codepipeline" "buildpipeline" {
 }
 
 resource "aws_codepipeline_webhook" "webhook" {
-  name            = "github-${var.gh_repo}-${var.gh_branch}-${var.cf_distribution}"
+  name            = "github-${var.gh_repo}-${var.gh_branch}-docker-cicd"
   authentication  = "GITHUB_HMAC"
   target_action   = "Source"
   target_pipeline = aws_codepipeline.buildpipeline.name

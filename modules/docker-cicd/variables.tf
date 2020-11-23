@@ -1,36 +1,43 @@
 variable "aws_region" {
   description = "region where provisioning should happen"
+  type = string
 }
 
 variable "gh_username" {
   description = "GitHub username used to access your site source code repo"
+  type = string
 }
 
 variable "gh_secret_sm_param_name" {
   description = "name of SSM parameter where GitHub webhook secret is stored"
+  type = string
 }
 
 variable "gh_token_sm_param_name" {
   description = "name of SSM parameter where the GitHub Oauth token is stored"
+  type = string
+}
+
+variable "ecr_repo_name" {
+  description = "name of the ECR repo for the images once built"
+  type = string
 }
 
 variable "gh_repo" {
   description = "name of repo containing site source and buildspec.yml file"
+  type = string
 }
 
 variable "gh_branch" {
   default = "master"
   description = "branch of git repo to use for changes"
+  type = string
 }
 
 variable "build_timeout" {
   default = "20"
   description = "how long should we wait (in minutes) before assuming a build has failed"
-}
-
-variable "cf_invalidate" {
-  default = "yes"
-  description = "should the CF distribution be invalidated for each deployment"
+  type = string
 }
 
 variable "encrypt_buckets" {
@@ -75,3 +82,21 @@ variable "notifications_to_send" {
     "codepipeline-pipeline-pipeline-execution-superseded"
   ]
 } 
+
+variable "build_environment" {
+  description = "non secret environment variables"
+  default = []
+  type = list(object({
+    name = string,
+    value = string
+  }))
+}
+
+variable "build_secrets" {
+  description = "secret environment variables taken from parameter store"
+  default = []
+  type = list(object({
+    name = string,
+    valueFrom = string
+  }))
+}
