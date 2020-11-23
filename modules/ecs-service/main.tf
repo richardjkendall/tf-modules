@@ -66,8 +66,6 @@ resource "aws_iam_role" "task_role" {
   assume_role_policy = data.aws_iam_policy_document.ecs_task_role_assume_policy.json
 }
 
-
-
 resource "aws_iam_role_policy_attachment" "task_user_policies" {
   count       = length(var.task_role_policies)
 
@@ -91,11 +89,19 @@ data "aws_iam_policy_document" "ecs_service_role_assume_policy" {
 
 data "aws_iam_policy_document" "service_role_policy" {
   statement {
-    sid = "1"
-    effect = "Allow"
+    sid       = "1"
+    effect    = "Allow"
+    actions   = ["ssm:GetParameters"]
+    resources = ["*"]
+  }
 
-    actions = ["ssm:GetParameters"]
-
+  statement {
+    sid       = "2"
+    effect    = "Allow"
+    actions   = [
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:BatchGetImage"
+    ]
     resources = ["*"]
   }
 }
