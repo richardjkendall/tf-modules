@@ -32,6 +32,10 @@ resource "aws_s3_bucket" "build_bucket" {
 
   force_destroy = true
 
+  lifecycle {
+    ignore_changes = [tags, logging]
+  }
+
   dynamic "server_side_encryption_configuration" {
     for_each = var.encrypt_buckets == true ? [ "blah" ] : []
 
