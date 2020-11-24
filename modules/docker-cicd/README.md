@@ -34,6 +34,10 @@ Variables
 `notifications_to_send` | `list(string)` | which notifications should we send, for values see here https://docs.aws.amazon.com/codestar-notifications/latest/userguide/concepts.html#concepts-api | `[codepipeline-pipeline-pipeline-execution-failed, codepipeline-pipeline-pipeline-execution-canceled, codepipeline-pipeline-pipeline-execution-started, codepipeline-pipeline-pipeline-execution-resumed, codepipeline-pipeline-pipeline-execution-succeeded, codepipeline-pipeline-pipeline-execution-superseded]`
 `build_environment` | `list(object({name=string,value=string}))` | non secret environment variables | `[]`
 `build_secrets` | `list(object({name=string,valueFrom=string}))` | secret environment variables taken from parameter store | `[]`
+`deploy_to_ecs` | `bool` | should the pipeline trigger an ECS deployment | `false`
+`ecs_service` | `string` | service name for ECS deployment | ``
+`ecs_cluster` | `string` | cluster name for ECS deployment | ``
+`ecs_deploy_file` | `string` | name of ECS deployment descriptor file | `deploy.json`
 
 Outputs
 ------

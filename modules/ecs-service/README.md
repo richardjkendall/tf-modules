@@ -16,6 +16,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v92 | ecs-service: adding permissions to pull from ECR to service role | `374a770`
 v77 | keycloak-postgres-rds: new module and supporting modules added | `b0c0643`
 v74 | ecs-service: adding support for private image registry | `c87d46c`
 v57 | ecs-service-with-cicd: adding support for notifications | `dea61cd`
