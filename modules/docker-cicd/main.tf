@@ -178,6 +178,21 @@ data "aws_iam_policy_document" "code_pipeline_policy_document" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid     = ""
+    effect  = "Allow"
+    actions = [
+      "ecs:DescribeServices",
+      "ecs:DescribeTaskDefinition",
+      "ecs:DescribeTasks",
+      "ecs:ListTasks",
+      "ecs:RegisterTaskDefinition",
+      "ecs:UpdateService",
+      "iam:PassRole"
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "code_build_policy" {
@@ -309,17 +324,42 @@ resource "aws_codepipeline" "buildpipeline" {
     name = "Build"
 
     action {
-      name            = "Build"
-      category        = "Build"
-      owner           = "AWS"
-      provider        = "CodeBuild"
-      input_artifacts = [var.gh_branch]
-      version         = "1"
+      name             = "Build"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      input_artifacts  = [var.gh_branch]
+      output_artifacts = ["BuildOutput"]
+      version          = "1"
 
       configuration = {
         ProjectName = "docker-cicd-${var.gh_repo}-${var.gh_branch}"
       }
     }
+  }
+
+  dynamic "stage" {
+    for_each = var.deploy_to_ecs ? [ "blah" ] : []
+
+    content {
+      name = "Deploy"
+
+      action {
+        name            = "Deploy"
+        category        = "Deploy"
+        owner           = "AWS"
+        provider        = "ECS"
+        input_artifacts = ["BuildOutput"]
+        version         = "1"
+
+        configuration = {
+          ClusterName = var.ecs_cluster
+          ServiceName = var.ecs_service
+          FileName    = var.ecs_deploy_file
+        }
+      }
+    }
+
   }
 }
 

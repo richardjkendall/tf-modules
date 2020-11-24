@@ -100,3 +100,27 @@ variable "build_secrets" {
     valueFrom = string
   }))
 }
+
+variable "deploy_to_ecs" {
+  description = "should the pipeline trigger an ECS deployment"
+  type = bool
+  default = false
+}
+
+variable "ecs_service" {
+  description = "service name for ECS deployment"
+  type = string
+  default = ""
+}
+
+variable "ecs_cluster" {
+  description = "cluster name for ECS deployment"
+  type = string
+  default = ""
+}
+
+variable "ecs_deploy_file" {
+  description = "name of ECS deployment descriptor file"
+  type = string
+  default = "deploy.json"
+}
