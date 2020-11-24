@@ -7,8 +7,11 @@ Builds docker images when source code changes, depends on buildspec.yml for spec
 Releases
 ------
 
+|Tag | Message | Commit|
+--- | --- | ---
+v91 | Merge pull request #1 from richardjkendall/docker-cicd
 
-There have been no releases yet for this module
+adding docker-cicd module | `45b9eb5`
 
 Variables
 ------
