@@ -9,6 +9,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v94 | docker-cicd: adding ignore changes on tags and logging for the build bucket | `6dc2c47`
 v91 | Merge pull request #1 from richardjkendall/docker-cicd
 
 adding docker-cicd module | `45b9eb5`

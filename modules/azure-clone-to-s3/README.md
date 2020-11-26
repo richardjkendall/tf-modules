@@ -30,6 +30,9 @@ Variables
 `azure_devops_git_username` | `string` | username to connect to git repos on Azure Devops | ``
 `api_password_ssm_param` | `string` | name of ssm parameter where basic auth password expected by the API is stored, should be a SecureString | ``
 `azure_devops_git_token_ssm_param` | `string` | name of ssm parameter where the token with read access to Azure devops repos is stored, should be a SecureString | ``
+`access_log_bucket` | `string` | bucket to be used for access logging on the s3 buckets created by the module | ``
+`build_access_log_prefix` | `string` | prefix to use for source code bucket access logs where that is enabled | ``
+`cloudtrail_access_log_prefix` | `string` | prefix to use for pipeline bucket access logs where that is enabled | ``
 
 Outputs
 ------
