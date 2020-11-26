@@ -29,3 +29,21 @@ variable "azure_devops_git_token_ssm_param" {
   type = string
   description = "name of ssm parameter where the token with read access to Azure devops repos is stored, should be a SecureString"
 }
+
+variable "access_log_bucket" {
+  type = string
+  default = ""
+  description = "bucket to be used for access logging on the s3 buckets created by the module"
+}
+
+variable "build_access_log_prefix" {
+  type = string
+  default = ""
+  description = "prefix to use for source code bucket access logs where that is enabled"
+}
+
+variable "cloudtrail_access_log_prefix" {
+  type = string
+  default = ""
+  description = "prefix to use for pipeline bucket access logs where that is enabled"
+}

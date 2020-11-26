@@ -34,6 +34,15 @@ resource "aws_s3_bucket" "build_bucket" {
       }
     }
   }
+
+  dynamic "logging" {
+    for_each = var.access_log_bucket != "" ? [ "blah" ] : []
+
+    content {
+      target_bucket = var.access_log_bucket
+      target_prefix = var.build_access_log_prefix
+    }
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "block_build_bucket_pub_access" {
@@ -58,6 +67,15 @@ resource "aws_s3_bucket" "trail_bucket" {
           sse_algorithm = "AES256"
         }
       }
+    }
+  }
+
+  dynamic "logging" {
+    for_each = var.access_log_bucket != "" ? [ "blah" ] : []
+
+    content {
+      target_bucket = var.access_log_bucket
+      target_prefix = var.cloudtrail_access_log_prefix
     }
   }
 }
