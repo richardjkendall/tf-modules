@@ -16,6 +16,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v95 | azure-clone-to-s3: enabling logging support on the s3 buckets | `bfdd4d1`
 v71 | azure-clone-to-s3: adding cloudtrail | `8cf3d54`
 v68 | azure-clone-to-s3: enabled versioning on bucket | `49146d5`
 

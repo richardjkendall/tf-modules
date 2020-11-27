@@ -34,4 +34,6 @@ Variables
 `encrypt_buckets` | `bool` | encrypt buckets with default AWS keys | `false`
 `allow_root` | `bool` | allow build process to become root (sudo) | `false`
 `build_image` | `string` | what build image should be used to run the build job | `aws/codebuild/standard:2.0`
+`access_log_bucket` | `string` | bucket to be used for access logging on the pipeline s3 bucket | ``
+`access_log_prefix` | `string` | prefix to use for pipeline bucket access logs where that is enabled | ``
 
