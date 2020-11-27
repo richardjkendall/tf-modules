@@ -18,7 +18,7 @@ terraform {
 }
 
 locals {
-  aliases                 = [join(".", [var.sitename_prefix, var.domain_root])]
+  aliases                 = concat([join(".", [var.sitename_prefix, var.domain_root])], var.alternative_dns_names)
   origin_id               = join("-", ["access-identity", var.sitename_prefix, var.domain_root])
   domain_root_wo_dots     = replace(var.domain_root, ".", "-")
   sitename_prefix_wo_dots = replace(var.sitename_prefix, ".", "-")
@@ -68,6 +68,15 @@ resource "aws_s3_bucket" "cf_origin_s3_bucket" {
           sse_algorithm = "AES256"
         }
       }
+    }
+  }
+
+  dynamic "logging" {
+    for_each = var.origin_access_log_bucket != "" ? [ "blah" ] : []
+
+    content {
+      target_bucket = var.origin_access_log_bucket
+      target_prefix = var.origin_access_log_prefix
     }
   }
 }
@@ -201,11 +210,9 @@ resource "aws_cloudfront_distribution" "cdn" {
 
   viewer_certificate {
     minimum_protocol_version = "TLSv1.2_2018"
-    acm_certificate_arn      = aws_acm_certificate.endpoint_cert.arn
+    acm_certificate_arn      = var.certificate_arn != "" ? var.certificate_arn : aws_acm_certificate.endpoint_cert.0.arn
     ssl_support_method       = "sni-only"
   }
-
-  //custom_error_response = local.custom_error_response
 
   dynamic "custom_error_response" {
     for_each = var.custom_404_path == "none" ? [] : [ "blah" ]
@@ -217,18 +224,24 @@ resource "aws_cloudfront_distribution" "cdn" {
     }
   }
 
-  depends_on = [aws_acm_certificate_validation.cert_validation]
+  tags = {
+    CertDependTag = var.certificate_arn != "" ? var.certificate_arn : aws_acm_certificate_validation.cert_validation.0.id
+  }
+
+  #depends_on = var.certificate_arn != "" ? [] : [aws_acm_certificate_validation.cert_validation]
 }
 
 resource "aws_acm_certificate" "endpoint_cert" {
+  count = var.certificate_arn != "" ? 0 : 1
+
   provider          = aws.us-east-1
   domain_name       = "${var.sitename_prefix}.${var.domain_root}"
   validation_method = "DNS"
 }
 
 resource "aws_route53_record" "endpoint_cert_validation" {
-  for_each = {
-    for dvo in aws_acm_certificate.endpoint_cert.domain_validation_options : dvo.domain_name => {
+  for_each = var.certificate_arn != "" ? {} : {
+    for dvo in aws_acm_certificate.endpoint_cert.0.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
@@ -244,8 +257,10 @@ resource "aws_route53_record" "endpoint_cert_validation" {
 }
 
 resource "aws_acm_certificate_validation" "cert_validation" {
+  count = var.certificate_arn != "" ? 0 : 1
+
   provider                = aws.us-east-1
-  certificate_arn         = aws_acm_certificate.endpoint_cert.arn
+  certificate_arn         = aws_acm_certificate.endpoint_cert.0.arn
   validation_record_fqdns = [for record in aws_route53_record.endpoint_cert_validation : record.fqdn]
 }
 

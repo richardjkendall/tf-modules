@@ -99,3 +99,39 @@ variable "custom_404_path" {
   default = "none"
   description = "what path should we use for a custom 404 (not found) error page"
 }
+
+variable "certificate_arn" {
+  type = string
+  default = ""
+  description = "arn of a certificate, if this is specified the module will not create a certificate"
+}
+
+variable "alternative_dns_names" {
+  type = list(string)
+  default = []
+  description = "list of additional names the cloudfront distribution"
+}
+
+variable "origin_access_log_bucket" {
+  type = string
+  default = ""
+  description = "bucket to be used for access logging on the origin s3 bucket"
+}
+
+variable "origin_access_log_prefix" {
+  type = string
+  default = ""
+  description = "prefix to use for access logs where that is enabled"
+}
+
+variable "pipeline_access_log_bucket" {
+  type = string
+  default = ""
+  description = "bucket to be used for access logging on the origin s3 bucket"
+}
+
+variable "pipeline_access_log_prefix" {
+  type = string
+  default = ""
+  description = "prefix to use for access logs where that is enabled"
+}

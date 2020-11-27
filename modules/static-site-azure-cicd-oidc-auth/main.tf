@@ -30,12 +30,20 @@ module "static_site" {
   encrypt_buckets        = var.encrypt_buckets
   fix_non_specific_paths = var.fix_non_specific_paths
   custom_404_path        = var.custom_404_path
+  certificate_arn        = var.certificate_arn
+  alternative_dns_names  = var.alternative_dns_names
+
+  origin_access_log_bucket = var.origin_access_log_bucket
+  origin_access_log_prefix = var.origin_access_log_prefix
 
   /* cicd */
   allow_root          = var.allow_root
   build_image         = var.build_image
   source_s3_bucket    = var.source_s3_bucket
   source_s3_prefix    = var.source_s3_prefix
+
+  pipeline_access_log_bucket = var.pipeline_access_log_bucket
+  pipeline_access_log_prefix = var.pipeline_access_log_prefix
 
   /* auth related */
   viewer_req_edge_lambda_arns = [

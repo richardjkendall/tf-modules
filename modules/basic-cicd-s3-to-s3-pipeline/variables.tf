@@ -57,3 +57,15 @@ variable "build_image" {
   default = "aws/codebuild/standard:2.0"
   description = "what build image should be used to run the build job"
 }
+
+variable "access_log_bucket" {
+  type = string
+  default = ""
+  description = "bucket to be used for access logging on the pipeline s3 bucket"
+}
+
+variable "access_log_prefix" {
+  type = string
+  default = ""
+  description = "prefix to use for pipeline bucket access logs where that is enabled"
+}
