@@ -53,7 +53,7 @@ resource "aws_s3_bucket" "build_bucket" {
 
     content {
       target_bucket = var.access_log_bucket
-      target_prefix = var.build_access_log_prefix
+      target_prefix = var.access_log_prefix
     }
   }
 }
