@@ -45,4 +45,10 @@ Variables
 `source_s3_prefix` | `string` | S3 bucket prefix used for the source build zip file | ``
 `fix_non_specific_paths` | `bool` | should we apply a lambda@edge function on origin requests to fix paths which are missing the expected root object? | `false`
 `custom_404_path` | `string` | what path should we use for a custom 404 (not found) error page | `none`
+`certificate_arn` | `string` | arn of a certificate, if this is specified the module will not create a certificate | ``
+`alternative_dns_names` | `list(string)` | list of additional names the cloudfront distribution | `[]`
+`origin_access_log_bucket` | `string` | bucket to be used for access logging on the origin s3 bucket | ``
+`origin_access_log_prefix` | `string` | prefix to use for access logs where that is enabled | ``
+`pipeline_access_log_bucket` | `string` | bucket to be used for access logging on the origin s3 bucket | ``
+`pipeline_access_log_prefix` | `string` | prefix to use for access logs where that is enabled | ``
 
