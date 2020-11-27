@@ -87,3 +87,15 @@ variable "notifications_to_send" {
     "codepipeline-pipeline-pipeline-execution-superseded"
   ]
 } 
+
+variable "access_log_bucket" {
+  type = string
+  default = ""
+  description = "bucket to be used for access logging on the pipeline s3 bucket"
+}
+
+variable "access_log_prefix" {
+  type = string
+  default = ""
+  description = "prefix to use for pipeline bucket access logs where that is enabled"
+}

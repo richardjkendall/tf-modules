@@ -29,6 +29,9 @@ module "static_site" {
   fix_non_specific_paths = var.fix_non_specific_paths
   custom_404_path        = var.custom_404_path
 
+  origin_access_log_bucket = var.origin_access_log_bucket
+  origin_access_log_prefix = var.origin_access_log_prefix
+
   /* cicd */
   gh_username               = var.gh_username
   gh_secret_sm_param_name   = var.gh_secret_sm_param_name
@@ -38,6 +41,9 @@ module "static_site" {
   encrypt_buckets           = var.encrypt_buckets
   allow_root                = var.allow_root
   build_image               = var.build_image
+
+  pipeline_access_log_bucket = var.pipeline_access_log_bucket
+  pipeline_access_log_prefix = var.pipeline_access_log_prefix
 
   /* notifications */
   send_notifications          = var.send_notifications

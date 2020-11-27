@@ -26,6 +26,9 @@ module "static_site" {
 
   fix_non_specific_paths = var.fix_non_specific_paths
   custom_404_path        = var.custom_404_path
+
+  origin_access_log_bucket = var.origin_access_log_bucket
+  origin_access_log_prefix = var.origin_access_log_prefix
 }
 
 module "cicd" {
@@ -46,4 +49,7 @@ module "cicd" {
   send_notifications          = var.send_notifications
   sns_topic_for_notifications = var.sns_topic_for_notifications
   notifications_to_send       = var.notifications_to_send
+
+  access_log_bucket = var.pipeline_access_log_bucket
+  access_log_prefix = var.pipeline_access_log_prefix
 }
