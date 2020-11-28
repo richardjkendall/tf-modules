@@ -163,3 +163,9 @@ variable "pipeline_access_log_prefix" {
   default = ""
   description = "prefix to use for access logs where that is enabled"
 }
+
+variable "oidc_redirect_url" {
+  type = string
+  default = ""
+  description = "if you want to override the automatically determined by the module then set this variable"
+}

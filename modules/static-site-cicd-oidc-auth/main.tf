@@ -81,7 +81,7 @@ module "lambda" {
     CLIENT_SECRET   = var.client_secret 
     AUTH_COOKIE     = var.auth_cookie_name
     REFRESH_COOKIE  = var.refresh_cookie_name
-    REDIRECT_URI    = "https://${var.sitename_prefix}.${var.domain_root}/_login"
+    REDIRECT_URI    = var.oidc_redirect_url != "" ? var.oidc_redirect_url : "https://${var.sitename_prefix}.${var.domain_root}/_login"
     VAL_API_URL     = var.val_api_url
   }
 }
