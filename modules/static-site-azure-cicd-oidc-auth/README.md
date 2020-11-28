@@ -55,4 +55,5 @@ Variables
 `origin_access_log_prefix` | `string` | prefix to use for access logs where that is enabled | ``
 `pipeline_access_log_bucket` | `string` | bucket to be used for access logging on the origin s3 bucket | ``
 `pipeline_access_log_prefix` | `string` | prefix to use for access logs where that is enabled | ``
+`oidc_redirect_url` | `string` | if you want to override the automatically determined by the module then set this variable | ``
 
