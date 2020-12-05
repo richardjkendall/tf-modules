@@ -141,3 +141,9 @@ variable "oidc_redirect_url" {
   default = ""
   description = "if you want to override the automatically determined by the module then set this variable"
 }
+
+variable "build_role_policies" {
+  description = "list of ARNs of policies to attach to the build role"
+  default = []
+  type = list(string)
+}

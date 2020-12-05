@@ -45,6 +45,8 @@ module "static_site" {
   pipeline_access_log_bucket = var.pipeline_access_log_bucket
   pipeline_access_log_prefix = var.pipeline_access_log_prefix
 
+  build_role_policies = var.build_role_policies
+
   /* auth related */
   viewer_req_edge_lambda_arns = [
     module.lambda.qualified_arn

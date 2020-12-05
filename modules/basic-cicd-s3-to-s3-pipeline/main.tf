@@ -178,6 +178,13 @@ resource "aws_iam_policy_attachment" "attach_cb_policy_to_role" {
   policy_arn  = aws_iam_policy.code_build_policy.arn
 }
 
+resource "aws_iam_role_policy_attachment" "cb_role_user_policies" {
+  count       = length(var.build_role_policies)
+
+  role        = aws_iam_role.code_build_role.name
+  policy_arn  = element(var.build_role_policies, count.index)
+}
+
 resource "aws_iam_policy_attachment" "attach_cp_policy_to_role" {
   name        = "basic-cicd-build-${var.site_name}-${var.cf_distribution}-cp-attach"
   roles       = [aws_iam_role.code_pipeline_role.name]

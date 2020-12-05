@@ -69,3 +69,9 @@ variable "access_log_prefix" {
   default = ""
   description = "prefix to use for pipeline bucket access logs where that is enabled"
 }
+
+variable "build_role_policies" {
+  description = "list of ARNs of policies to attach to the build role"
+  default = []
+  type = list(string)
+}
