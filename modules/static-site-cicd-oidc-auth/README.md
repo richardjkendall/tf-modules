@@ -17,6 +17,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v99 | static-site-*-oidc: adding support to manually set redirect URL if needed | `5cabe0b`
 v64 | static-site-cicd-oidc-auth: adding support to change build image | `51634e9`
 v46 | basic-cicd-s3-pipeline: added support for build job to become root | `001e53e`
 v45 | static-site: adding s3 bucket encryption support | `c383f32`
