@@ -36,4 +36,5 @@ Variables
 `build_image` | `string` | what build image should be used to run the build job | `aws/codebuild/standard:2.0`
 `access_log_bucket` | `string` | bucket to be used for access logging on the pipeline s3 bucket | ``
 `access_log_prefix` | `string` | prefix to use for pipeline bucket access logs where that is enabled | ``
+`build_role_policies` | `list(string)` | list of ARNs of policies to attach to the build role | `[]`
 

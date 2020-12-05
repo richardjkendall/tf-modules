@@ -25,6 +25,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v99 | static-site-*-oidc: adding support to manually set redirect URL if needed | `5cabe0b`
 v69 | static-site-azure-cicd: added first version | `50a0fb7`
 
 Variables
@@ -51,4 +52,5 @@ Variables
 `origin_access_log_prefix` | `string` | prefix to use for access logs where that is enabled | ``
 `pipeline_access_log_bucket` | `string` | bucket to be used for access logging on the origin s3 bucket | ``
 `pipeline_access_log_prefix` | `string` | prefix to use for access logs where that is enabled | ``
+`build_role_policies` | `list(string)` | list of ARNs of policies to attach to the build role | `[]`
 

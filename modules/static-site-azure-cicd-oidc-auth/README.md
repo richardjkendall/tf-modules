@@ -22,8 +22,9 @@ Works with
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v99 | static-site-*-oidc: adding support to manually set redirect URL if needed | `5cabe0b`
 
 Variables
 ------
@@ -56,4 +57,5 @@ Variables
 `pipeline_access_log_bucket` | `string` | bucket to be used for access logging on the origin s3 bucket | ``
 `pipeline_access_log_prefix` | `string` | prefix to use for access logs where that is enabled | ``
 `oidc_redirect_url` | `string` | if you want to override the automatically determined by the module then set this variable | ``
+`build_role_policies` | `list(string)` | list of ARNs of policies to attach to the build role | `[]`
 
