@@ -16,6 +16,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v100 | static-site-azure*: adding support for custom build policies | `a7a18d7`
 v69 | static-site-azure-cicd: added first version | `50a0fb7`
 
 Variables
@@ -37,4 +38,5 @@ Variables
 `access_log_bucket` | `string` | bucket to be used for access logging on the pipeline s3 bucket | ``
 `access_log_prefix` | `string` | prefix to use for pipeline bucket access logs where that is enabled | ``
 `build_role_policies` | `list(string)` | list of ARNs of policies to attach to the build role | `[]`
+`build_environment` | `list(object({name=string,value=string}))` | non secret build environment variables | `[]`
 
