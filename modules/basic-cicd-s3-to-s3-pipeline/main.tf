@@ -226,6 +226,15 @@ resource "aws_codebuild_project" "codebuild_project" {
       name  = "DISTRIBUTION_ID"
       value = var.cf_distribution
     }
+
+    dynamic "environment_variable" {
+      for_each = var.build_environment
+
+      content {
+        name  = environment_variable.value.name
+        value = environment_variable.value.value
+      }
+    }
   }
 
   source {

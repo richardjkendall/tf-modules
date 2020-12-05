@@ -51,4 +51,5 @@ module "cicd" {
   access_log_prefix = var.pipeline_access_log_prefix
 
   build_role_policies = var.build_role_policies
+  build_environment   = var.build_environment
 }

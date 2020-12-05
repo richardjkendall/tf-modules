@@ -147,3 +147,12 @@ variable "build_role_policies" {
   default = []
   type = list(string)
 }
+
+variable "build_environment" {
+  description = "non secret build environment variables"
+  default = []
+  type = list(object({
+    name = string,
+    value = string
+  }))
+}
