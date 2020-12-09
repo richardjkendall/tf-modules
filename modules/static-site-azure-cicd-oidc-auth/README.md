@@ -60,4 +60,5 @@ Variables
 `oidc_redirect_url` | `string` | if you want to override the automatically determined by the module then set this variable | ``
 `build_role_policies` | `list(string)` | list of ARNs of policies to attach to the build role | `[]`
 `build_environment` | `list(object({name=string,value=string}))` | non secret build environment variables | `[]`
+`build_compute_type` | `string` | compute type for the build job | `BUILD_GENERAL1_SMALL`
 
