@@ -206,7 +206,7 @@ resource "aws_codebuild_project" "codebuild_project" {
   }
 
   environment {
-    compute_type                = "BUILD_GENERAL1_SMALL"
+    compute_type                = var.build_compute_type
     image                       = var.build_image
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"

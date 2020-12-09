@@ -47,6 +47,7 @@ module "static_site" {
 
   build_role_policies = var.build_role_policies
   build_environment   = var.build_environment
+  build_compute_type  = var.build_compute_type
 
   /* auth related */
   viewer_req_edge_lambda_arns = [

@@ -119,3 +119,9 @@ variable "build_environment" {
     value = string
   }))
 }
+
+variable "build_compute_type" {
+  type = string
+  default = "BUILD_GENERAL1_SMALL"
+  description = "compute type for the build job"
+}

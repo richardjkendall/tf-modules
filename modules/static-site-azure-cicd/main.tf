@@ -43,6 +43,7 @@ module "cicd" {
   encrypt_buckets           = var.encrypt_buckets
   allow_root                = var.allow_root
   build_image               = var.build_image
+  build_compute_type        = var.build_compute_type
 
   source_s3_bucket = var.source_s3_bucket
   source_s3_prefix = var.source_s3_prefix
