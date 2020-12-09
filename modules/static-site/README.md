@@ -17,6 +17,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v100 | static-site-azure*: adding support for custom build policies | `a7a18d7`
 v99 | static-site-*-oidc: adding support to manually set redirect URL if needed | `5cabe0b`
 v81 | lambda-function-node & static-site: small tweaks to get fix-cf-roots working | `da61f22`
 v75 | static-site: updating to match latest aws provider for acm validation | `553a12c`
