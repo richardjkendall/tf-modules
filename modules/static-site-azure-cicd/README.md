@@ -55,4 +55,5 @@ Variables
 `pipeline_access_log_prefix` | `string` | prefix to use for access logs where that is enabled | ``
 `build_role_policies` | `list(string)` | list of ARNs of policies to attach to the build role | `[]`
 `build_environment` | `list(object({name=string,value=string}))` | non secret build environment variables | `[]`
+`build_compute_type` | `string` | compute type for the build job | `BUILD_GENERAL1_SMALL`
 
