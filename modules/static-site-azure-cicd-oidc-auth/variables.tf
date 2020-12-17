@@ -162,3 +162,9 @@ variable "build_compute_type" {
   default = "BUILD_GENERAL1_SMALL"
   description = "compute type for the build job"
 }
+
+variable "cookie_max_age" {
+  type = number
+  default = 10
+  description = "number of days cookies will live for"
+}

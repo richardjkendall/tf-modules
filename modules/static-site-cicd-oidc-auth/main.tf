@@ -83,5 +83,6 @@ module "lambda" {
     REFRESH_COOKIE  = var.refresh_cookie_name
     REDIRECT_URI    = var.oidc_redirect_url != "" ? var.oidc_redirect_url : "https://${var.sitename_prefix}.${var.domain_root}/_login"
     VAL_API_URL     = var.val_api_url
+    MAX_AGE         = var.cookie_max_age
   }
 }

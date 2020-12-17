@@ -169,3 +169,9 @@ variable "oidc_redirect_url" {
   default = ""
   description = "if you want to override the automatically determined by the module then set this variable"
 }
+
+variable "cookie_max_age" {
+  type = number
+  default = 10
+  description = "number of days cookies will live for"
+}
