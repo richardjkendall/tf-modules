@@ -41,6 +41,7 @@ lambda-schedule | Creates a schedule for triggering a lambda function. | [more d
 postgres-rds | Sets up a basic RDS using postgres | [more details](modules/postgres-rds/README.md)
 prom-grafana | Deploys an instance of prometheus and grafana running on ECS and connected to each other.  Uses EFS to store data.  Created to help monitor haproxy. | [more details](modules/prom-grafana/README.md)
 s3-redirect | Creates simple HTTP only domain redirects using S3. | [more details](modules/s3-redirect/README.md)
+simple-cf-stats | Deploys a simple service based on webalizer to produce stats for AWS Cloudfront distributions | [more details](modules/simple-cf-stats/README.md)
 static-site | Deploys a simple static site on CloudFront backed by an S3 origin.  Logs access request to S3. | [more details](modules/static-site/README.md)
 static-site-azure-cicd | Deploys a simple static site on CloudFront backed by an S3 origin with CICD from an azure devops repo.  Works with the azure-clone-to-s3 API. | [more details](modules/static-site-azure-cicd/README.md)
 static-site-azure-cicd-oidc-auth | Deploys a simple static site on CloudFront backed by an S3 origin with CICD from azure devops and protected by OIDC based login. | [more details](modules/static-site-azure-cicd-oidc-auth/README.md)
