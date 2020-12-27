@@ -2,7 +2,7 @@ simple-cf-stats
 ======
 
 
-Deploys a simple service based on webalizer to produce stats for AWS Cloudfront distributions
+Deploys a simple service based on webalizer to produce stats for AWS Cloudfront distributions.  The stats are rebuilt every 6 hours.
 
 Depends on
 ------
@@ -14,8 +14,9 @@ Depends on
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v104 | simple-cf-stats: first version of the module | `ed29493`
 
 Variables
 ------
