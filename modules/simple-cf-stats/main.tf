@@ -1,6 +1,6 @@
 /*
 title: simple-cf-stats
-desc: Deploys a simple service based on webalizer to produce stats for AWS Cloudfront distributions
+desc: Deploys a simple service based on webalizer to produce stats for AWS Cloudfront distributions.  The stats are rebuilt every 6 hours.
 depends: ecs-service
 */
 
