@@ -29,7 +29,8 @@ Variables
 |Name | Type | Description | Default Value|
 --- | --- | --- | ---
 `aws_region` | `string` | region where provisioning should happen | ``
-`sitename_prefix` | `string` | prefix of site name e.g. for www.example.com this would be www | ``
+`sitename_prefix` | `string` | prefix of site name e.g. for www.example.com this would be www, can be empty if deploy_at_apex is true | ``
+`deploy_at_apex` | `bool` | Deploy site at the domain_root apex, defaults to false | `false`
 `domain_root` | `string` | domain root for site e.g. example.com.  This must be available in Route53. | ``
 `access_log_bucket` | `string` | S3 bucket where access logs will be placed | ``
 `access_log_prefix` | `string` | prefix used for any access logs written to S3 | ``

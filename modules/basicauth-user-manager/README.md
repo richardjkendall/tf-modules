@@ -14,8 +14,9 @@ Depends on
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v106 | basicauth-user-manager: first version | `fbf20c1`
 
 Variables
 ------
