@@ -16,6 +16,7 @@ terraform {
 module "static_site" {
   source              = "../static-site/"
   sitename_prefix     = var.sitename_prefix
+  deploy_at_apex      = var.deploy_at_apex
   domain_root         = var.domain_root
   aws_region          = var.aws_region
   access_log_bucket   = var.access_log_bucket

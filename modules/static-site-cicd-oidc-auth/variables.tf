@@ -4,8 +4,15 @@ variable "aws_region" {
 }
 
 variable "sitename_prefix" {
-  description = "prefix of site name e.g. for www.example.com this would be www"
+  description = "prefix of site name e.g. for www.example.com this would be www, can be empty if deploy_at_apex is true"
   type = string
+  default = ""
+}
+
+variable "deploy_at_apex" {
+  type = bool
+  description = "Deploy site at the domain_root apex, defaults to false"
+  default = false
 }
 
 variable "domain_root" {

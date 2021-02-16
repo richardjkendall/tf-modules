@@ -18,10 +18,12 @@ terraform {
 }
 
 locals {
-  aliases                 = concat([join(".", [var.sitename_prefix, var.domain_root])], var.alternative_dns_names)
+  full_site_name          = var.deploy_at_apex ? var.domain_root : join(".", [var.sitename_prefix, var.domain_root])
+  aliases                 = concat([local.full_site_name], var.alternative_dns_names)
   origin_id               = join("-", ["access-identity", var.sitename_prefix, var.domain_root])
   domain_root_wo_dots     = replace(var.domain_root, ".", "-")
   sitename_prefix_wo_dots = replace(var.sitename_prefix, ".", "-")
+
 
   custom_error_response = var.custom_404_path == "none" ? [] : [
     {
@@ -46,7 +48,7 @@ data "aws_route53_zone" "root_zone" {
 }
 
 resource "aws_s3_bucket" "cf_origin_s3_bucket" {
-  bucket = "${var.sitename_prefix}.${var.domain_root}"
+  bucket = local.full_site_name
 
   acl = "private"
 
@@ -228,14 +230,13 @@ resource "aws_cloudfront_distribution" "cdn" {
     CertDependTag = var.certificate_arn != "" ? var.certificate_arn : aws_acm_certificate_validation.cert_validation.0.id
   }
 
-  #depends_on = var.certificate_arn != "" ? [] : [aws_acm_certificate_validation.cert_validation]
 }
 
 resource "aws_acm_certificate" "endpoint_cert" {
   count = var.certificate_arn != "" ? 0 : 1
 
   provider          = aws.us-east-1
-  domain_name       = "${var.sitename_prefix}.${var.domain_root}"
+  domain_name       = local.full_site_name
   validation_method = "DNS"
 }
 
@@ -265,7 +266,7 @@ resource "aws_acm_certificate_validation" "cert_validation" {
 }
 
 resource "aws_route53_record" "cf_endpoint_domain_r53" {
-  name    = "${var.sitename_prefix}.${var.domain_root}"
+  name    = local.full_site_name
   type    = "A"
   zone_id = data.aws_route53_zone.root_zone.id
 

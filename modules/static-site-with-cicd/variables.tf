@@ -1,37 +1,53 @@
 variable "aws_region" {
   description = "region where provisioning should happen"
+  type = string
 }
 
 variable "sitename_prefix" {
-  description = "prefix of site name e.g. for www.example.com this would be www"
+  description = "prefix of site name e.g. for www.example.com this would be www, can be empty if deploy_at_apex is true"
+  type = string
+  default = ""
+}
+
+variable "deploy_at_apex" {
+  type = bool
+  description = "Deploy site at the domain_root apex, defaults to false"
+  default = false
 }
 
 variable "domain_root" {
   description = "domain root for site e.g. example.com.  This must be available in Route53."
+  type = string
 }
 
 variable "access_log_bucket" {
   description = "S3 bucket where access logs will be placed"
+  type = string
 }
 
 variable "access_log_prefix" {
   description = "prefix used for any access logs written to S3"
+  type = string
 }
 
 variable "gh_username" {
   description = "GitHub username used to access your site source code repo"
+  type = string
 }
 
 variable "gh_secret_sm_param_name" {
   description = "name of SSM parameter where GitHub webhook secret is stored"
+  type = string
 }
 
 variable "gh_token_sm_param_name" {
   description = "name of SSM parameter where the GitHub Oauth token is stored"
+  type = string
 }
 
 variable "gh_repo" {
   description = "name of repo containing site source and buildspec.yml file"
+  type = string
 }
 
 variable "gh_branch" {
