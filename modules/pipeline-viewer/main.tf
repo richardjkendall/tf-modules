@@ -63,8 +63,8 @@ module "service" {
 
   task_name          = "proxy"
   image              = "not used"
-  cpu                = 256
-  memory             = 128+256
+  cpu                = var.proxy_cpu + var.app_cpu
+  memory             = var.proxy_mem + var.app_mem
   network_mode       = "bridge"
   number_of_tasks    = 1
 
@@ -80,6 +80,10 @@ module "service" {
     region                      = var.aws_region
     cluster                     = var.cluster_name
     service                     = var.service_name
+    proxy_cpu                   = var.proxy_cpu
+    app_cpu                     = var.app_cpu
+    proxy_mem                   = var.proxy_mem
+    app_mem                     = var.app_mem
     
     metadata_url                = var.metadata_url
     jwks_uri                    = var.jwks_uri

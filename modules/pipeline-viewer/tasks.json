@@ -2,8 +2,8 @@
   {
     "name": "proxy",
     "image": "richardjkendall/oidc-rproxy",
-    "cpu": 128,
-    "memory": 128,
+    "cpu": ${proxy_cpu},
+    "memory": ${proxy_mem},
     "essential": true,
     "portMappings": [
       {
@@ -47,8 +47,8 @@
   {
     "name": "pipe",
     "image": "public.ecr.aws/rjk/pipeline-viewer",
-    "cpu": 128,
-    "memory": 128,
+    "cpu": ${app_cpu},
+    "memory": ${app_mem},
     "essential": true,
     "logConfiguration": {
       "logDriver": "awslogs",

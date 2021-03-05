@@ -66,3 +66,26 @@ variable "crypto_passphrase_ssm_name" {
   type = string
 }
 
+variable "proxy_cpu" {
+  type = number
+  default = 128
+  description = "CPU units for the proxy container, defaults to 128"
+}
+
+variable "app_cpu" {
+  type = number
+  default = 128
+  description = "CPU units for the app container, defaults to 128"
+}
+
+variable "proxy_mem" {
+  type = number
+  default = 128
+  description = "Memory units (MB) for the proxy container, defaults to 128"
+}
+
+variable "app_mem" {
+  type = number
+  default = 128
+  description = "Memory units (MB) for the app container, defaults to 128"
+}
