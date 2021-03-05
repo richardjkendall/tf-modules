@@ -14,8 +14,9 @@ Depends on
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v108 | pipeline-viewer: new module added | `13ae0e5`
 
 Variables
 ------
@@ -35,4 +36,8 @@ Variables
 `scheme` | `string` | URL scheme used for proxy endpoint, should be https | `https`
 `client_secret_ssm_name` | `string` | name of SSM parameter which contains OIDC client secret | ``
 `crypto_passphrase_ssm_name` | `string` | name of SSM parameter which contains OIDC crypto passphrase | ``
+`proxy_cpu` | `number` | CPU units for the proxy container, defaults to 128 | `128`
+`app_cpu` | `number` | CPU units for the app container, defaults to 128 | `128`
+`proxy_mem` | `number` | Memory units (MB) for the proxy container, defaults to 128 | `128`
+`app_mem` | `number` | Memory units (MB) for the app container, defaults to 128 | `128`
 
