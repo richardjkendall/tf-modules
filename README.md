@@ -40,6 +40,7 @@ lambda-builder | This module is unfinished.  Builds lambda function artifacts an
 lambda-function | Creates a python lambda function using code in a public github repository.  Uses docker to build the deployment package.  Also depends on jq and cut to determine if code has changed in git and a function rebuild is needed.  See https://github.com/richardjkendall/lambda-builder for details of how the function is built. | [more details](modules/lambda-function/README.md)
 lambda-function-node | Creates a nodejs lambda function using code in a public github repository.  Uses docker to build the deployment package. | [more details](modules/lambda-function-node/README.md)
 lambda-schedule | Creates a schedule for triggering a lambda function. | [more details](modules/lambda-schedule/README.md)
+pipeline-viewer | Deploys an application to view codepipeline/codebuild status. | [more details](modules/pipeline-viewer/README.md)
 postgres-rds | Sets up a basic RDS using postgres | [more details](modules/postgres-rds/README.md)
 prom-grafana | Deploys an instance of prometheus and grafana running on ECS and connected to each other.  Uses EFS to store data.  Created to help monitor haproxy. | [more details](modules/prom-grafana/README.md)
 s3-redirect | Creates simple HTTP only domain redirects using S3. | [more details](modules/s3-redirect/README.md)

@@ -17,6 +17,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v107 | adding support for static sites at domain apex | `57ea984`
 v99 | static-site-*-oidc: adding support to manually set redirect URL if needed | `5cabe0b`
 v64 | static-site-cicd-oidc-auth: adding support to change build image | `51634e9`
 v46 | basic-cicd-s3-pipeline: added support for build job to become root | `001e53e`
@@ -59,7 +60,7 @@ Variables
 `pipeline_access_log_bucket` | `string` | bucket to be used for access logging on the origin s3 bucket | ``
 `pipeline_access_log_prefix` | `string` | prefix to use for access logs where that is enabled | ``
 `oidc_redirect_url` | `string` | if you want to override the automatically determined by the module then set this variable | ``
-`cookie_max_age` | `number` | number of days cookies will live for | `10`
+`cookie_max_age` | `number` | number of seconds cookies will live for, default is 10 days | `864000`
 
 Outputs
 ------

@@ -24,6 +24,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v107 | adding support for static sites at domain apex | `57ea984`
 v55 | static-site-with-cicd: adding support for sending notifications | `67d8541`
 v46 | basic-cicd-s3-pipeline: added support for build job to become root | `001e53e`
 v45 | static-site: adding s3 bucket encryption support | `c383f32`
