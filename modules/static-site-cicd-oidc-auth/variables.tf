@@ -179,6 +179,6 @@ variable "oidc_redirect_url" {
 
 variable "cookie_max_age" {
   type = number
-  default = 10
-  description = "number of days cookies will live for"
+  default = 864000
+  description = "number of seconds cookies will live for, default is 10 days"
 }
