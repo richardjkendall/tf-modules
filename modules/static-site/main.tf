@@ -198,7 +198,7 @@ resource "aws_cloudfront_distribution" "cdn" {
 
   origin {
     origin_id   = local.origin_id
-    domain_name = aws_s3_bucket.cf_origin_s3_bucket.bucket_domain_name
+    domain_name = aws_s3_bucket.cf_origin_s3_bucket.bucket_regional_domain_name
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.static_website_origin_access_identity.cloudfront_access_identity_path
     }
