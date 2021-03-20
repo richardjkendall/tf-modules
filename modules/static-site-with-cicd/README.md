@@ -61,6 +61,9 @@ Variables
 `origin_access_log_prefix` | `string` | prefix to use for access logs where that is enabled | ``
 `pipeline_access_log_bucket` | `string` | bucket to be used for access logging on the origin s3 bucket | ``
 `pipeline_access_log_prefix` | `string` | prefix to use for access logs where that is enabled | ``
+`build_role_policies` | `list(string)` | list of ARNs of policies to attach to the build role | `[]`
+`build_environment` | `list(object({name=string,value=string}))` | non secret build environment variables | `[]`
+`build_compute_type` | `string` | compute type for the build job | `BUILD_GENERAL1_SMALL`
 
 Outputs
 ------

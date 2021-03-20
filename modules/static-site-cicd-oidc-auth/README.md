@@ -61,6 +61,9 @@ Variables
 `pipeline_access_log_prefix` | `string` | prefix to use for access logs where that is enabled | ``
 `oidc_redirect_url` | `string` | if you want to override the automatically determined by the module then set this variable | ``
 `cookie_max_age` | `number` | number of seconds cookies will live for, default is 10 days | `864000`
+`build_role_policies` | `list(string)` | list of ARNs of policies to attach to the build role | `[]`
+`build_environment` | `list(object({name=string,value=string}))` | non secret build environment variables | `[]`
+`build_compute_type` | `string` | compute type for the build job | `BUILD_GENERAL1_SMALL`
 
 Outputs
 ------

@@ -17,6 +17,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v110 | change static site to use regional bucket name | `efb823d`
 v107 | adding support for static sites at domain apex | `57ea984`
 v100 | static-site-azure*: adding support for custom build policies | `a7a18d7`
 v99 | static-site-*-oidc: adding support to manually set redirect URL if needed | `5cabe0b`
