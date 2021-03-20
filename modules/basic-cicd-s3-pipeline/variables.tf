@@ -99,3 +99,24 @@ variable "access_log_prefix" {
   default = ""
   description = "prefix to use for pipeline bucket access logs where that is enabled"
 }
+
+variable "build_role_policies" {
+  description = "list of ARNs of policies to attach to the build role"
+  default = []
+  type = list(string)
+}
+
+variable "build_environment" {
+  description = "non secret build environment variables"
+  default = []
+  type = list(object({
+    name = string,
+    value = string
+  }))
+}
+
+variable "build_compute_type" {
+  type = string
+  default = "BUILD_GENERAL1_SMALL"
+  description = "compute type for the build job"
+}

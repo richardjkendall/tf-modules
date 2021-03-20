@@ -46,6 +46,10 @@ module "static_site" {
   pipeline_access_log_bucket = var.pipeline_access_log_bucket
   pipeline_access_log_prefix = var.pipeline_access_log_prefix
 
+  build_role_policies = var.build_role_policies
+  build_environment   = var.build_environment
+  build_compute_type  = var.build_compute_type
+
   /* notifications */
   send_notifications          = var.send_notifications
   sns_topic_for_notifications = var.sns_topic_for_notifications

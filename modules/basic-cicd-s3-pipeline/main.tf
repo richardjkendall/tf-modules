@@ -190,6 +190,13 @@ resource "aws_iam_policy_attachment" "attach_cp_policy_to_role" {
   policy_arn  = aws_iam_policy.code_pipeline_policy.arn
 }
 
+resource "aws_iam_role_policy_attachment" "cb_role_user_policies" {
+  count       = length(var.build_role_policies)
+
+  role        = aws_iam_role.code_build_role.name
+  policy_arn  = element(var.build_role_policies, count.index)
+}
+
 resource "aws_codebuild_project" "codebuild_project" {
   name          = "basic-cicd-build-${var.gh_repo}-${var.gh_branch}-${var.cf_distribution}"
   description   = "build site ${var.site_name} for CF dist ${var.cf_distribution} from repo ${var.gh_repo} using branch ${var.gh_branch}"
@@ -205,7 +212,7 @@ resource "aws_codebuild_project" "codebuild_project" {
   }
 
   environment {
-    compute_type                = "BUILD_GENERAL1_SMALL"
+    compute_type                = var.build_compute_type
     image                       = var.build_image
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
@@ -225,6 +232,16 @@ resource "aws_codebuild_project" "codebuild_project" {
       name  = "DISTRIBUTION_ID"
       value = var.cf_distribution
     }
+
+    dynamic "environment_variable" {
+      for_each = var.build_environment
+
+      content {
+        name  = environment_variable.value.name
+        value = environment_variable.value.value
+      }
+    }
+
   }
 
   source {
