@@ -17,6 +17,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v111 | static-site-cicd*: adding build environment and policy support | `acfb3c3`
 v107 | adding support for static sites at domain apex | `57ea984`
 v99 | static-site-*-oidc: adding support to manually set redirect URL if needed | `5cabe0b`
 v64 | static-site-cicd-oidc-auth: adding support to change build image | `51634e9`
@@ -64,6 +65,8 @@ Variables
 `build_role_policies` | `list(string)` | list of ARNs of policies to attach to the build role | `[]`
 `build_environment` | `list(object({name=string,value=string}))` | non secret build environment variables | `[]`
 `build_compute_type` | `string` | compute type for the build job | `BUILD_GENERAL1_SMALL`
+`certificate_arn` | `string` | arn of a certificate, if this is specified the module will not create a certificate | ``
+`alternative_dns_names` | `list(string)` | list of additional names the cloudfront distribution | `[]`
 
 Outputs
 ------

@@ -17,6 +17,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v111 | static-site-cicd*: adding build environment and policy support | `acfb3c3`
 v59 | cicd: fix notify name has to be unique, take 2 | `2506d0e`
 v58 | cicd: fix notify name has to be unique | `caad564`
 v55 | static-site-with-cicd: adding support for sending notifications | `67d8541`

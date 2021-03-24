@@ -17,6 +17,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v111 | static-site-cicd*: adding build environment and policy support | `acfb3c3`
 v110 | change static site to use regional bucket name | `efb823d`
 v107 | adding support for static sites at domain apex | `57ea984`
 v100 | static-site-azure*: adding support for custom build policies | `a7a18d7`
