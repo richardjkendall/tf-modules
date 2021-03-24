@@ -159,3 +159,15 @@ variable "build_compute_type" {
   default = "BUILD_GENERAL1_SMALL"
   description = "compute type for the build job"
 }
+
+variable "certificate_arn" {
+  type = string
+  default = ""
+  description = "arn of a certificate, if this is specified the module will not create a certificate"
+}
+
+variable "alternative_dns_names" {
+  type = list(string)
+  default = []
+  description = "list of additional names the cloudfront distribution"
+}

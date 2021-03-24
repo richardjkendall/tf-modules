@@ -30,6 +30,9 @@ module "static_site" {
 
   origin_access_log_bucket = var.origin_access_log_bucket
   origin_access_log_prefix = var.origin_access_log_prefix
+
+  certificate_arn       = var.certificate_arn
+  alternative_dns_names = var.alternative_dns_names
 }
 
 module "cicd" {
