@@ -44,6 +44,7 @@ Variables
 `execution_role_policies` | `list(string)` | list of arns for policies which should be attached to the lambda function execution role | ``
 `publish` | `bool` | should we publish this lambda function, should be true for lambda@edge | `false`
 `build_environment` | `map(string)` | map of environment variables passed to the build job | `{}`
+`lambda_layers` | `list(string)` | list of ARNs for any lambda layers the function should use | `[]`
 
 Outputs
 ------

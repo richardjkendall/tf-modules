@@ -24,6 +24,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v112 | static*: adding further support for custom domains/certs | `bc50e5c`
 v111 | static-site-cicd*: adding build environment and policy support | `acfb3c3`
 v107 | adding support for static sites at domain apex | `57ea984`
 v55 | static-site-with-cicd: adding support for sending notifications | `67d8541`

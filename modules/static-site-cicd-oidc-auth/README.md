@@ -17,6 +17,7 @@ Releases
 
 |Tag | Message | Commit|
 --- | --- | ---
+v112 | static*: adding further support for custom domains/certs | `bc50e5c`
 v111 | static-site-cicd*: adding build environment and policy support | `acfb3c3`
 v107 | adding support for static sites at domain apex | `57ea984`
 v99 | static-site-*-oidc: adding support to manually set redirect URL if needed | `5cabe0b`
