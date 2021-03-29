@@ -132,6 +132,7 @@ resource "aws_lambda_function" "lambda" {
   memory_size         = var.memory
   timeout             = var.timeout
   publish             = var.publish
+  layers              = var.lambda_layers
 
   dynamic "environment" {
     for_each = length(var.environment_variables) > 0 ? ["blah"] : []
