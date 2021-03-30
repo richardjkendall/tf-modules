@@ -7,8 +7,9 @@ Creates an S3 bucket with some sensible defaults
 Releases
 ------
 
-
-There have been no releases yet for this module
+|Tag | Message | Commit|
+--- | --- | ---
+v113 | lambda/people detect work | `0aa3e5b`
 
 Variables
 ------

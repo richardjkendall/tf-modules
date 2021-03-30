@@ -41,6 +41,7 @@ lambda-function | Creates a python lambda function using code in a public github
 lambda-function-node | Creates a nodejs lambda function using code in a public github repository.  Uses docker to build the deployment package. | [more details](modules/lambda-function-node/README.md)
 lambda-function | Creates a python lambda function using code in a public github repository.  Uses docker to build the deployment package.  Also depends on jq and cut to determine if code has changed in git and a function rebuild is needed.  See https://github.com/richardjkendall/lambda-builder for details of how the function is built. | [more details](modules/lambda-layer/README.md)
 lambda-schedule | Creates a schedule for triggering a lambda function. | [more details](modules/lambda-schedule/README.md)
+people-detect-lambda | Deploys a lambda function which when triggered by S3 ObjectCreated notifications scans the images for people and saves updated image files with bounding boxes drawn around the people. | [more details](modules/people-detect-lambda/README.md)
 pipeline-viewer | Deploys an application to view codepipeline/codebuild status. | [more details](modules/pipeline-viewer/README.md)
 postgres-rds | Sets up a basic RDS using postgres | [more details](modules/postgres-rds/README.md)
 prom-grafana | Deploys an instance of prometheus and grafana running on ECS and connected to each other.  Uses EFS to store data.  Created to help monitor haproxy. | [more details](modules/prom-grafana/README.md)
