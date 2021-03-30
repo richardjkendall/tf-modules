@@ -1,6 +1,14 @@
-
+lambda-function-with-layer
 ======
 
+
+Deploys a python lambda function with a layer beneath to manage dependencies
+
+Depends on
+------
+
+* [lambda-function](../lambda-function/README.md)
+* [lambda-layer](../lambda-layer/README.md)
 
 
 
