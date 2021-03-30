@@ -1,3 +1,14 @@
+/*
+title: lambda-function-with-layer
+desc: Deploys a python lambda function with a layer beneath to manage dependencies
+depends: lambda-function, lambda-layer
+*/
+
+
+terraform {
+  backend "s3" {}
+}
+
 module "lambda" {
   source = "../lambda-function"
 

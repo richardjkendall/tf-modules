@@ -4,6 +4,10 @@ desc: Creates a python lambda function using code in a public github repository.
 partners: lambda-function
 */
 
+terraform {
+  backend "s3" {}
+}
+
 data "aws_caller_identity" "current" {}
 
 locals {
