@@ -1,3 +1,13 @@
+/*
+title: people-detect-lambda
+desc: Deploys a lambda function which when triggered by S3 ObjectCreated notifications scans the images for people and saves updated image files with bounding boxes drawn around the people.
+depends: lambda-function-with-layer
+*/
+
+terraform {
+  backend "s3" {}
+}
+
 data "aws_iam_policy_document" "lambda_function_policy" {
   statement {
     sid = "1"
